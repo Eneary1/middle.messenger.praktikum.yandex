@@ -1,0 +1,277 @@
+@import "../../utils/globals.scss";
+
+%input{
+	font-size: 20px;
+	border: none;
+	outline: none;
+	position: absolute;
+	width: 95%;
+	height: 90%;
+	background: none;
+}
+
+%input-container{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $messages;
+	border-radius: 50px;
+}
+
+%p{
+	word-break: break-all;
+	padding: 10px 10px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+#content{
+	display: flex;
+	min-height: 100vh;
+}
+
+.checked{
+	background-color: $picked-chat;
+}
+
+.chat-list{
+	background-color: $content-block;
+	flex-basis: 25%;
+	border-right: 1px solid $border;
+	&__search-bar{
+		height: 20vh;
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		& > p{
+			align-self: center;
+			justify-self: right;
+			margin-right: 20px;
+			font-size: 20px;
+		}
+	}
+	&__search-input{
+		@extend %input-container;
+		align-self: center;
+		justify-self: center;
+		width: 80%;
+		height: 40%;
+		& > input{
+			@extend %input;
+			width: 90%;
+		}
+	}
+	&__list-container{
+		height: 80vh;
+		overflow-y: visible;
+	}
+	&__list-element{
+		position: relative;
+		cursor: pointer;
+		& > *{
+			align-self: center;
+			justify-self: left;
+		}
+		height: 5rem;
+		display: grid;
+		grid-template-columns: 5rem auto 2.5rem;
+		grid-template-areas: 
+		"icon name date"
+		"icon text-preview circle";
+		margin: 2% 5%;
+	}
+	&__list-element:hover{
+		background-color: $picked-chat;
+	}
+}
+
+.element{
+	&__icon{
+		margin: 2%;
+		grid-area: icon;
+		justify-self: stretch;
+		align-self: stretch;
+		border-radius: 10px;
+		background-color: $messages;
+	}
+	&__name{
+		grid-area: name;
+		font-weight: bold;
+		margin-left: 10px;
+	}
+	&__date{
+		grid-area: date;
+	}
+	&__text-preview{
+		max-width: 95%;
+		grid-area: text-preview;
+		margin-inline: 10px;
+		align-self: flex-start;
+		max-height: 1.5rem;
+		& > p{
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+	}
+	&__circle{
+		margin: 2%;
+		grid-area: circle;
+		justify-self: stretch;
+		align-self: stretch;
+		color: white;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.grip-container{
+	writing-mode: vertical-lr;
+	margin-left: auto;
+	cursor: pointer;
+	user-select: none;
+}
+
+.message-tape{
+	flex-basis: 75%;
+	&_unpicked{
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	&_picked{
+		height: 100%;
+		display: grid;
+		grid-template-rows: 10vh 80vh 10vh;
+	}
+	&__top{
+		position: relative;
+		overflow: visible;
+		& *{
+			overflow: visible;
+		}
+		&::before{
+			content: "";
+			position: absolute;
+			inset: 99% 4% 0 4%;
+			background-color: $border;
+		}
+	}
+	&__top-container{
+		display: flex;
+		font-size: 25px;
+		height: 100%;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 0 20px;
+		overflow: visible;
+		& > *:first-child{
+			width: 5rem;
+			height: 5rem;
+			background-color: $messages;
+			border-radius: 10px;
+			margin-right: 1rem;
+		}
+		& > .grip-container{
+			position: relative;
+			overflow: visible;
+			& > .add-user{
+				cursor: initial;
+				position: absolute;
+				top: 150%;
+				right: 40%;
+				background-color: $content-block;
+				width: 25vw;
+				height: 20vh;
+				border: 0.5px solid $border;
+				border-radius: 10px;
+			}
+		}
+	}
+	&__chat{
+		display: flex;
+		overflow-y: visible;
+		flex-direction: column;
+		& > *{
+			background-color: $messages;
+			margin: 25px;
+		}
+	}
+	&__reciever{
+		display: table;
+		align-self: flex-end;
+		min-width: 10%;
+		min-height: 3vh;
+		max-width: 40%;
+		border-radius: 10px 10px 0 10px;
+		& > p{
+			@extend %p;
+			text-align: right;
+		}
+	}
+	&__sender{
+		display: table;
+		align-self: flex-start;
+		min-height: 3vh;
+		max-width: 40%;
+		border-radius: 0 10px 10px 10px;
+		& > p{
+			@extend %p;
+			text-align: left;
+		}
+	}
+	&__bottom{
+		position: relative;
+		overflow: visible;
+		& *{
+			overflow: visible;
+		}
+		&::before{
+			content: "";
+			position: absolute;
+			inset: 0 4% 99% 4%;
+			background-color: $border;
+		}
+	}
+	&__bottom-container{
+		display: grid;
+		grid-template-columns: 10vh auto 10vh;
+		height: 100%;
+		& > .attachment-container{
+			background-color: $button-color;
+			margin: 25px;
+			border-radius: 10px;
+			cursor: pointer;
+			position: relative;
+			& > .attachment{
+				cursor: initial;
+				position: absolute;
+				bottom: 150%;
+				background-color: $content-block;
+				width: 25vw;
+				height: 20vh;
+				border: 0.5px solid $border;
+				border-radius: 10px;
+			}
+		}
+		& >*:nth-child(3){
+			background-color: $button-color;
+			margin: 25px;
+			border-radius: 100px;
+			cursor: pointer;
+		}
+	}
+}
+
+.none{
+	display: none;
+}
+
+.input-handler{
+	@extend %input-container;
+	margin-block: 25px;
+	input{
+		@extend %input
+	}
+}

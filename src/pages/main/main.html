@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Main</title>
+	<link rel="stylesheet" href="styles.scss">
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+</head>
+<body>
+	<div id="root">
+		<div id="content">
+			<aside class="chat-list">
+				<div class="chat-list__search-bar">
+					<p>Профиль</p>
+					<div class="chat-list__search-input">
+						<input placeholder="Поиск">
+					</div>
+				</div>
+				<div class="chat-list__list-container"></div>
+			</aside>
+			<main class="message-tape">
+				<div class="message-tape_unpicked">Выберите чат</div>
+			</main>
+		</div>
+	</div>
+	<script src="index.tmpl.js" type="module"></script>
+	<script src="index.js" type="module"></script>
+</body>
+</html>
