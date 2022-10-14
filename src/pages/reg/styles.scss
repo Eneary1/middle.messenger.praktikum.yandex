@@ -51,9 +51,9 @@
 				padding-bottom: 5px;
 			}
 		}
-		a{
+		#link{
 			color: $text-link;
-			text-decoration: none;
+			cursor: pointer;
 		}
 	}
 }

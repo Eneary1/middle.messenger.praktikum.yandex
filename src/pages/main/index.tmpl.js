@@ -1,8 +1,10 @@
+import Handlebars from "handlebars"
+
 //templates
 
-import chatElement from "bundle-text:./chat-bar.tmpl.hbs"
+import chatElement from "bundle-text:./chat-bar.hbs"
 
-import pickedChat from "bundle-text:./chat-list.tmpl.hbs"
+import pickedChat from "bundle-text:./chat-list.hbs"
 
 //users' objects
 
@@ -14,7 +16,7 @@ const chat = {
 	chat: []
 }
 
-mes = []
+let mes = []
 
 //fake api
 
@@ -57,12 +59,7 @@ elHelper = document.createElement("div");
 
 elHelper.innerHTML = content;
 
-const container = document.querySelector(".chat-list__list-container");
-
-for (let i of Array.from(elHelper.children))
-{
-	container.appendChild(i);
-}
+const chatBars = Array.from(elHelper.children)
 
 //actual chat list
 
@@ -76,4 +73,4 @@ elHelper.innerHTML = pickedChatResult;
 
 const pickedChatArray = Array.from(elHelper.children)
 
-export default pickedChatArray
+export {pickedChatArray, chatBars}
