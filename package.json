@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "npm run scss && parcel static/index.html",
+    "dev": "npm run scss && parcel static/index.html -p 3000",
     "dev:nodemon": "nodemon server.js",
     "build": "npm run scss && parcel build static/index.html --public-url ./ --no-source-maps --no-cache --target global",
     "scss": "node-sass -r src/pages -o src/pages"
