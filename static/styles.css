@@ -1,0 +1,26 @@
+@import "../src/pages/*/*.scss";
+
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+html, body, #root{
+	min-height: 100vh;
+	word-break: break-all;
+}
+
+.none{
+	display: none;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+  
+::-webkit-scrollbar-thumb {
+	background-color: rgb(100, 103, 109);
+}

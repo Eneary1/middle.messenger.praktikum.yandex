@@ -1,14 +1,13 @@
 @import "../../utils/globals.scss";
 
-*{
-	font-size: 20px;
-}
-
 .container{
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	& > *{
+		font-size: 20px;
+	}
 	.form-container{
 		display: flex;
 		flex-direction: column;

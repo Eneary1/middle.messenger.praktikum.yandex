@@ -16,30 +16,9 @@ $picked-chat: #00FCED;
 
 $border: #8F8F8F;
 
-*{
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	overflow-x: hidden;
-	overflow-y: hidden;
-}
-
-html, body, #root{
-	min-height: 100vh;
-	word-break: break-all;
-}
-
-.circle{
+%circle{
 	border-radius: 100%;
 	background-color: $button-color;
-}
-
-::-webkit-scrollbar {
-	width: 10px;
-}
-  
-::-webkit-scrollbar-thumb {
-	background-color: rgb(100, 103, 109);
 }
 
 

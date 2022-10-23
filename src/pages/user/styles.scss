@@ -1,9 +1,5 @@
 @import "../../utils/globals.scss";
 
-*{
-	font-size: 30px;
-}
-
 .link{
 	color: $text-link;
 }
@@ -17,6 +13,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	& > *{
+		font-size: 30px;
+	}
 	.profile{
 		width: 50%;
 		height: 80%;

@@ -68,6 +68,7 @@
 	&__list-element{
 		position: relative;
 		cursor: pointer;
+		user-select: none;
 		& > *{
 			align-self: center;
 			justify-self: left;
@@ -122,6 +123,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		@extend %circle
 	}
 }
 
@@ -262,10 +264,6 @@
 			cursor: pointer;
 		}
 	}
-}
-
-.none{
-	display: none;
 }
 
 .input-handler{

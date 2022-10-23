@@ -2,7 +2,7 @@ import mainhbs from "bundle-text:./main.hbs"
 
 import styles from "bundle-text:./styles.css"
 
-import convert from "../../utils/html_converter"
+import convert from "../../utils/converter"
 
 import mainPage from "../main/index.js"
 
@@ -14,7 +14,7 @@ const styleElement = document.getElementById("styles")
 
 //making a main element
 
-const main = convert(mainhbs)
+const main = convert.hbsToHtml(mainhbs)
 
 // main.querySelector("#link").onclick = () => {
 // 	authorPage();

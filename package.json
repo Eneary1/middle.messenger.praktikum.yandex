@@ -12,7 +12,8 @@
     "start": "node server/server.js",
     "dev": "npm run scss && parcel static/index.html -p 3000",
     "dev:nodemon": "nodemon server.js",
-    "build": "npm run scss && parcel build static/index.html --public-url ./ --no-source-maps --no-cache --target global",
+    "build": "parcel build static/index.html --public-url ./ --no-source-maps --no-cache --target global",
+    "cs": "parcel build src/pages/*/styles.module.scss --dist-dir ./styles --public-url ./ --no-source-maps --no-cache --target global",
     "scss": "node-sass -r src/pages -o src/pages"
   },
   "author": "Vitaliy Atlasov",
@@ -22,21 +23,23 @@
     "npm": "~8.5.5"
   },
   "dependencies": {
+    "@parcel/resolver-glob": "^2.7.0",
     "express": "^4.18.1",
-    "handlebars": "^4.7.7",
-    "node-sass": "^7.0.3"
+    "handlebars": "^4.7.7"
   },
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "@parcel/transformer-inline-string": "^2.7.0",
     "@parcel/transformer-sass": "^2.7.0",
     "assert": "^2.0.0",
+    "eslint": "^8.25.0",
     "events": "^3.3.0",
     "nodemon": "^2.0.20",
     "os-browserify": "^0.3.0",
     "parcel": "^2.7.0",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
+    "typescript": "^4.8.4",
     "util": "^0.12.4"
   }
 }
