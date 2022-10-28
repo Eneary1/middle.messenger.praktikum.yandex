@@ -8,53 +8,53 @@
 	& > *{
 		font-size: 20px;
 	}
-	.form-container{
+	form{
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-around;
 		width: 30%;
-		height: 75%;
+		height: 65%;
 		background-color: $content-block;
 		padding-inline: 20px;
 		border-radius: 10px;
 		border: 0.5px solid $border;
-		p{
+		flex-direction: column;
+		justify-content: center;
+		h1{
 			font-size: 30px;
+			text-align: center;
+			margin-bottom: 60px;
 		}
-		form{
-			display: flex;
-			margin-top: 30px;
-			align-self: stretch;
-			flex-direction: column;
-			justify-content: center;
-			& > button{
-				background-color: $button-color;
-				color: white;
-				border: none;
-				border-radius: 10px;
-				padding-block: 10px;
-				margin-top: 200px;
-				cursor: pointer;
-			}
-			& > label{
-				color: $text-grey;
-				font-size: 15px;
-			}
-			& > input{
-				margin-top: 5px;
-				margin-bottom: 20px;
-				background-color: rgba(255, 255, 255, 0);
-				border: none;
-				outline: none;
-				border-bottom: 2px solid $border;
-				padding-bottom: 5px;
-			}
-		}
-		#link{
-			color: $text-link;
+		& > button{
+			background-color: $button-color;
+			color: white;
+			border: none;
+			border-radius: 10px;
+			padding-block: 10px;
+			margin-top: 200px;
 			cursor: pointer;
 		}
+		& > label{
+			color: $text-grey;
+			font-size: 15px;
+		}
+		& > input{
+			margin-top: 5px;
+			margin-bottom: 20px;
+			background-color: rgba(255, 255, 255, 0);
+			border: none;
+			outline: none;
+			border-bottom: 2px solid $border;
+			padding-bottom: 5px;
+		}
+		a{
+			margin-top: 20px;
+			text-align: center;
+		}
 	}
+	
+}
+
+.link{
+	color: $text-link;
+	cursor: pointer;
 }
 

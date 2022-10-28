@@ -1,4 +1,5 @@
-@import "../src/pages/*/*.scss";
+@import url("../src/utils/globals.scss");
+@import url("../src/pages/**/*.scss");
 
 *{
 	box-sizing: border-box;
@@ -19,8 +20,10 @@ html, body, #root{
 
 ::-webkit-scrollbar {
 	width: 10px;
+	background-color: rgb(235 235 235);
 }
   
 ::-webkit-scrollbar-thumb {
 	background-color: rgb(100, 103, 109);
+	border-radius: 5px;
 }

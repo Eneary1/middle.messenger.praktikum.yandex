@@ -1,3 +1,3 @@
-import authorPage from "../src/pages/author/index.js"
+import authorPage from "../src/pages/author/index.ts"
 
 authorPage()

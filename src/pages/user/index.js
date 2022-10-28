@@ -1,41 +1,35 @@
-import mainhbs from "bundle-text:./main.hbs"
-
-import styles from "bundle-text:./styles.css"
-
-import convert from "../../utils/converter"
-
-import mainPage from "../main/index.js"
-
-import passwordPage from "../change_password/index.js"
-
-import dataPage from "../change_data/index.js"
+import mainhbs from "./main.hbs"
+import {hbsToHtml, modulateClasses} from "../../utils/converter"
+import mainPage from "../main/index"
+import passwordPage from "../change_password/index"
+import dataPage from "../change_data/index"
+import * as styles from "./styles.module.scss"
 
 const styleElement = document.getElementById("styles")
 
 //making a main element
 
-const main = convert.hbsToHtml(mainhbs)
+let thisPage = hbsToHtml(mainhbs())
 
 // main.querySelector("#link").onclick = () => {
 // 	authorPage();
 // }
 
-main.querySelector("#exit").onclick = () => {
+thisPage.querySelector("#exit").onclick = () => {
 	mainPage()
 }
 
-main.querySelector("#pass").onclick = () => {
+thisPage.querySelector("#pass").onclick = () => {
 	passwordPage()
 }
 
-main.querySelector("#data").onclick = () => {
+thisPage.querySelector("#data").onclick = () => {
 	dataPage()
 }
 
 const pageExport = function(){
-	styleElement.textContent = styles
 	document.getElementById("root").textContent = "";
-	document.getElementById("root").append(main);
+	document.getElementById("root").appendChild(thisPage);
 }
 
 export default pageExport;

@@ -1,26 +1,20 @@
-import mainhbs from "bundle-text:./main.hbs"
-
-import styles from "bundle-text:./styles.css"
-
-import convert from "../../utils/converter"
-
-import userPage from "../user/index.js"
-
-const styleElement = document.getElementById("styles")
+import mainhbs from "./main.hbs"
+import {hbsToHtml, modulateClasses} from "../../utils/converter"
+import userPage from "../user/index"
+import * as styles from "./styles.module.scss"
 
 //making a main element
 
-const main = convert.hbsToHtml(mainhbs)
+let thisPage = hbsToHtml(mainhbs())
 
-main.querySelector("button").onclick = (e) => {
+thisPage.querySelector("button").onclick = (e) => {
 	e.preventDefault();
 	userPage();
 }
 
 const pageExport = function(){
-	styleElement.textContent = styles
 	document.getElementById("root").textContent = "";
-	document.getElementById("root").append(main);
+	document.getElementById("root").appendChild(thisPage);
 }
 
 export default pageExport;
