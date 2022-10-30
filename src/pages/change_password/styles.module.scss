@@ -29,22 +29,17 @@
         border-radius: 10px;
         padding: 30px;
 
-        & > button {
-            background-color: $button-color;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding-block: 10px;
+        .button {
+            @extend %button;
             margin-top: auto;
-            cursor: pointer;
         }
 
-        & > label {
+        label {
             color: $text-grey;
             font-size: 15px;
         }
 
-        & > input {
+        input {
             margin-top: 5px;
             margin-bottom: 20px;
             background-color: rgb(255 255 255 / 0%);

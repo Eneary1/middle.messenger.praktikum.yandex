@@ -2,15 +2,18 @@ import mainhbs from './main.hbs';
 import userPage from '../user/index';
 import { showInputs } from '../../utils/show_inputs';
 import { Container } from '../../utils/container';
+import { Button } from '../../utils/button';
 import * as classes from './styles.module.scss';
 
 // making a main element
 
-const thisPage = new Container(mainhbs());
+const button = new Button("Сохранить", "Data-change")
+const thisPage = new Container(
+  mainhbs({button: button.getContent().outerHTML})
+  );
 
-thisPage.getContent().querySelector('button')!.addEventListener('click', (e) => {
+thisPage.getContent().querySelector('form')!.addEventListener('submit', () => {
   showInputs(thisPage.getContent());
-  e.preventDefault();
   userPage();
 });
 

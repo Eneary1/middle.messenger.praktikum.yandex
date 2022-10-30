@@ -1,9 +1,9 @@
-<form>
+<form onsubmit="return false">
 	<h1>Вход</h1>
 	<label for="login">Логин</label>
-	<input id="login" name="login" type="text">
+	<input id="login" name="login" type="text" required>
 	<label for="password">Пароль</label>
-	<input id="password" name="password" type="password">
-	<button name="Enter" type="submit">Войти</button>
+	<input id="password" name="password" type="password" required>
+	{{{button}}}
 	<a class="link">Нет аккаунта?</a>
 </form>
