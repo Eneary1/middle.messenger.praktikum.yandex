@@ -1,67 +1,25 @@
-import "../../../.d";
-import {pickedChatArray, chatBars} from "./index.tmpl";
-import mainhbs from "./main.hbs";
-import {modulateClasses} from "../../utils/converter";
-import userPage from "../user/index";
-import {Container} from "../../utils/container";
-import * as styles from "./styles.module.scss";
+import userPage from '../user/index';
+import { BarsContainer } from './components/bars/index';
+import { MessageTape } from './components/tape/index';
+import { Container } from '../../utils/container';
+import * as classes from './styles.module.scss';
 
-//making a main element
+const thisPage = new Container('');
 
-const thisPage = new Container(mainhbs());
+const tape = new MessageTape(classes);
+const bars = new BarsContainer(classes, tape);
 
-//appending chatBars
+thisPage.getContent().appendChild(bars.getContent());
+thisPage.getContent().appendChild(tape.getContent());
+thisPage.getContent().querySelector(`.${classes.profile}`)?.addEventListener(('click'), () => {
+  userPage();
+});
 
-chatBars.forEach(i => {
-	thisPage.getContent().querySelector(".chat-list__list-container")!.appendChild(i);
-})
+thisPage.modulateClasses(classes);
 
-const chatContainer = thisPage.getContent().querySelector(".message-tape");
-const elems = thisPage.getContent().getElementsByClassName("chat-list__list-element");
-
-//work with fake apis
-
-let elem: HTMLElement | null = null;
-
-for (let i = 0; i < elems.length; ++i)
-{
-	const scrollable = pickedChatArray[i].querySelector(".message-tape__chat");
-	const checked = styles["checked"]
-	elems[i].addEventListener("click", function() {
-		if (this.classList.contains(checked)) return;
-		chatContainer!.textContent = "";
-		chatContainer!.appendChild(pickedChatArray[i])
-		if (elem) {
-			elem.classList.remove(checked);
-		}
-		this.classList.add(checked);
-		elem = this;
-		scrollable!.scrollBy(0, scrollable!.scrollHeight)
-	})
-}
-
-pickedChatArray.forEach(i => {
-	i.querySelector(".grip-container")!.addEventListener("click", function() {
-		this.querySelector(`.${styles["add-user"]}`).classList.toggle("none");
-	})
-	i.querySelector(".attachment-container")!.addEventListener("click", function() {
-		this.querySelector(`.${styles["attachment"]}`).classList.toggle("none");
-	})
-})
-
-thisPage.getContent().querySelector(".profile")?.addEventListener(("click"), () => {
-	userPage();
-})
-
-thisPage.modulateClasses(styles)
-
-pickedChatArray.forEach(i => {
-	i = modulateClasses(i, styles)
-})
-
-const pageExport = function(){
-	document.getElementById("root")!.textContent = "";
-	document.getElementById("root")!.appendChild(thisPage.getContent());
-}
+const pageExport = function () {
+  document.getElementById('root')!.textContent = '';
+  document.getElementById('root')!.appendChild(thisPage.getContent());
+};
 
 export default pageExport;
