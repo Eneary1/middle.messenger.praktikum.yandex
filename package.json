@@ -1,0 +1,45 @@
+{
+  "name": "practicum",
+  "version": "1.0.0",
+  "description": "",
+  "targets": {
+    "global": {
+      "context": "browser",
+      "outputFormat": "global"
+    }
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "npm run scss && parcel static/index.html -p 3000",
+    "dev:nodemon": "nodemon server.js",
+    "build": "parcel build static/index.html --public-url ./ --no-source-maps --no-cache --target global",
+    "eslint": "npx eslint **/*.ts --fix",
+    "stylelint": "npx stylelint **/*.scss --fix"
+  },
+  "author": "Vitaliy Atlasov",
+  "license": "ISC",
+  "engines": {
+    "node": "16.15.0",
+    "npm": "8.5.5"
+  },
+  "dependencies": {
+    "express": "4.18.1",
+    "handlebars": "4.7.7"
+  },
+  "devDependencies": {
+    "@parcel/resolver-glob": "2.7.0",
+    "@parcel/transformer-inline-string": "2.7.0",
+    "@parcel/transformer-sass": "2.7.0",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
+    "@typescript-eslint/parser": "5.41.0",
+    "eslint": "8.25.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "nodemon": "2.0.20",
+    "parcel": "2.7.0",
+    "parcel-transformer-hbs": "1.0.4",
+    "stylelint": "14.14.0",
+    "stylelint-config-standard-scss": "6.0.0",
+    "typescript": "4.8.4"
+  }
+}

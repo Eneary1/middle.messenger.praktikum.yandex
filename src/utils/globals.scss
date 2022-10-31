@@ -1,0 +1,23 @@
+$text-basis: #003642;
+$text-link: #b633f3;
+$text-grey: #00667c;
+$text-red: #f00;
+$button-color: #e547ff;
+$content-block: #c3fffb;
+$messages: #00f0ff;
+$picked-chat: #00fced;
+$border: #8f8f8f;
+
+%circle {
+  border-radius: 100%;
+  background-color: $button-color;
+}
+
+%button {
+  background-color: $button-color;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding-block: 10px;
+  cursor: pointer;
+}

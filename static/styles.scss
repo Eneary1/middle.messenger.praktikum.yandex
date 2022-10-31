@@ -1,0 +1,30 @@
+@import url("../src/pages/**/*");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+html,
+body,
+#root {
+    min-height: 100vh;
+    word-break: break-all;
+}
+
+.none {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(235 235 235);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(100 103 109);
+    border-radius: 5px;
+}
