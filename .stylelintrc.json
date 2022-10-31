@@ -7,7 +7,7 @@
 	  "stylelint-scss"
 	],
 	"rules": {
-	  "indentation": 4,
-	  "import-notation": ["string", "url"]
-	}
+	  "indentation": 2
+	},
+	"ignoreFiles": ["static/styles.scss"]
   }

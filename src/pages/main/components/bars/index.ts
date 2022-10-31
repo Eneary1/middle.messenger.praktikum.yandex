@@ -22,7 +22,7 @@ class BarsContainer extends Block {
     });
   }
 
-  private elem: null | HTMLElement = null;
+  private pickedBar: null | HTMLElement = null;
 
   public componentDidMount(): void {
     this.modulateClasses(this.props.moduleClass);
@@ -32,16 +32,16 @@ class BarsContainer extends Block {
       const self = this;
       a.addEventListener('click', function () {
         if (this.classList.contains(self.props.moduleClass.checked)) {
-          self.elem?.classList.remove(self.props.moduleClass.checked);
-          self.elem = null;
+          self.pickedBar?.classList.remove(self.props.moduleClass.checked);
+          self.pickedBar = null;
           self.props.elements.tape.setProps({
             messages: undefined,
           });
           return;
         }
-        self.elem?.classList.remove(self.props.moduleClass.checked);
+        self.pickedBar?.classList.remove(self.props.moduleClass.checked);
         this.classList.add(self.props.moduleClass.checked);
-        self.elem = this;
+        self.pickedBar = this;
         self.props.elements.tape.setProps({
           messages: users[Number(this.dataset.id)].chatInfo,
         });

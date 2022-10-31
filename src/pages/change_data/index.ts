@@ -7,10 +7,10 @@ import * as classes from './styles.module.scss';
 
 // making a main element
 
-const button = new Button("Сохранить", "Data-change")
+const button = new Button('Сохранить', 'Data-change');
 const thisPage = new Container(
-  mainhbs({button: button.getContent().outerHTML})
-  );
+  mainhbs({ button: button.getContent().outerHTML }),
+);
 
 thisPage.getContent().querySelector('form')!.addEventListener('submit', () => {
   showInputs(thisPage.getContent());

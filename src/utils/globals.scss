@@ -9,15 +9,15 @@ $picked-chat: #00fced;
 $border: #8f8f8f;
 
 %circle {
-    border-radius: 100%;
-    background-color: $button-color;
+  border-radius: 100%;
+  background-color: $button-color;
 }
 
 %button {
-    background-color: $button-color;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding-block: 10px;
-    cursor: pointer;
+  background-color: $button-color;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding-block: 10px;
+  cursor: pointer;
 }

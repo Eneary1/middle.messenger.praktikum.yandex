@@ -1,54 +1,54 @@
 @import "../../utils/globals";
 
 .container {
-    height: 100vh;
-    display: flex;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  form {
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    display: flex;
+    width: 30%;
+    height: 75%;
+    background-color: $content-block;
+    padding-inline: 20px;
+    border-radius: 10px;
+    border: 0.5px solid $border;
 
-    & > * {
-        font-size: 20px;
+    .button {
+      @extend %button;
     }
 
-    p {
-        font-size: 30px;
-        text-align: center;
+    label {
+      color: $text-grey;
+      font-size: 15px;
     }
 
-    form {
-        flex-direction: column;
-        justify-content: center;
-        display: flex;
-        width: 30%;
-        height: 75%;
-        background-color: $content-block;
-        padding-inline: 20px;
-        border-radius: 10px;
-        border: 0.5px solid $border;
-
-        .button {
-            @extend %button;
-        }
-
-        label {
-            color: $text-grey;
-            font-size: 15px;
-        }
-
-        input {
-            margin-top: 5px;
-            margin-bottom: 20px;
-            background-color: rgb(255 255 255 / 0%);
-            border: none;
-            outline: none;
-            border-bottom: 2px solid $border;
-            padding-bottom: 5px;
-        }
+    input {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      background-color: rgb(255 255 255 / 0%);
+      border: none;
+      outline: none;
+      border-bottom: 2px solid $border;
+      padding-bottom: 5px;
     }
+  }
 
-    .link {
-        color: $text-link;
-        cursor: pointer;
-        text-align: center;
-    }
+  .link {
+    color: $text-link;
+    cursor: pointer;
+    text-align: center;
+  }
 }
