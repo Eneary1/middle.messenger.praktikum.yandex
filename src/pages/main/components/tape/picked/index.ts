@@ -1,8 +1,8 @@
 import '../../../../../../.d';
 import { Block } from '../../../../../utils/block';
 import { Top } from './top/index';
-import { Chat } from './Chat/index';
-import { Bottom } from './Bottom/index';
+import { Chat } from './chat/index';
+import { Bottom } from './bottom/index';
 
 class ChatList extends Block {
   public constructor(moduleClass: Object, chat?: chatType) {
