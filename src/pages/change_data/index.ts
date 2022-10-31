@@ -1,3 +1,4 @@
+import "../../../.d"
 import mainhbs from './main.hbs';
 import userPage from '../user/index';
 import { showInputs } from '../../utils/show_inputs';

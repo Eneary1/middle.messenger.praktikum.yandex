@@ -1,3 +1,4 @@
+import "../../../.d"
 import mainhbs from './main.hbs';
 import mainPage from '../main/index';
 import authorPage from '../author/index';
