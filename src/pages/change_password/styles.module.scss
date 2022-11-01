@@ -40,6 +40,11 @@
       font-size: 15px;
     }
 
+    .hint {
+      color: $text-red;
+      margin-bottom: 5px;
+    }
+
     input {
       margin-top: 5px;
       margin-bottom: 20px;
@@ -50,4 +55,8 @@
       padding-bottom: 5px;
     }
   }
+}
+
+.invalid {
+  background-color: #ffc6c6 !important;
 }

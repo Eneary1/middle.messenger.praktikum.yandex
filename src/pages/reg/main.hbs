@@ -1,19 +1,21 @@
-<form onsubmit="return false">
-	<p>Регистрация</p>
+<form>
+	<h1>Регистрация</h1>
 	<label for="email">Почта</label>
-	<input id="email" name="email" type="email" required>
+	<input id="email" name="email" type="email">
 	<label for="login">Логин</label>
-	<input id="login" name="login" type="text" required>
+	<input id="login" name="login" type="text">
 	<label for="first_name">Имя</label>
-	<input id="first_name" name="first_name" type="text" required>
+	<input id="first_name" name="first_name" type="text">
 	<label for="second_name">Фамилия</label>
-	<input id="second_name" name="second_name" type="text" required>
+	<input id="second_name" name="second_name" type="text">
 	<label for="phone">Телефон</label>
-	<input id="phone" name="phone" type="tel" required>
+	<input id="phone" name="phone" type="tel">
 	<label for="password">Пароль</label>
-	<input id="password" name="password" type="password" pattern="\w{8,}" required>
+	<input id="password" name="password" type="password">
+	<label class="hint hint_1 none">Минимальное количество символов: 8</label>
 	<label for="password_repeat">Пароль (ещё раз)</label>
-	<input id="password_repeat" name="password_repeat" type="password" required>
+	<input id="password_repeat" name="password_repeat" type="password">
+	<label class="hint hint_2 none">Пароли должны повторяться</label>
 	{{{button}}}
 	<a class="link">Войти</a>
 </form>

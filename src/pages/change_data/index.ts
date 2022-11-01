@@ -1,9 +1,11 @@
-import "../../../.d"
+import '../../../.d';
 import mainhbs from './main.hbs';
-import userPage from '../user/index';
 import { showInputs } from '../../utils/show_inputs';
 import { Container } from '../../utils/container';
 import { Button } from '../../utils/button';
+import { routeFunc } from '../../utils/route_func';
+import { hashes } from '../../utils/hash_enum';
+import { appendFunc } from '../../utils/append_func';
 import * as classes from './styles.module.scss';
 
 // making a main element
@@ -13,16 +15,16 @@ const thisPage = new Container(
   mainhbs({ button: button.getContent().outerHTML }),
 );
 
-thisPage.getContent().querySelector('form')!.addEventListener('submit', () => {
+thisPage.getContent().querySelector('button')!.addEventListener('click', (e) => {
+  e.preventDefault();
   showInputs(thisPage.getContent());
-  userPage();
+  routeFunc(hashes.PROFILE);
 });
 
 thisPage.modulateClasses(classes);
 
 const pageExport = function () {
-  document.getElementById('root')!.textContent = '';
-  document.getElementById('root')!.appendChild(thisPage.getContent());
+  appendFunc(thisPage.getContent());
 };
 
 export default pageExport;
