@@ -1,17 +1,27 @@
 import "../../.d"
 import { Block } from './block';
 
-interface IButton extends IBaseType {
-  text: string;
+type ButtonType = {
+  text?: string,
+  type?: string,
+  class?: string,
+  name?: string
 }
 
-class Button extends Block<IButton> {
-  public constructor(text: string, name?: string) {
-    super('button', { text, class: 'button', name });
+type ButtonProps = {
+  text?: string,
+  type?: string,
+  class?: string,
+  name?: string
+}
+
+class Button extends Block<ButtonType> {
+  public constructor(buttonProps: ButtonProps) {
+    super('button', { ...buttonProps });
   }
 
   public componentDidMount(): void {
-    this.getContent().setAttribute('type', 'submit');
+    if (this.props.type) this.getContent().setAttribute('type', this.props.type);
     if (this.props.name) this.getContent().setAttribute('name', this.props.name);
   }
 

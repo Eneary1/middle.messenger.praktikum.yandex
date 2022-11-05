@@ -4,42 +4,15 @@ import { Input } from '../../../../components/input';
 import { Button } from '../../../../components/button';
 import {FormType, ElemType} from "./types"
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
 import { Link } from '../../../../components/link';
 import { routeFunc } from '../../../../utils/route_func';
 import { HASHES } from '../../../../utils/hash_enum';
+import {loginBlur, loginFocus} from "../../../../utils/inputEvents/login"
+import {passBlur, passFocus} from "../../../../utils/inputEvents/pass"
 
 function linkFunc() {
 	routeFunc(HASHES.REG);
 }
-
-function passBlur(e: InputEvent){
-	const target = e.target as HTMLInputElement
-	if (target.value.match(/^(?=.*\d)(?=.*[А-ЯA-Z]).{8,40}$/)) {
-		target.classList.remove(classes.invalid);
-	} else {
-		target.classList.add(classes.invalid);
-	}
-} 
-
-function loginBlur(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.value.match(/^.{3,20}$/)) {
-		target.classList.remove(classes.invalid);
-	} else {
-		target.classList.add(classes.invalid);
-	}
-  }
-
-function loginFocus(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.classList.contains(classes.invalid)) target.classList.remove(classes.invalid);
-  };
-
-function passFocus(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.classList.contains(classes.invalid)) target.classList.remove(classes.invalid);
-  };
 
 const elems: ElemType = {
 	loginInput: new Input({
@@ -67,7 +40,12 @@ const elems: ElemType = {
 	{
 		click: linkFunc
 	}),
-	button: new Button('Войти', 'Enter')
+	button: new Button({
+		text: "Войти", 
+		name: "Enter",
+		type: "submit",
+		class: "button"
+	})
 }
 
 class AuthorForm extends Block<FormType>{

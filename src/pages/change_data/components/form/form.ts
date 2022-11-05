@@ -4,35 +4,10 @@ import { Input } from '../../../../components/input';
 import { Button } from '../../../../components/button';
 import {FormType, ElemType} from "./types"
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
+import {loginBlur, loginFocus} from "../../../../utils/inputEvents/login"
+import {passBlur, passFocus} from "../../../../utils/inputEvents/pass"
+import { firstNameBlur, firstNameFocus } from '../../../../utils/inputEvents/firstName';
 
-function passBlur(e: InputEvent){
-	const target = e.target as HTMLInputElement
-	if (target.value !== '') {
-		target.classList.remove(classes.invalid);
-	} else {
-		target.classList.add(classes.invalid);
-	}
-} 
-
-function loginBlur(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.value !== '') {
-		target.classList.remove(classes.invalid);
-	} else {
-		target.classList.add(classes.invalid);
-	}
-  }
-
-function loginFocus(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.classList.contains(classes.invalid)) target.classList.remove(classes.invalid);
-  };
-
-function passFocus(e: InputEvent) {
-	const target = e.target as HTMLInputElement
-	if (target.classList.contains(classes.invalid)) target.classList.remove(classes.invalid);
-  };
 
 const elems: ElemType = {
 	loginInput: new Input({
@@ -59,8 +34,8 @@ const elems: ElemType = {
 		type: "text"
 	}, 
 	{
-		blur: passBlur, 
-		focus: passFocus
+		blur: firstNameBlur, 
+		focus: firstNameFocus
 	}),
 	secondNameInput: new Input({
 		id: "second_name", 
@@ -89,7 +64,12 @@ const elems: ElemType = {
 		blur: passBlur, 
 		focus: passFocus
 	}),
-	button: new Button('Сохранить', 'Data-change')
+	button: new Button({
+		text: "Сохранить", 
+		name: "Enter",
+		type: "submit",
+		class: "button"
+	})
 }
 
 class RegForm extends Block<FormType>{
@@ -102,9 +82,9 @@ class RegForm extends Block<FormType>{
 		return mainhbs({
 			chatNameInput: elements.chatNameInput.getContent().outerHTML,
 			firstNameInput: elements.firstNameInput.getContent().outerHTML,
+			secondNameInput: elements.secondNameInput.getContent().outerHTML,
 			loginInput: elements.loginInput.getContent().outerHTML,
 			phoneInput: elements.phoneInput.getContent().outerHTML,
-			secondNameInput: elements.secondNameInput.getContent().outerHTML,
 			emailInput: elements.emailInput.getContent().outerHTML,
 			button: elements.button.getContent().outerHTML,
 		})

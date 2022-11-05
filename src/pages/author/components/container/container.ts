@@ -5,7 +5,6 @@ import { ContainerType } from "./types"
 import { HASHES } from '../../../../utils/hash_enum';
 import { routeFunc } from '../../../../utils/route_func';
 import { showInputs } from '../../../../utils/show_inputs';
-import * as classes from '../../styles.module.scss';
 
 /**
  * Function for a fast main container block
@@ -16,9 +15,9 @@ function submit(e: SubmitEvent) {
   const form = e.target as HTMLFormElement
   const inputs = Array.from(form.querySelectorAll("input"))
   for (let i of inputs) {
-    if (i.classList.contains(classes.invalid)) return;
+    if (i.classList.contains("invalid")) return;
     if (i.value === '') {
-      i.classList.add(classes.invalid);
+      i.classList.add("invalid");
       return;
     }
   }
