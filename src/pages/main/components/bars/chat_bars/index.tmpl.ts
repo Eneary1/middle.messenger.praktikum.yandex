@@ -2,8 +2,7 @@ import '../../../../../../.d';
 import chatElement from './chat-bar.hbs';
 
 // fake api
-
-const messages: chatType = [];
+const messages: ChatType = [];
 
 for (let i = 0; i < 35; ++i) {
   messages.push(

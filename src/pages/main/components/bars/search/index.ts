@@ -1,8 +1,12 @@
 import '../../../../../../.d';
-import { Block } from '../../../../../utils/block';
+import { Block } from '../../../../../components/block';
 import search from './search.hbs';
 
-class SearchBars extends Block {
+type SearchType = {
+  class: string
+}
+
+class SearchBars extends Block<SearchType> {
   public constructor() {
     super('div', { class: 'chat-list__search-bar' });
   }

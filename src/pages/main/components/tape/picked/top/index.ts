@@ -1,17 +1,22 @@
 import '../../../../../../../.d';
-import { Block } from '../../../../../../utils/block';
+import { Block } from '../../../../../../components/block';
 import top from './top.hbs';
+import * as classes from '../../../../styles.module.scss';
 
-class Top extends Block {
-  public constructor(moduleClass: Object) {
-    super('div', { class: 'message-tape__top', moduleClass });
+type TopType = {
+  class: string
+}
+
+class Top extends Block<TopType> {
+  public constructor() {
+    super('div', { class: 'message-tape__top'});
   }
 
   public componentDidMount(): void {
-    this.modulateClasses(this.props.moduleClass);
+    this.modulateClasses(classes);
     const self = this;
-    this.getContent().querySelector(`.${this.props.moduleClass['grip-container']}`)!.addEventListener('click', function () {
-      this.querySelector(`.${self.props.moduleClass['add-user']}`).classList.toggle('none');
+    this.getContent().querySelector(`.${classes['grip-container']}`)!.addEventListener('click', function () {
+      this.querySelector(`.${classes['add-user']}`).classList.toggle('none');
     });
   }
 

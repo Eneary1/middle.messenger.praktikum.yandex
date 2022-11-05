@@ -1,12 +1,17 @@
-import { Block } from '../../../../../utils/block';
+import { Block } from '../../../../../components/block';
+import * as classes from '../../../styles.module.scss';
 
-class BarUnpicked extends Block {
-  public constructor(moduleClass: Object) {
-    super('div', { class: 'message-tape_unpicked', moduleClass });
+type BarPickedChat = {
+  class: string
+}
+
+class BarUnpicked extends Block<BarPickedChat> {
+  public constructor() {
+    super('div', { class: 'message-tape_unpicked'});
   }
 
   public componentDidMount(): void {
-    this.modulateClasses(this.props.moduleClass);
+    this.modulateClasses(classes);
   }
 
   public render(): string {

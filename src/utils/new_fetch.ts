@@ -7,55 +7,76 @@ enum METHOD {
 }
 
 type Options = {
-  method: METHOD;
-  data?: any;
+  readonly method?: METHOD,
+  data?: any,
+  timeout?: number
 };
 
-type data = Omit<Options, 'method'>;
+function queryStringify(data: any) {
+  if (typeof data !== 'object') {
+		throw new Error('Data must be object');
+	}
 
-class newFetch {
-  public get(url: string, data: data = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...data, method: METHOD.GET });
-  }
+  const keys = Object.keys(data);
+  return keys.reduce((result, key, index) => {
+    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
+  }, '?');
+}
 
-  public post(url: string, data: data = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...data, method: METHOD.POST });
-  }
+class NewFetch {
+  public get = (url: string, options: Options = {}) => {
+    return this.request(url, {...options, method: METHOD.GET}, options.timeout);
+  };
 
-  public put(url: string, data: data = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...data, method: METHOD.PUT });
-  }
+  public post = (url: string, options = {} as Options) => {
+    return this.request(url, {...options, method: METHOD.POST}, options.timeout);
+  };
 
-  public patch(url: string, data: data = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...data, method: METHOD.PATCH });
-  }
+  public put = (url: string, options = {} as Options) => {
+    return this.request(url, {...options, method: METHOD.PUT}, options.timeout);
+  };
 
-  public delete(url: string, data: data = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...data, method: METHOD.DELETE });
-  }
+  public delete = (url: string, options = {} as Options) => { 
+    return this.request(url, {...options, method: METHOD.DELETE}, options.timeout);
+  };
 
-  private request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
-    const { method, data } = options;
+  private request = (url: string, options = {} as Options, timeout = 5000): Promise<XMLHttpRequest> => {
+    const {headers = {}, method, data} = options as any;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
+      if (!method) {
+        reject('No method');
+        return;
+      }
+
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      const isGet = method === METHOD.GET;
 
-      xhr.onload = function () {
+      xhr.open(
+        method, isGet && !!data ? `${url}${queryStringify(data)}` : url,
+      );
+
+      Object.keys(headers).forEach(key => {
+        xhr.setRequestHeader(key, headers[key]);
+      });
+  
+      xhr.onload = function() {
         resolve(xhr);
       };
-
+  
       xhr.onabort = reject;
       xhr.onerror = reject;
+  
+      xhr.timeout = timeout;
       xhr.ontimeout = reject;
-
-      if (method === METHOD.GET || !data) {
+      
+      if (isGet || !data) {
         xhr.send();
       } else {
         xhr.send(data);
       }
     });
-  }
+  };
 }
 
-export { newFetch };
+export { NewFetch };

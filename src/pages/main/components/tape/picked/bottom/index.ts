@@ -1,14 +1,19 @@
 import '../../../../../../../.d';
-import { Block } from '../../../../../../utils/block';
+import { Block } from '../../../../../../components/block';
 import bottom from './bottom.hbs';
+import * as classes from '../../../../styles.module.scss';
 
-class Bottom extends Block {
-  public constructor(moduleClass) {
-    super('div', { class: 'message-tape__bottom', moduleClass });
+type BottomType = {
+  class: string
+}
+
+class Bottom extends Block<BottomType> {
+  public constructor() {
+    super('div', { class: 'message-tape__bottom' });
   }
 
   public componentDidMount(): void {
-    this.modulateClasses(this.props.moduleClass);
+    this.modulateClasses(classes);
   }
 
   public render(): string {

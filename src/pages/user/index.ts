@@ -1,7 +1,7 @@
 import '../../../.d';
 import mainhbs from './main.hbs';
-import { Container } from '../../utils/container';
-import { hashes } from '../../utils/hash_enum';
+import { Container } from '../../components/container';
+import { HASHES } from '../../utils/hash_enum';
 import { routeFunc } from '../../utils/route_func';
 import { appendFunc } from '../../utils/append_func';
 import * as classes from './styles.module.scss';
@@ -11,21 +11,21 @@ import * as classes from './styles.module.scss';
 const thisPage = new Container(mainhbs());
 
 thisPage.getContent().querySelector('.exit')!.addEventListener('click', () => {
-  routeFunc(hashes.MAIN);
+  routeFunc(HASHES.MAIN);
 });
 
 thisPage.getContent().querySelector('.pass')!.addEventListener('click', () => {
-  routeFunc(hashes.PASS);
+  routeFunc(HASHES.PASS);
 });
 
 thisPage.getContent().querySelector('.data')!.addEventListener('click', () => {
-  routeFunc(hashes.DATA);
+  routeFunc(HASHES.DATA);
 });
 
 thisPage.modulateClasses(classes);
 
-const pageExport = function () {
+const userPage = function () {
   appendFunc(thisPage.getContent());
 };
 
-export default pageExport;
+export {userPage};

@@ -1,4 +1,4 @@
-enum hashes {
+enum HASHES {
   ENTER = 'enter',
   MAIN = 'main',
   REG = 'reg',
@@ -9,4 +9,4 @@ enum hashes {
   HASH500 = '500',
 }
 
-export { hashes };
+export { HASHES };

@@ -2,9 +2,9 @@ import '../../../.d';
 import mainhbs from './main.hbs';
 import { routeFunc } from '../../utils/route_func';
 import { showInputs } from '../../utils/show_inputs';
-import { Container } from '../../utils/container';
-import { Button } from '../../utils/button';
-import { hashes } from '../../utils/hash_enum';
+import { Container } from '../../components/container';
+import { Button } from '../../components/button';
+import { HASHES } from '../../utils/hash_enum';
 import { appendFunc } from '../../utils/append_func';
 import * as classes from './styles.module.scss';
 
@@ -78,17 +78,17 @@ submitButton.addEventListener('click', (e) => {
     return;
   }
   showInputs(thisPage.getContent());
-  routeFunc(hashes.MAIN);
+  routeFunc(HASHES.MAIN);
 });
 
 thisPage.getContent().querySelector('.link')!.addEventListener('click', () => {
-  routeFunc(hashes.ENTER);
+  routeFunc(HASHES.ENTER);
 });
 
 thisPage.modulateClasses(classes);
 
-const pageExport = function () {
+const regPage = function () {
   appendFunc(thisPage.getContent());
 };
 
-export default pageExport;
+export {regPage};

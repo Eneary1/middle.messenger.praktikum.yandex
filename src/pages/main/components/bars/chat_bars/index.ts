@@ -1,14 +1,23 @@
 import '../../../../../../.d';
-import { Block } from '../../../../../utils/block';
+import { Block } from '../../../../../components/block';
 import chatBarTmpl from './chat-bar.hbs';
 
-class ChatBars extends Block {
-  public constructor(template?: Object) {
-    super('div', { class: 'chat-list__list-container', template });
+type ChatBarsType = {
+  class: string,
+  template: TemplateType
+}
+
+class ChatBars extends Block<ChatBarsType> {
+  public constructor(templateObject?: Object) {
+    super('div', { class: 'chat-list__list-container', template: {
+      templator: chatBarTmpl, 
+      tmplObject: templateObject
+    }});
   }
 
   public render(): string {
-    return chatBarTmpl(this.props.template ? this.props.template : '');
+    const tmpl = this.props.template
+    return tmpl.templator(tmpl.tmplObject ? tmpl.tmplObject : '');
   }
 }
 

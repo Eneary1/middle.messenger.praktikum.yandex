@@ -1,7 +1,9 @@
-import { EventBus } from './event_bus';
-import { modulateClasses } from './converter';
+import "../../.d";
+import { EventBus } from '../utils/event_bus';
+import { modulateClasses } from '../utils/converter';
+import {v4 as makeUUID} from 'uuid';
 
-type metaInfo = {
+type MetaInfo = {
   tagName: string;
   props: object;
 };
@@ -10,16 +12,17 @@ enum EVENTS {
   INIT = 'init',
   FLOW_CDM = 'flow:component-did-mount',
   FLOW_CDU = 'flow:component-did-update',
-  FLOW_RENDER = 'flow:render',
+  FLOW_RENDER = 'flow:render'
 }
 
-class Block {
-  public constructor(tagName: string = 'div', props: object = {}) {
+class Block<Props extends object> {
+  public constructor(tagName: string = 'div', props: Props = {} as Props) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
       props,
     };
+    this._id = makeUUID();
     this.props = this._makePropsProxy(props);
     this._eventBus = () => eventBus;
     this._registerEvents(eventBus);
@@ -27,12 +30,14 @@ class Block {
   }
 
   private _element: HTMLElement;
-
-  private _meta: metaInfo;
-
+  private _meta: MetaInfo;
   private _eventBus: () => EventBus;
+  public props: Props;
+  private _id = null;
 
-  public props: any;
+  public getID(): string {
+    return this._id;
+  }
 
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(EVENTS.INIT, this._init.bind(this));
@@ -62,7 +67,7 @@ class Block {
     this._eventBus().emit(EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: object, newProps: object): void {
+  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -70,22 +75,29 @@ class Block {
     this._render();
   }
 
-  public componentDidUpdate(oldProps: object, newProps: object): boolean {
+  public componentDidUpdate(oldProps: Props, newProps: Props): boolean {
     return true;
   }
 
-  public setProps = (nextProps: object) => {
-    if (!nextProps) {
+  public setProps = (newProps: Props) => {
+    if (!newProps) {
       return;
     }
-    Object.assign(this.props, nextProps);
-
+    Object.assign(this.props, newProps);
     this._eventBus().emit(EVENTS.FLOW_CDU, { ...this.props }, this.props);
   };
 
   private _render(): void {
     const block = this.render();
     this._element.innerHTML = block;
+  }
+
+  public addEvents(wrapper: HTMLElement) {
+    const {events = {}} = this.props as IBaseType;
+
+    Object.keys(events).forEach(eventName => {
+      wrapper.querySelector(`[data-id~="${this.getID()}"]`)?.addEventListener(eventName, events[eventName]);
+    });
   }
 
   /**
@@ -104,7 +116,7 @@ class Block {
     return this._element;
   }
 
-  private _makePropsProxy(props: object): any {
+  private _makePropsProxy(props: Props): Props {
     const self = this;
     return new Proxy(props, {
       get(target, prop) {
@@ -123,9 +135,12 @@ class Block {
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
+    const propsRef = this.props as IBaseType;
     const elem = document.createElement(tagName);
-    if (this.props.class) elem.classList.add(this.props.class);
-    if (this.props.id) elem.id = this.props.id;
+    if (propsRef.class) elem.classList.add(propsRef.class);
+    if (propsRef.id) elem.id = propsRef.id;
+    if (propsRef.name) elem.setAttribute('name', propsRef.name);
+    elem.dataset.id = this._id
     return elem;
   }
 

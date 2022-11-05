@@ -1,14 +1,20 @@
 import '../../../../../../../.d';
-import { Block } from '../../../../../../utils/block';
+import { Block } from '../../../../../../components/block';
 import chat from './chat.hbs';
+import * as classes from '../../../../styles.module.scss';
 
-class Chat extends Block {
-  public constructor(moduleClass, template?: chatType) {
-    super('div', { class: 'message-tape__chat', messages: template, moduleClass });
+type ChatElementType = {
+  class: string,
+  messages: ChatType
+}
+
+class Chat extends Block<ChatElementType> {
+  public constructor(messages?: ChatType) {
+    super('div', { class: 'message-tape__chat', messages});
   }
 
   public componentDidMount(): void {
-    this.modulateClasses(this.props.moduleClass);
+    this.modulateClasses(classes);
   }
 
   public render(): string {
@@ -16,4 +22,4 @@ class Chat extends Block {
   }
 }
 
-export { Chat };
+export { Chat, ChatElementType };

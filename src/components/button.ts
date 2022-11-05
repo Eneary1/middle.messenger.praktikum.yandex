@@ -1,6 +1,11 @@
+import "../../.d"
 import { Block } from './block';
 
-class Button extends Block {
+interface IButton extends IBaseType {
+  text: string;
+}
+
+class Button extends Block<IButton> {
   public constructor(text: string, name?: string) {
     super('button', { text, class: 'button', name });
   }

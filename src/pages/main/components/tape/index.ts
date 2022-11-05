@@ -1,23 +1,32 @@
 import '../../../../../.d';
-import { Block } from '../../../../utils/block';
+import { Block } from '../../../../components/block';
 import { ChatList } from './picked/index';
 import { BarUnpicked } from './unpicked/index';
+import * as classes from '../../styles.module.scss';
 
-class MessageTape extends Block {
-  public constructor(moduleClass, chat?: chatType) {
+type TapeType = {
+  class: string,
+  messages: ChatType
+  elements: {
+    picked: ChatList,
+    unpicked: BarUnpicked,
+  }
+}
+
+class MessageTape extends Block<TapeType> {
+  public constructor(chat?: ChatType) {
     super('main', {
       class: 'message-tape',
-      moduleClass,
       messages: chat,
       elements: {
-        picked: new ChatList(moduleClass),
-        unpicked: new BarUnpicked(moduleClass),
+        picked: new ChatList(),
+        unpicked: new BarUnpicked(),
       },
     });
   }
 
   public componentDidMount(): void {
-    this.modulateClasses(this.props.moduleClass);
+    this.modulateClasses(classes);
     this.props.elements.picked.props.messages = this.props.messages;
     this.props.elements.picked.setProps({
       messages: this.props.messages,
@@ -33,9 +42,9 @@ class MessageTape extends Block {
 
   public render(): string {
     if (this.props.messages) {
-      this.props.elements.picked.modulateClasses(this.props.moduleClass);
+      this.props.elements.picked.modulateClasses(classes);
     } else {
-      this.props.elements.unpicked.modulateClasses(this.props.moduleClass);
+      this.props.elements.unpicked.modulateClasses(classes);
     }
 
     return this.props.messages
@@ -44,4 +53,4 @@ class MessageTape extends Block {
   }
 }
 
-export { MessageTape };
+export { MessageTape, TapeType };

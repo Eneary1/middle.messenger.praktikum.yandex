@@ -1,10 +1,10 @@
 import '../../../.d';
 import mainhbs from './main.hbs';
 import { showInputs } from '../../utils/show_inputs';
-import { Container } from '../../utils/container';
-import { Button } from '../../utils/button';
+import { Container } from '../../components/container';
+import { Button } from '../../components/button';
 import { routeFunc } from '../../utils/route_func';
-import { hashes } from '../../utils/hash_enum';
+import { HASHES } from '../../utils/hash_enum';
 import { appendFunc } from '../../utils/append_func';
 import * as classes from './styles.module.scss';
 
@@ -80,13 +80,13 @@ submitButton.addEventListener('click', (e) => {
     return;
   }
   showInputs(thisPage.getContent());
-  routeFunc(hashes.PROFILE);
+  routeFunc(HASHES.PROFILE);
 });
 
 thisPage.modulateClasses(classes);
 
-const pageExport = function () {
+const passwordPage = function () {
   appendFunc(thisPage.getContent());
 };
 
-export default pageExport;
+export {passwordPage};

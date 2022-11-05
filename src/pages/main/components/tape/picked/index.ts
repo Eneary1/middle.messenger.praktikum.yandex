@@ -1,37 +1,48 @@
 import '../../../../../../.d';
-import { Block } from '../../../../../utils/block';
+import { Block } from '../../../../../components/block';
 import { Top } from './top/index';
-import { Chat } from './chat/index';
+import { Chat, ChatElementType } from './chat/index';
 import { Bottom } from './bottom/index';
+import * as classes from '../../../styles.module.scss';
 
-class ChatList extends Block {
-  public constructor(moduleClass: Object, chat?: chatType) {
+type ChatListType = {
+  class?: string,
+  elements?: {
+    top: Top,
+    chat: Chat,
+    bottom: Bottom
+  },
+  messages?: ChatType
+}
+
+class ChatList extends Block<ChatListType> {
+  public constructor(messages?: ChatType) {
     super('div', {
       class: 'message-tape_picked',
-      moduleClass,
       elements: {
-        top: new Top(moduleClass),
-        chat: new Chat(moduleClass, chat),
-        bottom: new Bottom(moduleClass),
+        top: new Top(),
+        chat: new Chat(messages),
+        bottom: new Bottom(),
       },
     });
   }
 
-  public componentDidUpdate(oldProps: object, newProps: object): boolean {
+  public componentDidUpdate(oldProps: ChatListType, newProps: ChatListType): boolean {
     this.props.elements.chat.setProps({
       messages: this.props.messages,
-    });
+    } as ChatElementType);
     return true;
   }
 
   public render(): string {
-    this.props.elements.top.modulateClasses(this.props.moduleClass);
-    this.props.elements.chat.modulateClasses(this.props.moduleClass);
-    this.props.elements.bottom.modulateClasses(this.props.moduleClass);
+    const elements = this.props.elements
+    elements.top.modulateClasses(classes);
+    elements.chat.modulateClasses(classes);
+    elements.bottom.modulateClasses(classes);
     return `
-		${this.props.elements.top.getContent().outerHTML}
-		${this.props.elements.chat.getContent().outerHTML}
-		${this.props.elements.bottom.getContent().outerHTML}
+		${elements.top.getContent().outerHTML}
+		${elements.chat.getContent().outerHTML}
+		${elements.bottom.getContent().outerHTML}
 		`;
   }
 }

@@ -1,7 +1,7 @@
 @import "../../utils/globals";
 
 .container {
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,4 +50,8 @@
     color: $text-link;
     text-decoration: none;
   }
+}
+
+.invalid {
+  background-color: #ffc6c6 !important;
 }
