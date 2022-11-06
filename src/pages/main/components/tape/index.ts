@@ -11,33 +11,18 @@ type TapeType = {
     picked: ChatList,
     unpicked: BarUnpicked,
   }
-}
+};
 
 class MessageTape extends Block<TapeType> {
-  public constructor(chat?: ChatType) {
+  public constructor(messages?: ChatType) {
     super('main', {
       class: 'message-tape',
-      messages: chat,
+      messages,
       elements: {
         picked: new ChatList(),
         unpicked: new BarUnpicked(),
       },
     });
-  }
-
-  public componentDidMount(): void {
-    this.modulateClasses(classes);
-    this.props.elements.picked.props.messages = this.props.messages;
-    this.props.elements.picked.setProps({
-      messages: this.props.messages,
-    });
-  }
-
-  public componentDidUpdate(oldProps: object, newProps: object): boolean {
-    this.props.elements.picked.setProps({
-      messages: this.props.messages,
-    });
-    return true;
   }
 
   public render(): string {

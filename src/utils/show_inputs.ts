@@ -1,5 +1,5 @@
 const showInputs = (form: HTMLFormElement) => {
-  const formData = new FormData(form)
+  const formData = new FormData(form);
   const inputs = Array.from(form.querySelectorAll('input'));
   const formInfo = {};
   inputs.forEach((a) => {

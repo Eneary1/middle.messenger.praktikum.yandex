@@ -6,11 +6,11 @@ import * as classes from '../../../../styles.module.scss';
 type ChatElementType = {
   class: string,
   messages: ChatType
-}
+};
 
 class Chat extends Block<ChatElementType> {
   public constructor(messages?: ChatType) {
-    super('div', { class: 'message-tape__chat', messages});
+    super('div', { class: 'message-tape__chat', messages });
   }
 
   public componentDidMount(): void {

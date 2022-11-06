@@ -1,7 +1,7 @@
-import "../../.d";
+import '../../.d';
+import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '../utils/event_bus';
 import { modulateClasses } from '../utils/converter';
-import {v4 as makeUUID} from 'uuid';
 
 type MetaInfo = {
   tagName: string;
@@ -12,7 +12,7 @@ enum EVENTS {
   INIT = 'init',
   FLOW_CDM = 'flow:component-did-mount',
   FLOW_CDU = 'flow:component-did-update',
-  FLOW_RENDER = 'flow:render'
+  FLOW_RENDER = 'flow:render',
 }
 
 class Block<Props extends object> {
@@ -30,10 +30,18 @@ class Block<Props extends object> {
   }
 
   private _element: HTMLElement;
+
   private _meta: MetaInfo;
+
   private _eventBus: () => EventBus;
+
   public props: Props;
+
   private _id = null;
+
+  private _isHidden: boolean = false;
+
+  private _allowID: boolean = true;
 
   public getID(): string {
     return this._id;
@@ -72,6 +80,7 @@ class Block<Props extends object> {
     if (!response) {
       return;
     }
+    this._element.innerHTML = '';
     this._render();
   }
 
@@ -88,29 +97,40 @@ class Block<Props extends object> {
   };
 
   private _render(): void {
-    const block = this.render();
-    this._element.innerHTML = block;
+    const block = this._convertElements(this.render());
+    const childArray = Array.from(block.children);
+    if (childArray.length === 0) {
+      this._element.innerHTML = block.innerHTML;
+    } else {
+      childArray.forEach((i) => {
+        this._element.appendChild(i);
+      });
+    }
+    this.addEvents();
   }
 
-  public addEvents(wrapper: HTMLElement) {
-    const {events = {}} = this.props as IBaseType;
+  private _convertElements(str: string) {
+    const { elements = {} } = this.props as IBaseType<object>;
+    const banch = document.createElement('div');
+    banch.innerHTML = str;
+    Object.keys(elements).forEach((i) => {
+      let elem = banch.querySelector(`[data-id~="${elements[i]._id}"]`);
+      if (elem) elem.replaceWith(elements[i].getContent());
+    });
+    return banch;
+  }
 
-    Object.keys(events).forEach(eventName => {
-      wrapper.querySelector(`[data-id~="${this.getID()}"]`)?.addEventListener(eventName, events[eventName]);
+  public addEvents() {
+    const { events = {} } = this.props as IBaseType;
+
+    Object.keys(events).forEach((eventName) => {
+      this._element.addEventListener(eventName, events[eventName]);
     });
   }
-
-  /**
- *Should always return a string that represents a DOM element or simple text
-*/
 
   public render(): string {
     return '';
   }
-
-  /**
- *Returns DOM element
-*/
 
   public getContent(): HTMLElement {
     return this._element;
@@ -140,16 +160,28 @@ class Block<Props extends object> {
     if (propsRef.class) elem.classList.add(propsRef.class);
     if (propsRef.id) elem.id = propsRef.id;
     if (propsRef.name) elem.setAttribute('name', propsRef.name);
-    elem.dataset.id = this._id
+    if (this._allowID) { elem.dataset.id = this._id; }
     return elem;
   }
 
+  public toggle() {
+    if (this._isHidden) {
+      this._element.style.display = 'block';
+      this._isHidden = false;
+    } else {
+      this._element.style.display = 'none';
+      this._isHidden = true;
+    }
+  }
+
   public show() {
-    this.getContent().style.display = 'block';
+    this._element.style.display = 'block';
+    this._isHidden = false;
   }
 
   public hide() {
-    this.getContent().style.display = 'none';
+    this._element.style.display = 'none';
+    this._isHidden = true;
   }
 
   public modulateClasses(classes: object) {

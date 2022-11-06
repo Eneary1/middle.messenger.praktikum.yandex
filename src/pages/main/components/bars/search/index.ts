@@ -4,7 +4,7 @@ import search from './search.hbs';
 
 type SearchType = {
   class: string
-}
+};
 
 class SearchBars extends Block<SearchType> {
   public constructor() {

@@ -5,7 +5,7 @@ import * as classes from './styles.module.scss';
 
 // making a main element
 
-const thisPage = new Container()
+const thisPage = new Container();
 
 thisPage.modulateClasses(classes);
 
@@ -13,4 +13,4 @@ const authorPage = function () {
   appendFunc(thisPage.getContent());
 };
 
-export {authorPage};
+export { authorPage };

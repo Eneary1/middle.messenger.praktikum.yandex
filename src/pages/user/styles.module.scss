@@ -48,6 +48,12 @@
       }
     }
 
+    &__info-change {
+      & > * {
+        display: block;
+      }
+    }
+
     &__info-container {
       display: flex;
       flex-direction: column;

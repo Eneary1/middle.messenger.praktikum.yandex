@@ -1,27 +1,37 @@
 import '../../../../../../../.d';
 import { Block } from '../../../../../../components/block';
 import top from './top.hbs';
-import * as classes from '../../../../styles.module.scss';
+import { GripContainer } from './gripContainer/gripContainer';
 
 type TopType = {
-  class: string
-}
+  class: string,
+  elements: {
+    gripContainer: GripContainer
+  }
+};
 
 class Top extends Block<TopType> {
   public constructor() {
-    super('div', { class: 'message-tape__top'});
-  }
-
-  public componentDidMount(): void {
-    this.modulateClasses(classes);
-    const self = this;
-    this.getContent().querySelector(`.${classes['grip-container']}`)!.addEventListener('click', function () {
-      this.querySelector(`.${classes['add-user']}`).classList.toggle('none');
+    super('div', {
+      class: 'message-tape__top',
+      elements: {
+        gripContainer: new GripContainer({
+          click: () => {
+            this.props.elements.gripContainer.props.elements.addUser.toggle();
+          },
+        }),
+      },
     });
   }
 
+  public componentDidMount(): void {
+    const grip = this.props.elements.gripContainer;
+  }
+
   public render(): string {
-    return top();
+    return top({
+      gripContainer: this.props.elements.gripContainer.getContent().outerHTML,
+    });
   }
 }
 

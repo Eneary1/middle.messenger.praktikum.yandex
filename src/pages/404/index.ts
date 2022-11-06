@@ -18,4 +18,4 @@ const page404 = function () {
   appendFunc(thisPage.getContent());
 };
 
-export {page404};
+export { page404 };

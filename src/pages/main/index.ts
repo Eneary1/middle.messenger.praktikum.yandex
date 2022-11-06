@@ -9,7 +9,7 @@ import * as classes from './styles.module.scss';
 
 const thisPage = new Container('');
 
-const tape = new MessageTape(classes);
+const tape = new MessageTape();
 const bars = new BarsContainer(tape);
 
 thisPage.getContent().appendChild(bars.getContent());
@@ -24,4 +24,4 @@ const mainPage = function () {
   appendFunc(thisPage.getContent());
 };
 
-export {mainPage};
+export { mainPage };

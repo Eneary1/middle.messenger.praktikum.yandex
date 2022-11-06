@@ -1,3 +1,4 @@
+@import "../src/utils/globals.scss";
 @import url("../src/pages/**/*");
 
 * {
@@ -32,4 +33,10 @@ body,
 
 .invalid {
   background-color: #ffc6c6 !important;
+}
+
+.hint {
+    color: $text-red;
+    font-size: 15px;
+    margin-bottom: 10px;
 }

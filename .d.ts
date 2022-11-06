@@ -23,7 +23,7 @@ type TemplateType = {
 	tmplObject?: any
   }
 
-interface IBaseType<ElementType extends object = null> {
+interface IBaseType<ElementType extends object = object> {
   class?: string,
   id?: string,
   name?: string

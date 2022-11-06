@@ -1,8 +1,8 @@
-import { AuthorForm } from "../form/form"
+import { AuthorForm } from '../form/form';
 
 export type ContainerType = {
-	class: string, 
-	elements: {
-		form: AuthorForm
-	}
+  class: string,
+  elements: {
+    form: AuthorForm
   }
+};

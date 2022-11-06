@@ -21,14 +21,14 @@ function thisPageShow() {
 window.addEventListener('load', hashChanged(thisPageShow));
 window.addEventListener('hashchange', hashChanged(thisPageShow));
 
-console.log("%c Список ссылок на все страницы ", "background-color:hsl(10,70%,45%)")
-console.table(    
-    [["Страница входа", "http://localhost:3000/#enter"],
-    ["Страница регистрации", "http://localhost:3000/#reg"],
-    ["Главная страница", "http://localhost:3000/#main"],
-    ["Стрница профиля", "http://localhost:3000/#profile"],
-    ["Изменение пароля", "http://localhost:3000/#pass"],
-    ["Изменение данных", "http://localhost:3000/#data"],
-    ["404", "http://localhost:3000/#404"],
-    ["500", "http://localhost:3000/#500"]]
-)
+console.log('%c Список ссылок на все страницы ', 'background-color:hsl(10,70%,45%)');
+console.table(
+  [['Страница входа', `http://${location.host}/#enter`],
+    ['Страница регистрации', `http://${location.host}/#reg`],
+    ['Главная страница', `http://${location.host}/#main`],
+    ['Стрница профиля', `http://${location.host}/#profile`],
+    ['Изменение пароля', `http://${location.host}/#pass`],
+    ['Изменение данных', `http://${location.host}/#data`],
+    ['404', `http://${location.host}/#404`],
+    ['500', `http://${location.host}/#500`]],
+);

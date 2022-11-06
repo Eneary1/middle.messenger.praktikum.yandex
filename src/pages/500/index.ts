@@ -18,4 +18,4 @@ const page500 = function () {
   appendFunc(thisPage.getContent());
 };
 
-export {page500};
+export { page500 };

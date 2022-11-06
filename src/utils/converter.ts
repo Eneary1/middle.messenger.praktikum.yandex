@@ -19,11 +19,11 @@ function modulateClasses(domElement: Element, moduleClasses: object): HTMLElemen
   });
 
   // ids
-  // selectors = selectorNames.map(a => `#${a}`)
-  // elements = wrapper.querySelectorAll(selectors.join(","));
-  // elements.forEach(element => {
-  // 	element.id = moduleClasses[element.id] === undefined ? element.id : moduleClasses[element.id];
-  // });
+  selectors = selectorNames.map((a) => `#${a}`);
+  elements = wrapper.querySelectorAll(selectors.join(','));
+  elements.forEach((element) => {
+  	element.id = moduleClasses[element.id] === undefined ? element.id : moduleClasses[element.id];
+  });
 
   return wrapper.firstElementChild as HTMLElement;
 }

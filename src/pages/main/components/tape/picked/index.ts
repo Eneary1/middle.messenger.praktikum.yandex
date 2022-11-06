@@ -3,7 +3,6 @@ import { Block } from '../../../../../components/block';
 import { Top } from './top/index';
 import { Chat, ChatElementType } from './chat/index';
 import { Bottom } from './bottom/index';
-import * as classes from '../../../styles.module.scss';
 
 type ChatListType = {
   class?: string,
@@ -13,7 +12,7 @@ type ChatListType = {
     bottom: Bottom
   },
   messages?: ChatType
-}
+};
 
 class ChatList extends Block<ChatListType> {
   public constructor(messages?: ChatType) {
@@ -27,18 +26,8 @@ class ChatList extends Block<ChatListType> {
     });
   }
 
-  public componentDidUpdate(oldProps: ChatListType, newProps: ChatListType): boolean {
-    this.props.elements.chat.setProps({
-      messages: this.props.messages,
-    } as ChatElementType);
-    return true;
-  }
-
   public render(): string {
-    const elements = this.props.elements
-    elements.top.modulateClasses(classes);
-    elements.chat.modulateClasses(classes);
-    elements.bottom.modulateClasses(classes);
+    const { elements } = this.props;
     return `
 		${elements.top.getContent().outerHTML}
 		${elements.chat.getContent().outerHTML}
