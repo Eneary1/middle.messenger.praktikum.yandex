@@ -1,6 +1,6 @@
 import '../../.d';
 import { v4 as makeUUID } from 'uuid';
-import { EventBus } from '../utils/event_bus';
+import { EventBus } from '../utils/eventBus';
 import { modulateClasses } from '../utils/converter';
 
 type MetaInfo = {
@@ -15,7 +15,7 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-class Block<Props extends object> {
+class Block<Props extends object = object> {
   public constructor(tagName: string = 'div', props: Props = {} as Props) {
     const eventBus = new EventBus();
     this._meta = {
@@ -80,7 +80,6 @@ class Block<Props extends object> {
     if (!response) {
       return;
     }
-    this._element.innerHTML = '';
     this._render();
   }
 
@@ -88,7 +87,7 @@ class Block<Props extends object> {
     return true;
   }
 
-  public setProps = (newProps: Props) => {
+  public setProps = (newProps: {[key: string]: unknown}) => {
     if (!newProps) {
       return;
     }
@@ -99,6 +98,7 @@ class Block<Props extends object> {
   private _render(): void {
     const block = this._convertElements(this.render());
     const childArray = Array.from(block.children);
+    this._element.innerHTML = '';
     if (childArray.length === 0) {
       this._element.innerHTML = block.innerHTML;
     } else {
@@ -106,7 +106,8 @@ class Block<Props extends object> {
         this._element.appendChild(i);
       });
     }
-    this.addEvents();
+    this._addEvents();
+    this.modulateClasses((this.props as {classes: object}).classes)
   }
 
   private _convertElements(str: string) {
@@ -114,19 +115,23 @@ class Block<Props extends object> {
     const banch = document.createElement('div');
     banch.innerHTML = str;
     Object.keys(elements).forEach((i) => {
-      let elem = banch.querySelector(`[data-id~="${elements[i]._id}"]`);
+      let elem = banch.querySelector(`[data-id~="${elements[i]?._id}"]`);
       if (elem) elem.replaceWith(elements[i].getContent());
     });
     return banch;
   }
 
-  public addEvents() {
+  private _addEvents() {
     const { events = {} } = this.props as IBaseType;
 
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
+
+  /**
+   * Return a string that represents DOM elements or text
+   */
 
   public render(): string {
     return '';
@@ -185,7 +190,9 @@ class Block<Props extends object> {
   }
 
   public modulateClasses(classes: object) {
-    modulateClasses(this._element, classes);
+    if (classes) {
+      modulateClasses(this._element, classes);
+    }
   }
 }
 

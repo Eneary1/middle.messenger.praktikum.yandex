@@ -37,3 +37,4 @@ class ChatList extends Block<ChatListType> {
 }
 
 export { ChatList };
+

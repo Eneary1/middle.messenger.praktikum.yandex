@@ -2,22 +2,20 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { AuthorForm } from '../form/form';
 import { ContainerType } from './types';
-import { HASHES } from '../../../../utils/hash_enum';
-import { routeFunc } from '../../../../utils/route_func';
+import { ROUTES } from '../../../../utils/hash_enum';
 import { submitCheck } from '../../../../utils/inputEvents';
-
-/**
- * Function for a fast main container block
- */
+import * as classes from '../../styles.module.scss';
+import { router } from '../../../../utils/router';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
-  routeFunc(HASHES.MAIN);
+  router.go(ROUTES.MAIN);
 }
 
-class Container extends Block<ContainerType> {
+class AuthorPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
+      classes: classes,
       class: 'container',
       elements: {
         form: new AuthorForm({ submit }),
@@ -30,4 +28,4 @@ class Container extends Block<ContainerType> {
   }
 }
 
-export { Container };
+export { AuthorPage };

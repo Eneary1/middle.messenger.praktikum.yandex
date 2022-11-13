@@ -2,22 +2,21 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { DataForm } from '../form/form';
 import { ContainerType } from './types';
-import { HASHES } from '../../../../utils/hash_enum';
+import { ROUTES } from '../../../../utils/hash_enum';
 import { routeFunc } from '../../../../utils/route_func';
 import { submitCheck } from '../../../../utils/inputEvents';
-
-/**
- * Function for a fast main container block
- */
+import * as classes from '../../styles.module.scss';
+import { router } from '../../../../utils/router';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
-  routeFunc(HASHES.PROFILE);
+  router.go(ROUTES.PROFILE);
 }
 
-class Container extends Block<ContainerType> {
+class DataPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
+      classes: classes,
       class: 'container',
       elements: {
         form: new DataForm({ submit }),
@@ -25,9 +24,13 @@ class Container extends Block<ContainerType> {
     });
   }
 
+  public componentDidMount(): void {
+    console.log("A")
+  }
+
   public render(): string {
     return this.props.elements.form.getContent().outerHTML;
   }
 }
 
-export { Container };
+export { DataPage };

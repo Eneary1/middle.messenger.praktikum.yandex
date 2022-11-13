@@ -3,24 +3,26 @@ import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { Link } from '../../../../components/link/link';
 import mainhbs from './main.hbs';
-import { routeFunc } from '../../../../utils/route_func';
-import { HASHES } from '../../../../utils/hash_enum';
+import { ROUTES } from '../../../../utils/hash_enum';
+import * as classes from '../../styles.module.scss';
+import { router } from '../../../../utils/router';
 
 function dataFunc() {
-  routeFunc(HASHES.DATA);
+  router.go(ROUTES.DATA);
 }
 
 function passFunc() {
-  routeFunc(HASHES.PASS);
+  router.go(ROUTES.PASS);
 }
 
 function exitFunc() {
-  routeFunc(HASHES.MAIN);
+  router.go(ROUTES.MAIN);
 }
 
-class Container extends Block<ContainerType> {
+class UserPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
+      classes: classes,
       class: 'container',
       elements: {
         dataLink: new Link(
@@ -54,13 +56,6 @@ class Container extends Block<ContainerType> {
     });
   }
 
-  public componentDidMount(): void {
-    const formElements = this.props.elements;
-    for (let i of Object.keys(formElements)) {
-      formElements[i].addEvents(this.getContent());
-    }
-  }
-
   public render(): string {
     const { elements } = this.props;
     return mainhbs({
@@ -71,4 +66,4 @@ class Container extends Block<ContainerType> {
   }
 }
 
-export { Container };
+export { UserPage };

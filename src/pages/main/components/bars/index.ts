@@ -2,7 +2,7 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { ChatBars } from './chat_bars/index';
 import { SearchBars } from './search/index';
-import { MessageTape, TapeType } from '../tape/index';
+import { MessageTape } from '../tape/index';
 import { users } from './chat_bars/index.tmpl';
 import mainhbs from './main.hbs';
 import * as classes from '../../styles.module.scss';
@@ -17,16 +17,14 @@ type BarsType = {
 };
 
 class BarsContainer extends Block<BarsType> {
-  /**
-	 * @param messageTape лента сообщений выбранных баров
-	 */
-  public constructor(messageTape: MessageTape) {
+
+  public constructor() {
     super('aside', {
       class: 'chat-list',
       elements: {
         search: new SearchBars(),
         bars: new ChatBars({ users }),
-        tape: messageTape,
+        tape: new MessageTape(),
       },
     });
   }
@@ -37,33 +35,28 @@ class BarsContainer extends Block<BarsType> {
     this.modulateClasses(classes);
     const elems = Array.from(this.getContent().getElementsByClassName(classes['chat-list__list-element']));
 
-    // В связи с тем, что информация, приходимая с сервера, является загадкой, было решено сделать этот компонент
-    // слегка некрасивым образом и напрямую использовать addEventListener. В будущем этот компонент будет пересмотрен
-
     elems.forEach((a) => {
       const self = this;
       a.addEventListener('click', function () {
         if (this.classList.contains(classes.checked)) {
           self.pickedBar?.classList.remove(classes.checked);
           self.pickedBar = null;
-          self.props.elements.tape.setProps({
-            messages: undefined,
-          } as TapeType);
+          self.props.elements.tape.props.messages = undefined
           return;
         }
         self.pickedBar?.classList.remove(classes.checked);
         this.classList.add(classes.checked);
         self.pickedBar = this;
 
+        const chatInfo = users[Number(this.dataset.id)].chatInfo
+
         const { chat } = self.props.elements.tape.props.elements.picked.props.elements;
-        chat.props.messages = users[Number(this.dataset.id)].chatInfo;
+        chat.setProps({messages: chatInfo})
 
-        const { picked } = self.props.elements.tape.props.elements;
-        picked.props.messages = users[Number(this.dataset.id)].chatInfo;
+        const { tape } = self.props.elements;
+        tape.setProps({messages: chatInfo})
 
-        self.props.elements.tape.props.messages = users[Number(this.dataset.id)].chatInfo;
-
-        const scrollable = self.props.elements.tape.getContent()?.querySelector(`.${classes['message-tape__chat']}`);
+        const scrollable = chat.getContent();
         scrollable?.scrollBy(0, scrollable!.scrollHeight);
       });
     });

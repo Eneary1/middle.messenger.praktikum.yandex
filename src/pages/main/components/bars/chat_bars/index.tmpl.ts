@@ -2,7 +2,7 @@ import '../../../../../../.d';
 import chatElement from './chat-bar.hbs';
 
 // fake api
-const messages: ChatType = [];
+const messages: ChatType = []
 
 for (let i = 0; i < 35; ++i) {
   messages.push(
@@ -17,7 +17,18 @@ for (let i = 0; i < 35; ++i) {
   );
 }
 
-const users: Array<any> = [];
+const users: Array<{
+  barInfo: {
+    name: string,
+    text: string,
+    date: string,
+    incoming: number
+  },
+  chatInfo: {
+    messages: ChatType
+  },
+  id: number
+}> = [];
 
 for (let i = 0; i < 30; i++) {
   users.push(
@@ -29,7 +40,7 @@ for (let i = 0; i < 30; i++) {
         incoming: Math.round(Math.random() * 10),
       },
       chatInfo: {
-        messages,
+        messages
       },
       id: i,
     },

@@ -38,4 +38,4 @@ class MessageTape extends Block<TapeType> {
   }
 }
 
-export { MessageTape, TapeType };
+export { MessageTape };

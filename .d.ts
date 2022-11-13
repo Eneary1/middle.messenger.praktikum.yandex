@@ -1,4 +1,6 @@
-declare module "*.hbs";
+declare module "*.hbs"{
+	export default function(a?: any): string
+}
 declare module "*.scss";
 declare module "uuid" {
 	export function v4(): string

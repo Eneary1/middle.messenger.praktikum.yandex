@@ -15,45 +15,49 @@ function linkFunc() {
   routeFunc(HASHES.REG);
 }
 
+const elems: () => ElemType = () => {
+  return {
+    passHint: new PassHint(),
+    loginHint: new LoginHint(),
+    loginInput: new Input(
+      {
+        id: 'login',
+        name: 'login',
+        type: 'text',
+      },
+      {
+        blur: inputEvents.loginBlur,
+        focus: inputEvents.inputFocus,
+      },
+    ),
+    passInput: new Input({
+      id: 'password',
+      name: 'password',
+      type: 'password',
+    }),
+    link: new Link(
+      {
+        class: 'link',
+        text: 'Нет аккаунта?',
+      },
+      {
+        click: linkFunc,
+      },
+    ),
+    button: new Button({
+      text: 'Войти',
+      name: 'Enter',
+      type: 'submit',
+      class: 'button',
+    }),
+  }
+}
+
 class AuthorForm extends Block<FormType> {
   public constructor(events: EventType) {
     super('form', {
       events,
-      elements: {
-        passHint: new PassHint(),
-        loginHint: new LoginHint(),
-        loginInput: new Input(
-          {
-            id: 'login',
-            name: 'login',
-            type: 'text',
-          },
-          {
-            blur: inputEvents.loginBlur,
-            focus: inputEvents.inputFocus,
-          },
-        ),
-        passInput: new Input({
-          id: 'password',
-          name: 'password',
-          type: 'password',
-        }),
-        link: new Link(
-          {
-            class: 'link',
-            text: 'Нет аккаунта?',
-          },
-          {
-            click: linkFunc,
-          },
-        ),
-        button: new Button({
-          text: 'Войти',
-          name: 'Enter',
-          type: 'submit',
-          class: 'button',
-        }),
-      },
+      elements: elems(),
     });
   }
 
