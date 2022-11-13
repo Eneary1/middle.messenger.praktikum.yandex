@@ -1,0 +1,27 @@
+@import "../../utils/globals";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 30px;
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    text-align: center;
+    margin-block: 10px;
+  }
+
+  li > * {
+    cursor: pointer;
+    color: $text-link;
+  }
+
+  li > *:hover {
+    text-decoration: underline;
+  }
+}

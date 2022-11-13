@@ -1,0 +1,72 @@
+@import "../../utils/globals";
+
+.link {
+  color: $text-link;
+  cursor: pointer;
+}
+
+.exit {
+  color: $text-red;
+  cursor: pointer;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    font-size: 30px;
+  }
+
+  .profile {
+    width: 50%;
+    height: 80%;
+    display: grid;
+    grid-template-rows: 220px min-content auto;
+
+    & > .name {
+      margin: 15px;
+      text-align: center;
+    }
+
+    &__icon {
+      justify-self: center;
+      border-radius: 100%;
+      aspect-ratio: 1/1;
+      background-color: $messages;
+    }
+
+    &__user-info {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      & > * {
+        flex-grow: 1;
+      }
+    }
+
+    &__info-change {
+      & > * {
+        display: block;
+      }
+    }
+
+    &__info-container {
+      display: flex;
+      flex-direction: column;
+
+      & > div {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+
+        & > *:first-child {
+          margin-right: auto;
+        }
+      }
+    }
+  }
+}
