@@ -18,5 +18,6 @@ npm run eslint: команда, запускающая процесс линти
 npm run stylelint: команда, запускающая процесс линтинга scss файлов
 
 ### Ссылка на netlify: https://creative-syrniki-cbd444.netlify.app
+
 ### Ссылка на figma: https://www.figma.com/community/file/1160917686270641517
 ---
