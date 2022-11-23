@@ -1,5 +1,5 @@
 import '../../../../../../.d';
-import chatElement from './chat-bar.hbs';
+import chatElement from './main.hbs';
 
 // fake api
 const messages: ChatType = []

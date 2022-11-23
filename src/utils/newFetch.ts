@@ -47,9 +47,11 @@ class NewFetch {
       });
 
       xhr.onload = function () {
+        if (xhr.status === 400 || xhr.status === 401) reject()
         resolve(xhr);
       };
 
+      xhr.withCredentials = true;
       xhr.onabort = reject;
       xhr.onerror = reject;
 
@@ -59,7 +61,7 @@ class NewFetch {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(queryString(data));
       }
     });
   };

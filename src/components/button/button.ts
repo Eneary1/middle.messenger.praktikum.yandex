@@ -3,8 +3,8 @@ import { Block } from '../block';
 import { ButtonProps, ButtonType } from './types';
 
 class Button extends Block<ButtonType> {
-  public constructor(buttonProps: ButtonProps) {
-    super('button', { ...buttonProps });
+  public constructor(buttonProps: ButtonProps, events?: EventType) {
+    super('button', { ...buttonProps, events});
   }
 
   public componentDidMount(): void {
@@ -13,7 +13,7 @@ class Button extends Block<ButtonType> {
   }
 
   public render(): string {
-    return this.props.text;
+    return this.props.text ? this.props.text : "->";
   }
 }
 

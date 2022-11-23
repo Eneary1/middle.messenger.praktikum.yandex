@@ -13,8 +13,8 @@ import * as inputEvents from '../../../../utils/inputEvents';
 const elems: () => ElemType = () => {
   return {
     loginInput: new Input({
-      id: 'first_name',
-      name: 'first_name',
+      id: 'login',
+      name: 'login',
       type: 'text',
     }),
     emailInput: new Input({
@@ -33,8 +33,8 @@ const elems: () => ElemType = () => {
       type: 'text',
     }),
     chatNameInput: new Input({
-      id: 'chat_name',
-      name: 'chat_name',
+      id: 'display_name',
+      name: 'display_name',
       type: 'text',
     }),
     phoneInput: new Input({

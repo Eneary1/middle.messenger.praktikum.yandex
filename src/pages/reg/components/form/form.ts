@@ -5,8 +5,7 @@ import { Button } from '../../../../components/button/button';
 import { FormType, ElemType } from './types';
 import mainhbs from './main.hbs';
 import { Link } from '../../../../components/link/link';
-import { routeFunc } from '../../../../utils/route_func';
-import { HASHES } from '../../../../utils/hash_enum';
+import { ROUTES } from '../../../../utils/routeEnum';
 import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { EmailHint } from '../../../../components/hints/emailHint';
@@ -14,9 +13,10 @@ import { PhoneHint } from '../../../../components/hints/phoneHint';
 import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
+import { router } from '../../../../utils/router';
 
 function linkFunc() {
-  routeFunc(HASHES.ENTER);
+  router.go(ROUTES.ENTER);
 }
 
 const elems: ElemType = {

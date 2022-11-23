@@ -91,8 +91,9 @@ class Block<Props extends object = object> {
     if (!newProps) {
       return;
     }
+    const oldProps = { ...this.props }
     Object.assign(this.props, newProps);
-    this._eventBus().emit(EVENTS.FLOW_CDU, { ...this.props }, this.props);
+    this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
   };
 
   private _render(): void {
@@ -171,7 +172,7 @@ class Block<Props extends object = object> {
 
   public toggle() {
     if (this._isHidden) {
-      this._element.style.display = 'block';
+      this._element.style.display = '';
       this._isHidden = false;
     } else {
       this._element.style.display = 'none';
@@ -180,7 +181,7 @@ class Block<Props extends object = object> {
   }
 
   public show() {
-    this._element.style.display = 'block';
+    this._element.style.display = '';
     this._isHidden = false;
   }
 

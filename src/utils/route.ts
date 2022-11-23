@@ -37,7 +37,8 @@ class Route<T extends RouteType = RouteType> {
 
     public leave(): void {
         if (this._block) {
-            this._block.hide();
+            const root = document.querySelector(this._props.rootQuery);
+            root.innerHTML = "";
         }
     }
 
@@ -48,11 +49,8 @@ class Route<T extends RouteType = RouteType> {
     public render(): void {
         if (!this._block) {
             this._block = new this._blockClass();
-            render(this._props.rootQuery, this._block);
-            return;
         }
-
-        this._block.show();
+        render(this._props.rootQuery, this._block);
     }
 }
 

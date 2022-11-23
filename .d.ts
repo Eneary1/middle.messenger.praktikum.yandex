@@ -33,3 +33,9 @@ interface IBaseType<ElementType extends object = object> {
   events?: EventType,
   template?: TemplateType
 }
+
+interface Window { 
+  barsReload: Array<() => void>; 
+  chat: Array<{[x: string]: any}>;
+  chatUpdate: Array<() => void>;
+}
