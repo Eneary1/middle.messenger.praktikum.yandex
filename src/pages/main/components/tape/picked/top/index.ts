@@ -34,8 +34,10 @@ class Top extends Block<TopType> {
     if (!router.selectedChat()) return;
     new NewFetch().get("https://ya-praktikum.tech/api/v2/chats").then((a) => {
       const arr: Array<any> = JSON.parse(a.response)
+      const found = arr.find((b) => b.id == router.selectedChat())
+      if (!found) return
       this.setProps({
-        elements: {...this.props.elements, chatName: (arr.find((b) => b.id == router.selectedChat())).title}
+        elements: {...this.props.elements, chatName: (found).title}
       })
     })
   }

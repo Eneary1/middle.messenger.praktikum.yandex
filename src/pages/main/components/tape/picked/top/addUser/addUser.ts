@@ -1,6 +1,7 @@
 import '../../../../../../../../.d';
 import { Block } from '../../../../../../../components/block';
 import { Link } from '../../../../../../../components/link/link';
+import { Modal, modalInstance } from '../../../../../../../components/modal/modal';
 import { NewFetch } from '../../../../../../../utils/newFetch';
 import { ROUTES } from '../../../../../../../utils/routeEnum';
 import { router } from '../../../../../../../utils/router';
@@ -20,9 +21,61 @@ class AddUser extends Block<TopType> {
     super('div', { class: 'add-user' , elements: {
       addUser: new Link({
         text: "Добавить пользователя"
-      }),
+      },
+      {
+        click: () => {
+            modalInstance.setProps({
+              events: {
+                  submit: async (e: SubmitEvent) => {
+                    e.preventDefault();
+                    const form = e.target as HTMLFormElement
+                    const formData = new FormData(form)
+                    if ((formData.get("dialog") as string).trim() === "") return;
+                    else {
+                      await new NewFetch().put(`https://ya-praktikum.tech/api/v2/chats/users`, {data: {
+                        users: [
+                          ((formData.get("dialog") as string))
+                        ],
+                        chatId: router.selectedChat()
+                      },
+                      headers: {
+                        'Content-type': 'application/x-www-form-urlencoded'
+                      }})
+                    }
+                  }
+                }
+              })
+            modalInstance.show()
+          }
+        }),
       deleteUser: new Link({
         text: "Удалить пользователя"
+      },
+      {
+        click: () => {
+          modalInstance.setProps({
+            events: {
+                submit: async (e: SubmitEvent) => {
+                  e.preventDefault();
+                  const form = e.target as HTMLFormElement
+                  const formData = new FormData(form)
+                  if ((formData.get("dialog") as string).trim() === "") return;
+                  else {
+                    await new NewFetch().delete(`https://ya-praktikum.tech/api/v2/chats/users`, {data: {
+                      users: [
+                        ((formData.get("dialog") as string))
+                      ],
+                      chatId: router.selectedChat()
+                    },
+                    headers: {
+                      'Content-type': 'application/x-www-form-urlencoded'
+                    }})
+                  }
+                }
+              }
+            })
+          modalInstance.show()
+        }
       }),
       deleteChat: new Link({
         text: "Удалить чат"

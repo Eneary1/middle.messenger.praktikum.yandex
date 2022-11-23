@@ -30,6 +30,7 @@ function exitFunc() {
 let userData: {[x: string]: string};
 newFetch.get("https://ya-praktikum.tech/api/v2/auth/user")
   .then((a)=>{userData = JSON.parse(a.response)})
+  .catch(()=>{})
   
 
 class UserPage extends Block<ContainerType> {

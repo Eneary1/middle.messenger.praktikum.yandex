@@ -23,8 +23,8 @@ function submit(e: SubmitEvent) {
   headers: {
     'Content-type': 'application/x-www-form-urlencoded'
   }}).then(() => {
-    router.refresh(ROUTES.MAIN)
-  }).catch(()=>{console.log("Пользователь уже существует")})
+    router.refresh(ROUTES.ENTER)
+  }).catch(()=>{})
 }
 
 class RegPage extends Block<ContainerType> {

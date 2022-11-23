@@ -34,8 +34,15 @@ interface IBaseType<ElementType extends object = object> {
   template?: TemplateType
 }
 
+declare interface Socket{
+  socket: WebSocket;
+  socketChange(): void;
+}
+
 interface Window { 
-  barsReload: Array<() => void>; 
-  chat: Array<{[x: string]: any}>;
-  chatUpdate: Array<() => void>;
+  barsReload: Array<() => void>,
+  chat: Array<{[x: string]: any}>,
+  chatUpdate: Array<() => void>,
+  socket: Socket,
+  bottom: Array<any>
 }

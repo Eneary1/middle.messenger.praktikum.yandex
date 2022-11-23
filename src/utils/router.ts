@@ -89,9 +89,9 @@ class Router {
         this._onRoute(pathname);
     }
 
-    public refresh(route?: RouteType) {
-        if (route) {
-            location.assign(`${location.protocol}/${location.host}${route}`)
+    public refresh(path?: RouteType) {
+        if (path) {
+            location.assign(`${location.protocol}/${location.host}${path}`)
         } else {
             location.assign(`${location.protocol}/${location.host}${location.pathname}`)
         }

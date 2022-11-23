@@ -18,7 +18,7 @@ function submit(e: SubmitEvent) {
   headers: {
     'Content-type': 'application/x-www-form-urlencoded'
   }}).then(() => {
-    router.refresh(ROUTES.MAIN)
+    location.reload()
   }).catch(()=>{console.log("Пользователя не существует или он уже вошёл")})
 }
 

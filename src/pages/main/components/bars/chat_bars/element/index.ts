@@ -30,8 +30,9 @@ class Bar extends Block<BarType> {
           return
         }
         router.go(`${ROUTES.MAIN}/${templateObject.id}`)
-        window.barsReload.forEach((a) => { a() })
-        window.chatUpdate.forEach((a) => { a() })
+        window.socket.socket.close();
+        window.socket.socketChange();
+        window.socket.socket.close();
       }
 		}
     });
