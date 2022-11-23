@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "parcel static/index.html -p 3000 --target global",
-    "dev:nodemon": "nodemon server.js",
+    "dev:nodemon": "nodemon server/server.js",
     "build": "parcel build static/index.html --public-url ./ --no-source-maps --no-cache --target global",
     "eslint": "npx eslint **/*.ts --fix",
     "stylelint": "npx stylelint **/*.scss --fix",

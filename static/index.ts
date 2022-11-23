@@ -10,6 +10,7 @@ import { UserPage } from "../src/pages/user/components/container/container";
 import { NewFetch } from "../src/utils/newFetch";
 import { ROUTES } from "../src/utils/routeEnum";
 import { router } from '../src/utils/router';
+import "../.d";
 
 window.barsReload = []
 window.chat = []
