@@ -114,6 +114,7 @@
     height: 5rem;
     display: grid;
     grid-template-columns: 5rem auto 2.5rem;
+    grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
       "icon name date"
       "icon text-preview circle";
@@ -143,6 +144,7 @@
 
   &__date {
     grid-area: date;
+    word-break: keep-all;
   }
 
   &__text-preview {
@@ -347,8 +349,10 @@
         top: 150%;
         right: 40%;
         background-color: $content-block;
-        width: 25vw;
-        height: 20vh;
+        width: max-content;
+        height: max-content;
+        padding: 10px;
+        gap: 20px;
         border: 0.5px solid $border;
         border-radius: 10px;
 

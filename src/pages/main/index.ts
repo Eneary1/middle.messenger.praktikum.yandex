@@ -10,19 +10,11 @@ type ContainerType = { class?: string, classes?: object, elements: {
   tape: MessageTape
 } };
 
-let pageObj = function() {
-  const bars = new BarsContainer();
-  return {
-    bars: bars,
-    tape: bars.props.elements.tape
-  }
-}
-
 class MainPage extends Block<ContainerType> {
   public constructor() {
     super('div', { class: 'container', classes: classes, elements: {
-      bars: pageObj().bars,
-      tape: pageObj().tape
+      bars: new BarsContainer(),
+      tape: new MessageTape()
     }});
   }
 

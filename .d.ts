@@ -44,5 +44,6 @@ interface Window {
   chat: Array<{[x: string]: any}>,
   chatUpdate: Array<() => void>,
   socket: Socket,
-  bottom: Array<any>
+  bottom: Array<any>,
+  avatar: string
 }

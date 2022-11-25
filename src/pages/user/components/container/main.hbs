@@ -1,10 +1,10 @@
 <div class="profile">
-	<div class="profile__icon"></div>
-	<p class="profile__name">ivan</p>
+	{{{avatar}}}
+	<p  style="text-align: center" class="profile__name">{{first_name}}</p>
 	<div class="profile__user-info">
 		<div class="profile__info-container">
 			<div>
-				<p>почта</p>
+				<p>Почта</p>
 				<p>{{email}}</p>
 			</div>
 			<div>
@@ -21,7 +21,7 @@
 			</div>
 			<div>
 				<p>Имя в чате</p>
-				<p>Иван</p>
+				<p>{{display_name}}</p>
 			</div>
 			<div>
 				<p>Телефон</p>
@@ -31,6 +31,7 @@
 		<div class="profile__info-change">
 			{{{dataLink}}}
 			{{{passLink}}}
+			{{{goToMain}}}
 			{{{exitLink}}}
 		</div>
 	</div>

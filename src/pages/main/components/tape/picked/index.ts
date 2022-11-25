@@ -2,10 +2,8 @@ import '../../../../../../.d';
 import { Block } from '../../../../../components/block';
 import { Top } from './top/index';
 import { Chat, ChatElementType } from './chat/index';
-import { NewFetch } from '../../../../../utils/newFetch';
 import { Bottom } from './bottom/index';
 import mainhbs from "./main.hbs"
-import { router } from '../../../../../utils/router';
 
 type ChatListType = {
   class?: string,

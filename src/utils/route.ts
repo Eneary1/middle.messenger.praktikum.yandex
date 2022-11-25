@@ -19,13 +19,13 @@ class Route<T extends RouteType = RouteType> {
     constructor(pathname: string, view: {new(): Block}, props: T) {
         this._pathname = pathname;
         this._blockClass = view;
-        this._block = null;
+        this.block = null;
         this._props = props;
     }
 
 	private _pathname: string;
 	private _blockClass: {new(): Block};
-	private _block: Block;
+	public block: Block;
 	private _props: T;
 
     public navigate(pathname: string): void {
@@ -36,7 +36,7 @@ class Route<T extends RouteType = RouteType> {
     }
 
     public leave(): void {
-        if (this._block) {
+        if (this.block) {
             const root = document.querySelector(this._props.rootQuery);
             root.innerHTML = "";
         }
@@ -47,10 +47,10 @@ class Route<T extends RouteType = RouteType> {
     }
 
     public render(): void {
-        if (!this._block) {
-            this._block = new this._blockClass();
+        if (!this.block) {
+            this.block = new this._blockClass();
         }
-        render(this._props.rootQuery, this._block);
+        render(this._props.rootQuery, this.block);
     }
 }
 

@@ -3,10 +3,12 @@ import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { Link } from '../../../../components/link/link';
 import mainhbs from './main.hbs';
-import { ROUTES } from '../../../../utils/routeEnum';
+import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../utils/routeEnum';
 import * as classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
+import { Avatar } from '../../../../components/avatar/avatar';
+import { modalInstance } from '../../../../components/modal/modal';
 
 const newFetch = new NewFetch();
 
@@ -19,16 +21,15 @@ function passFunc() {
 }
 
 function exitFunc() {
-  newFetch.post("https://ya-praktikum.tech/api/v2/auth/logout", {
-    headers: {
-    'Content-type': 'application/x-www-form-urlencoded'
-  }}).then(() => {
+  newFetch.post(`${baseURL}${PATHS.LOGOUT}`, {
+    headers: xhrContentType
+  }).then(() => {
     router.refresh(ROUTES.ENTER)
   }).catch(()=>{console.log("Пользователя не существует или он уже вошёл")})
 }
 
 let userData: {[x: string]: string};
-newFetch.get("https://ya-praktikum.tech/api/v2/auth/user")
+newFetch.get(`${baseURL}${PATHS.USER}`)
   .then((a)=>{userData = JSON.parse(a.response)})
   .catch(()=>{})
   
@@ -59,18 +60,62 @@ class UserPage extends Block<ContainerType> {
         ),
         exitLink: new Link(
           {
-            text: 'Выйти',
+            text: 'Выйти из аккаунта',
             class: 'exit',
           },
           {
             click: exitFunc,
           },
         ),
+        avatar: new Avatar({
+          class: "profile__icon avatar",
+          src: window.avatar
+        }),
+        goToMain: new Link({
+          text: 'Назад к чатам',
+          class: 'exit',
+        },
+        {
+          click: () => {router.go(ROUTES.MAIN)}
+        })
       },
     });
   }
 
+  public componentDidMount(): void {
+    this.props.elements.avatar.setProps({
+      events: {
+        click: () => {
+          modalInstance.setProps({
+            type: "avatar",
+            events: {
+              submit: async (e) => {
+                e.preventDefault()
+                await newFetch.put(`${baseURL}${PATHS.PROFILE}${PATHS.AVATAR}`, {data: new FormData(e.target)})
+                await newFetch.get(`${baseURL}${PATHS.USER}`)
+                  .then((a)=>{
+                    userData = JSON.parse(a.response)
+                    window.avatar = userData.avatar
+                  })
+                  .catch(()=>{})
+                  this.update()
+                  const pass = router.getRoute(ROUTES.PASS)
+                  if (pass.block) {
+                    pass.block.update()
+                  }
+              }
+            }
+          })
+          modalInstance.show()
+        } 
+      }
+    })
+  }
+
   public render(): string {
+    this.props.elements.avatar.setProps({
+      src: window.avatar
+    })
     const { elements } = this.props;
     return mainhbs({
       login: userData.login,
@@ -78,9 +123,12 @@ class UserPage extends Block<ContainerType> {
       phone: userData.phone,
       first_name: userData.first_name,
       second_name: userData.second_name,
+      display_name: userData.display_name,
+      avatar: elements.avatar.getContent().outerHTML,
       dataLink: elements.dataLink.getContent().outerHTML,
       passLink: elements.passLink.getContent().outerHTML,
       exitLink: elements.exitLink.getContent().outerHTML,
+      goToMain: elements.goToMain.getContent().outerHTML,
     });
   }
 }

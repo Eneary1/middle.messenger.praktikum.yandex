@@ -5,17 +5,13 @@ import { SearchBars } from './search/index';
 import mainhbs from './main.hbs';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Bar } from './chat_bars/element/index';
-import { MessageTape } from '../tape/index';
-import { ModalForm } from './search/modal/index';
-import * as classes from "../../styles.module.scss"
+import { baseURL, PATHS } from '../../../../utils/routeEnum';
 
 type BarsType = {
   class?: string,
   elements?: {
     search: SearchBars,
     bars: ChatBars,
-    tape: MessageTape,
-    modal: ModalForm;
   }
 };
 
@@ -27,15 +23,13 @@ class BarsContainer extends Block<BarsType> {
       elements: {
         search: new SearchBars(),
         bars: new ChatBars(),
-        tape: new MessageTape(),
-        modal: new ModalForm()
       },
     });
   }
 
   public componentDidMount(): void {
     const chatAdd = async () => {
-      new NewFetch().get("https://ya-praktikum.tech/api/v2/chats").then((a) => {
+      new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => {
         const usersElements = {};
         const res = JSON.parse(a.response)
         for (let i = 0; i < res.length; i++) {
@@ -49,9 +43,6 @@ class BarsContainer extends Block<BarsType> {
       }).catch(()=>{})
     }
     chatAdd();
-    this.props.elements.search.setProps({
-      elements: {...this.props.elements.search.props.elements, modal: this.props.elements.modal}
-    })
     window.barsReload.push(chatAdd);
   }
 

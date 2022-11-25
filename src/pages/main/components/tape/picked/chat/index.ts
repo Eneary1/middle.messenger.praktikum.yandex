@@ -22,7 +22,7 @@ class Chat extends Block<ChatElementType> {
 
   public componentDidMount(): void {
     window.chat.push(this)
-    window.chatUpdate.push(() => {this.setProps({upd: 1})})
+    window.chatUpdate.push(() => {this.update()})
   }
 
   public componentDidUpdate(oldProps: ChatElementType, newProps: ChatElementType): boolean {

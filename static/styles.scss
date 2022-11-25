@@ -46,3 +46,9 @@ body,
   color: $text-link;
   cursor: pointer;
 }
+
+.avatar {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -2,27 +2,34 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { PassForm } from '../form/form';
 import { ContainerType } from './types';
-import { ROUTES } from '../../../../utils/routeEnum';
+import { baseURL, PATHS, ROUTES } from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
 import mainhbs from './main.hbs';
 import * as classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
+import { Avatar } from '../../../../components/avatar/avatar';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
   const form = new FormData(e.target as HTMLFormElement)
   const newFetch = new NewFetch();
-  newFetch.put("https://ya-praktikum.tech/api/v2/user/password", {data: {
+  newFetch.put(`${baseURL}${PATHS.PASSWORD}`, {data: {
     oldPassword: form.get("old_password"),
     newPassword: form.get("password"),
   },
   headers: {
     'Content-type': 'application/x-www-form-urlencoded'
   }}).then(() => {
-    router.refresh(ROUTES.PROFILE)
+    router.go(ROUTES.PROFILE)
   }).catch(()=>{console.log("Неверный старый пароль")})
 }
+let avatar;
+(async () => {
+  await new NewFetch().get(`${baseURL}${PATHS.USER}`)
+    .then((a)=>{avatar = JSON.parse(a.response).avatar})
+    .catch(()=>{})
+})()
 
 class PassPage extends Block<ContainerType> {
   public constructor() {
@@ -31,13 +38,21 @@ class PassPage extends Block<ContainerType> {
       class: 'container',
       elements: {
         form: new PassForm({ submit }),
+        avatar: new Avatar({
+          src: avatar,
+          class: "icon avatar"
+        })
       },
     });
   }
 
   public render(): string {
+    this.props.elements.avatar.setProps({
+      src: window.avatar
+    })
     return mainhbs({
       form: this.props.elements.form.getContent().outerHTML,
+      avatar: this.props.elements.avatar.getContent().outerHTML,
     });
   }
 }

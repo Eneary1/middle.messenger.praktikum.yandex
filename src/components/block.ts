@@ -80,6 +80,7 @@ class Block<Props extends object = object> {
     if (!response) {
       return;
     }
+    
     this._render();
   }
 
@@ -88,13 +89,21 @@ class Block<Props extends object = object> {
   }
 
   public setProps = (newProps: {[key: string]: unknown}) => {
+    this._removeEvents();
     if (!newProps) {
       return;
     }
     const oldProps = { ...this.props }
     Object.assign(this.props, newProps);
     this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
-  };
+  }
+
+  public update = (newProps?: {[key: string]: unknown}) => {
+    if (!newProps) newProps = this.props as {[key: string]: unknown}
+    const oldProps = { ...this.props }
+    Object.assign(this.props, newProps);
+    this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
+  }
 
   private _render(): void {
     const block = this._convertElements(this.render());
@@ -124,9 +133,15 @@ class Block<Props extends object = object> {
 
   private _addEvents() {
     const { events = {} } = this.props as IBaseType;
-
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  private _removeEvents() {
+    const { events = {} } = this.props as IBaseType;
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -143,15 +158,15 @@ class Block<Props extends object = object> {
   }
 
   private _makePropsProxy(props: Props): Props {
-    const self = this;
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set: (target, prop, value) => {
+        this._removeEvents();
         target[prop] = value;
-        self._eventBus().emit(EVENTS.FLOW_CDU, { ...target }, target);
+        this._eventBus().emit(EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
@@ -163,10 +178,21 @@ class Block<Props extends object = object> {
   private _createDocumentElement(tagName: string): HTMLElement {
     const propsRef = this.props as IBaseType;
     const elem = document.createElement(tagName);
-    if (propsRef.class) elem.classList.add(propsRef.class);
-    if (propsRef.id) elem.id = propsRef.id;
-    if (propsRef.name) elem.setAttribute('name', propsRef.name);
-    if (this._allowID) { elem.dataset.id = this._id; }
+    if (propsRef.class) {
+      let g = propsRef.class.match(/[\w-]+/g)
+      g.forEach((a) => {
+        elem.classList.add(a);
+      })
+    }
+    if (propsRef.id) {
+      elem.id = propsRef.id; 
+    }
+    if (propsRef.name) {
+      elem.setAttribute('name', propsRef.name);
+    }
+    if (this._allowID) { 
+      elem.dataset.id = this._id; 
+    }
     return elem;
   }
 

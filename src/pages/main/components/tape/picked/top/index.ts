@@ -5,6 +5,7 @@ import { GripContainer } from './gripContainer/gripContainer';
 import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
 import * as classes from "../../../../styles.module.scss"
+import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
 
 type TopType = {
   class: string,
@@ -32,7 +33,7 @@ class Top extends Block<TopType> {
 
   public componentDidMount(): void {
     if (!router.selectedChat()) return;
-    new NewFetch().get("https://ya-praktikum.tech/api/v2/chats").then((a) => {
+    new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => {
       const arr: Array<any> = JSON.parse(a.response)
       const found = arr.find((b) => b.id == router.selectedChat())
       if (!found) return

@@ -1,3 +1,4 @@
+import { Avatar } from '../../../../components/avatar/avatar';
 import { Link } from '../../../../components/link/link';
 
 export type ContainerType = {
@@ -6,6 +7,8 @@ export type ContainerType = {
   elements: {
     dataLink: Link,
     passLink: Link,
-    exitLink: Link
+    exitLink: Link,
+    goToMain: Link,
+    avatar: Avatar
   }
 };

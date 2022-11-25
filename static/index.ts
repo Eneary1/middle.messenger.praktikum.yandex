@@ -8,7 +8,7 @@ import { NavPage } from "../src/pages/nav/components/container/container";
 import { RegPage } from "../src/pages/reg/components/container/container";
 import { UserPage } from "../src/pages/user/components/container/container";
 import { NewFetch } from "../src/utils/newFetch";
-import { ROUTES } from "../src/utils/routeEnum";
+import { baseURL, PATHS, ROUTES } from "../src/utils/routeEnum";
 import { router } from '../src/utils/router';
 import "../.d";
 import { modalInstance } from "../src/components/modal/modal";
@@ -18,9 +18,14 @@ window.chat = []
 window.bottom = []
 window.chatUpdate = []
 
-new NewFetch().get("https://ya-praktikum.tech/api/v2/auth/user")
+new NewFetch().get(`${baseURL}${PATHS.USER}`)
+.finally(async ()  =>  {
+  await new NewFetch().get(`${baseURL}${PATHS.USER}`)
+    .then((a)=>{window.avatar = JSON.parse(a.response).avatar})
+    .catch(()=>{})
+})
 .then( async ()=>{
-  await new NewFetch().get("https://ya-praktikum.tech/api/v2/chats").then((a)=>{
+  await new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a)=>{
     return JSON.parse(a.response)
   }).then((res)=>{
     res.forEach((a) => {
@@ -48,16 +53,17 @@ new NewFetch().get("https://ya-praktikum.tech/api/v2/auth/user")
   .use(ROUTES.REG, RegPage)
   .start();
 });
-
+let h: NodeJS.Timer;
 class Socket {
   public socket: WebSocket;
   public async socketChange() {
+    if (!router.selectedChat()) return;
     let userID;
-    await new NewFetch().get("https://ya-praktikum.tech/api/v2/auth/user").then((a) => {userID = JSON.parse(a.response).id})
-    await new NewFetch().post(`https://ya-praktikum.tech/api/v2/chats/token/${router.selectedChat()}`)
+    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => {userID = JSON.parse(a.response).id})
+    await new NewFetch().post(`${baseURL}${PATHS.TOKEN}/${router.selectedChat()}`)
       .then((a) => {
         this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userID}/${router.selectedChat()}/${JSON.parse(a.response).token}`);
-        setInterval(() => {
+        h = setInterval(() => {
           this.socket.send(JSON.stringify({
             type: 'ping'
           }));
@@ -86,7 +92,7 @@ class Socket {
         } else {
           console.log('Обрыв соединения');
         }
-      
+        clearTimeout(h)
         console.log(`Код: ${event.code} | Причина: ${event.reason}`);
       });
       
@@ -102,8 +108,6 @@ class Socket {
 window.socket = new Socket()
 window.socket.socketChange()
 
-
-
 document.body.appendChild(modalInstance.getContent())  
 
 console.log('%c Список ссылок на все страницы ', 'background-color:hsl(10,70%,45%)');
@@ -117,6 +121,3 @@ console.table(
     ['404', `http://${location.host}${ROUTES.ROUTE404}`],
     ['500', `http://${location.host}${ROUTES.ROUTE500}`]]
 );
-
-console.log("Иногда с WebSocket возникают проблемы, они решаются путём перезагрузки страницы")
-console.log("По ходу следующего спринта я переделаю систему роутинга, сделав её более конкретной")

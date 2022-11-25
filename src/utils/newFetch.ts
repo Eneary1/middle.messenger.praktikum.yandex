@@ -47,7 +47,7 @@ class NewFetch {
       });
 
       xhr.onload = function () {
-        if (xhr.status === 400 || xhr.status === 401) reject()
+        if (xhr.status === 400 || xhr.status === 401 || xhr.status === 409) reject()
         resolve(xhr);
       };
 
@@ -61,7 +61,7 @@ class NewFetch {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(queryString(data));
+        xhr.send((data instanceof FormData) ? data : queryString(data));
       }
     });
   };

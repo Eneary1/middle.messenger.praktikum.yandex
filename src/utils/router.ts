@@ -91,9 +91,9 @@ class Router {
 
     public refresh(path?: RouteType) {
         if (path) {
-            location.assign(`${location.protocol}/${location.host}${path}`)
+            location.replace(`${path}`)
         } else {
-            location.assign(`${location.protocol}/${location.host}${location.pathname}`)
+            location.replace(`${location.pathname}`)
         }
     }
 

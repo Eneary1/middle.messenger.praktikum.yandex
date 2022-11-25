@@ -6,21 +6,25 @@ import { submitCheck } from '../../../../../../utils/inputEvents';
 import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
 import * as classes from  "../../../../styles.module.scss"
+import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
 
 let message: string;
 
 
 
 const submitFunc = () => { 
-  return async (e) => {
+  return async (e: SubmitEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const target: HTMLFormElement = e.target as HTMLFormElement
+    const formData = new FormData(target);
     if ((formData.get("message") as string).trim() === "") return;
     message = formData.get("message") as string
     window.socket.socket.send(JSON.stringify({
       content: message,
       type: 'message',
     }));
+    const input: HTMLInputElement = target.querySelector("input")
+    input.value = ""
   }
 }
 
@@ -69,6 +73,7 @@ class Bottom extends Block<BottomType> {
 
   public chatUpd = async (event: MessageEvent) => {
     let res = JSON.parse(event.data);
+    if (res["type"] === "pong") return;
     if (!(res instanceof Array)) {
       window.socket.socket.send(JSON.stringify({
         content: "0",
@@ -81,7 +86,7 @@ class Bottom extends Block<BottomType> {
     })
     let messages: Array<any>;
     let userID: string;
-    await new NewFetch().get("https://ya-praktikum.tech/api/v2/auth/user").then((a) => {userID = JSON.parse(a.response).id})
+    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => {userID = JSON.parse(a.response).id})
     messages = res.reduceRight((a, b) => {
       a.push({})
       const c = a[a.length - 1]
