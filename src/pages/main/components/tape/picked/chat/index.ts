@@ -13,21 +13,21 @@ type ChatElementType = {
 
 class Chat extends Block<ChatElementType> {
   public constructor() {
-    super('div', { 
-      class: 'message-tape__chat', 
+    super('div', {
+      class: 'message-tape__chat',
       messages: null,
-      classes: classes
+      classes,
     });
   }
 
   public componentDidMount(): void {
-    window.chat.push(this)
-    window.chatUpdate.push(() => {this.update()})
+    window.chat.push(this);
+    window.chatUpdate.push(() => { this.update(); });
   }
 
   public componentDidUpdate(oldProps: ChatElementType, newProps: ChatElementType): boolean {
     this.getContent()?.scrollBy(0, this.getContent()!.scrollHeight);
-    return true
+    return true;
   }
 
   public render(): string {

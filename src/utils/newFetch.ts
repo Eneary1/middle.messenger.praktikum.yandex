@@ -1,4 +1,4 @@
-import { queryString } from "./queryString";
+import { queryString } from './queryString';
 
 enum METHOD {
   GET = 'GET',
@@ -17,7 +17,7 @@ type Options = {
   }
 };
 
-type MethodOptions = Omit<Options, "method">;
+type MethodOptions = Omit<Options, 'method'>;
 
 class NewFetch {
   public get = (url: string, options: MethodOptions = {}) => this.request(url, { ...options, method: METHOD.GET }, options.timeout);
@@ -47,7 +47,7 @@ class NewFetch {
       });
 
       xhr.onload = function () {
-        if (xhr.status === 400 || xhr.status === 401 || xhr.status === 409) reject()
+        if (xhr.status === 400 || xhr.status === 401 || xhr.status === 409) reject();
         resolve(xhr);
       };
 

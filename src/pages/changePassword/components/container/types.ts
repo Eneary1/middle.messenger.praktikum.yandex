@@ -6,6 +6,6 @@ export type ContainerType = {
   class: string,
   elements: {
     form: PassForm,
-  avatar: Avatar
+    avatar: Avatar
   }
 };

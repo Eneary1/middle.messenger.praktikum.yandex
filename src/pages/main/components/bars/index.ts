@@ -1,6 +1,6 @@
 import '../../../../../.d';
 import { Block } from '../../../../components/block';
-import {ChatBars} from './chat_bars/index';
+import { ChatBars } from './chat_bars/index';
 import { SearchBars } from './search/index';
 import mainhbs from './main.hbs';
 import { NewFetch } from '../../../../utils/newFetch';
@@ -16,7 +16,6 @@ type BarsType = {
 };
 
 class BarsContainer extends Block<BarsType> {
-
   public constructor() {
     super('aside', {
       class: 'chat-list',
@@ -31,17 +30,17 @@ class BarsContainer extends Block<BarsType> {
     const chatAdd = async () => {
       new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => {
         const usersElements = {};
-        const res = JSON.parse(a.response)
+        const res = JSON.parse(a.response);
         for (let i = 0; i < res.length; i++) {
           const name = `bar${i}`;
           const newBar = new Bar(res[i]);
           usersElements[name] = newBar;
         }
         this.props.elements.bars.setProps({
-          elements: usersElements
-        })
-      }).catch(()=>{})
-    }
+          elements: usersElements,
+        });
+      }).catch(() => {});
+    };
     chatAdd();
     window.barsReload.push(chatAdd);
   }

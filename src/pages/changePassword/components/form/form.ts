@@ -8,34 +8,32 @@ import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
 
-const elems: () => ElemType = () => {
-  return {
-    oldPass: new Input({
-      id: 'old_password',
-      name: 'old_password',
-      type: 'password',
-    }),
-    pass: new Input({
-      id: 'password',
-      name: 'password',
-      type: 'password',
-    }),
-    passRepeat: new Input({
-      id: 'password_repeat',
-      name: 'password_repeat',
-      type: 'password',
-    }),
-    button: new Button({
-      text: 'Сохранить',
-      name: 'Password-change',
-      type: 'submit',
-      class: 'button',
-    }),
-    oldPassHint: new PassHint(),
-    passHint: new PassHint(),
-    passRepeatHint: new PassRepeatHint()
-  };
-}
+const elems: () => ElemType = () => ({
+  oldPass: new Input({
+    id: 'old_password',
+    name: 'old_password',
+    type: 'password',
+  }),
+  pass: new Input({
+    id: 'password',
+    name: 'password',
+    type: 'password',
+  }),
+  passRepeat: new Input({
+    id: 'password_repeat',
+    name: 'password_repeat',
+    type: 'password',
+  }),
+  button: new Button({
+    text: 'Сохранить',
+    name: 'Password-change',
+    type: 'submit',
+    class: 'button',
+  }),
+  oldPassHint: new PassHint(),
+  passHint: new PassHint(),
+  passRepeatHint: new PassRepeatHint(),
+});
 
 class PassForm extends Block<FormType> {
   public constructor(events: EventType) {

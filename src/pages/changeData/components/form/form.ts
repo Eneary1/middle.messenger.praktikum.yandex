@@ -10,52 +10,50 @@ import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import * as inputEvents from '../../../../utils/inputEvents';
 
-const elems: () => ElemType = () => {
-  return {
-    loginInput: new Input({
-      id: 'login',
-      name: 'login',
-      type: 'text',
-    }),
-    emailInput: new Input({
-      id: 'email',
-      name: 'email',
-      type: 'email',
-    }),
-    firstNameInput: new Input({
-      id: 'first_name',
-      name: 'first_name',
-      type: 'text',
-    }),
-    secondNameInput: new Input({
-      id: 'second_name',
-      name: 'second_name',
-      type: 'text',
-    }),
-    chatNameInput: new Input({
-      id: 'display_name',
-      name: 'display_name',
-      type: 'text',
-    }),
-    phoneInput: new Input({
-      id: 'phone',
-      name: 'phone',
-      type: 'text',
-    }),
-    button: new Button({
-      text: 'Сохранить',
-      name: 'Enter',
-      type: 'submit',
-      class: 'button',
-    }),
-    emailHint: new EmailHint(),
-    phoneHint: new PhoneHint(),
-    firstNameHint: new NameHint(),
-    secondNameHint: new NameHint(),
-    chatNameHint: new NameHint(),
-    loginHint: new LoginHint()
-  }
-};
+const elems: () => ElemType = () => ({
+  loginInput: new Input({
+    id: 'login',
+    name: 'login',
+    type: 'text',
+  }),
+  emailInput: new Input({
+    id: 'email',
+    name: 'email',
+    type: 'email',
+  }),
+  firstNameInput: new Input({
+    id: 'first_name',
+    name: 'first_name',
+    type: 'text',
+  }),
+  secondNameInput: new Input({
+    id: 'second_name',
+    name: 'second_name',
+    type: 'text',
+  }),
+  chatNameInput: new Input({
+    id: 'display_name',
+    name: 'display_name',
+    type: 'text',
+  }),
+  phoneInput: new Input({
+    id: 'phone',
+    name: 'phone',
+    type: 'text',
+  }),
+  button: new Button({
+    text: 'Сохранить',
+    name: 'Enter',
+    type: 'submit',
+    class: 'button',
+  }),
+  emailHint: new EmailHint(),
+  phoneHint: new PhoneHint(),
+  firstNameHint: new NameHint(),
+  secondNameHint: new NameHint(),
+  chatNameHint: new NameHint(),
+  loginHint: new LoginHint(),
+});
 
 class DataForm extends Block<FormType> {
   public constructor(events: EventType) {

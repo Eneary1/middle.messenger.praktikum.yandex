@@ -50,20 +50,20 @@
       grid-template-columns: 1fr 1fr;
       align-items: center;
       margin-inline: 10px;
+
       .chat-add {
         text-align: left;
         margin-right: auto;
         font-size: 20px;
         cursor: pointer;
       }
+
       .profile {
         text-align: right;
         font-size: 20px;
         cursor: pointer;
       }
     }
-
-    
   }
 
   &__search-input {
@@ -270,11 +270,11 @@
   }
 
   &__bottom-container {
-    
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+
     .input-handler {
       display: grid;
       grid-template-columns: 10vh auto 10vh;
@@ -289,7 +289,7 @@
         background-color: $button-color;
         border-radius: 100px;
         cursor: pointer;
-    
+
         .attachment {
           cursor: initial;
           position: absolute;
@@ -301,13 +301,17 @@
           border-radius: 10px;
         }
       }
-      & > *:nth-child(2){
+
+      & > *:nth-child(2) {
         @extend %input-container;
+
         input {
           @extend %input;
+
           font-size: 23px;
         }
       }
+
       & > *:nth-child(3) {
         align-self: stretch;
         justify-self: center;
@@ -320,8 +324,6 @@
         cursor: pointer;
       }
     }
-    
-
   }
 
   &__top-container {
@@ -333,7 +335,7 @@
     padding: 0 20px;
     overflow: visible;
 
-    
+
 
     .grip-container {
       position: relative;
@@ -364,4 +366,3 @@
     }
   }
 }
-

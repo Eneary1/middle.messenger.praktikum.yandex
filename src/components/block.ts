@@ -80,7 +80,7 @@ class Block<Props extends object = object> {
     if (!response) {
       return;
     }
-    
+
     this._render();
   }
 
@@ -88,22 +88,22 @@ class Block<Props extends object = object> {
     return true;
   }
 
-  public setProps = (newProps: {[key: string]: unknown}) => {
+  public setProps = (newProps: { [key: string]: unknown }) => {
     this._removeEvents();
     if (!newProps) {
       return;
     }
-    const oldProps = { ...this.props }
+    const oldProps = { ...this.props };
     Object.assign(this.props, newProps);
     this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
-  }
+  };
 
-  public update = (newProps?: {[key: string]: unknown}) => {
-    if (!newProps) newProps = this.props as {[key: string]: unknown}
-    const oldProps = { ...this.props }
+  public update = (newProps?: { [key: string]: unknown }) => {
+    if (!newProps) newProps = this.props as { [key: string]: unknown };
+    const oldProps = { ...this.props };
     Object.assign(this.props, newProps);
     this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
-  }
+  };
 
   private _render(): void {
     const block = this._convertElements(this.render());
@@ -117,7 +117,7 @@ class Block<Props extends object = object> {
       });
     }
     this._addEvents();
-    this.modulateClasses((this.props as {classes: object}).classes)
+    this.modulateClasses((this.props as { classes: object }).classes);
   }
 
   private _convertElements(str: string) {
@@ -179,19 +179,19 @@ class Block<Props extends object = object> {
     const propsRef = this.props as IBaseType;
     const elem = document.createElement(tagName);
     if (propsRef.class) {
-      let g = propsRef.class.match(/[\w-]+/g)
+      let g = propsRef.class.match(/[\w-]+/g);
       g.forEach((a) => {
         elem.classList.add(a);
-      })
+      });
     }
     if (propsRef.id) {
-      elem.id = propsRef.id; 
+      elem.id = propsRef.id;
     }
     if (propsRef.name) {
       elem.setAttribute('name', propsRef.name);
     }
-    if (this._allowID) { 
-      elem.dataset.id = this._id; 
+    if (this._allowID) {
+      elem.dataset.id = this._id;
     }
     return elem;
   }

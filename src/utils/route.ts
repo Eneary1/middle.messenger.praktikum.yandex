@@ -1,57 +1,60 @@
-import { Block } from "../components/block";
+import { Block } from '../components/block';
 
 function isEqual(lhs: string, rhs: string): boolean {
-	return lhs === rhs;
-  }
-  
-  function render(query: string, block: Block) {
-	const root = document.querySelector(query);
-    root.innerHTML = "";
-	root.appendChild(block.getContent());
-	return root;
-  }
-
-  type RouteType = {
-	rootQuery: string
-  }
-
-class Route<T extends RouteType = RouteType> {
-    constructor(pathname: string, view: {new(): Block}, props: T) {
-        this._pathname = pathname;
-        this._blockClass = view;
-        this.block = null;
-        this._props = props;
-    }
-
-	private _pathname: string;
-	private _blockClass: {new(): Block};
-	public block: Block;
-	private _props: T;
-
-    public navigate(pathname: string): void {
-        if (this.match(pathname)) {
-            this._pathname = pathname;
-            this.render();
-        }
-    }
-
-    public leave(): void {
-        if (this.block) {
-            const root = document.querySelector(this._props.rootQuery);
-            root.innerHTML = "";
-        }
-    }
-
-    public match(pathname: string): boolean {
-        return isEqual(pathname, this._pathname);
-    }
-
-    public render(): void {
-        if (!this.block) {
-            this.block = new this._blockClass();
-        }
-        render(this._props.rootQuery, this.block);
-    }
+  return lhs === rhs;
 }
 
-export {Route}
+function render(query: string, block: Block) {
+  const root = document.querySelector(query);
+  root.innerHTML = '';
+  root.appendChild(block.getContent());
+  return root;
+}
+
+  type RouteType = {
+    rootQuery: string
+  };
+
+class Route<T extends RouteType = RouteType> {
+  constructor(pathname: string, view: { new(): Block }, props: T) {
+    this._pathname = pathname;
+    this._blockClass = view;
+    this.block = null;
+    this._props = props;
+  }
+
+  private _pathname: string;
+
+  private _blockClass: { new(): Block };
+
+  public block: Block;
+
+  private _props: T;
+
+  public navigate(pathname: string): void {
+    if (this.match(pathname)) {
+      this._pathname = pathname;
+      this.render();
+    }
+  }
+
+  public leave(): void {
+    if (this.block) {
+      const root = document.querySelector(this._props.rootQuery);
+      root.innerHTML = '';
+    }
+  }
+
+  public match(pathname: string): boolean {
+    return isEqual(pathname, this._pathname);
+  }
+
+  public render(): void {
+    if (!this.block) {
+      this.block = new this._blockClass();
+    }
+    render(this._props.rootQuery, this.block);
+  }
+}
+
+export { Route };

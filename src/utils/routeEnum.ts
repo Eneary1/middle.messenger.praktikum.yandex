@@ -10,7 +10,7 @@ enum ROUTES {
   ROUTE500 = '/500',
 }
 
-const baseURL = "https://ya-praktikum.tech/api/v2"
+const baseURL = 'https://ya-praktikum.tech/api/v2';
 
 enum PATHS {
   USER = '/auth/user',
@@ -23,11 +23,13 @@ enum PATHS {
   SIGNUP = '/auth/signup',
   PROFILE = '/user/profile',
   PASSWORD = '/user/password',
-  AVATAR = '/avatar'
+  AVATAR = '/avatar',
 }
 
 const xhrContentType = {
-  'Content-type': 'application/x-www-form-urlencoded'
-}
+  'Content-type': 'application/x-www-form-urlencoded',
+};
 
-export { ROUTES, baseURL, xhrContentType, PATHS };
+export {
+  ROUTES, baseURL, xhrContentType, PATHS,
+};

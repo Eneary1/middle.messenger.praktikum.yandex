@@ -12,44 +12,46 @@ import { Avatar } from '../../../../components/avatar/avatar';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
-  const form = new FormData(e.target as HTMLFormElement)
+  const form = new FormData(e.target as HTMLFormElement);
   const newFetch = new NewFetch();
-  newFetch.put(`${baseURL}${PATHS.PASSWORD}`, {data: {
-    oldPassword: form.get("old_password"),
-    newPassword: form.get("password"),
-  },
-  headers: {
-    'Content-type': 'application/x-www-form-urlencoded'
-  }}).then(() => {
-    router.go(ROUTES.PROFILE)
-  }).catch(()=>{console.log("Неверный старый пароль")})
+  newFetch.put(`${baseURL}${PATHS.PASSWORD}`, {
+    data: {
+      oldPassword: form.get('old_password'),
+      newPassword: form.get('password'),
+    },
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+    },
+  }).then(() => {
+    router.go(ROUTES.PROFILE);
+  }).catch(() => { console.log('Неверный старый пароль'); });
 }
 let avatar;
 (async () => {
   await new NewFetch().get(`${baseURL}${PATHS.USER}`)
-    .then((a)=>{avatar = JSON.parse(a.response).avatar})
-    .catch(()=>{})
-})()
+    .then((a) => { avatar = JSON.parse(a.response).avatar; })
+    .catch(() => {});
+})();
 
 class PassPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
-      classes: classes,
+      classes,
       class: 'container',
       elements: {
         form: new PassForm({ submit }),
         avatar: new Avatar({
           src: avatar,
-          class: "icon avatar"
-        })
+          class: 'icon avatar',
+        }),
       },
     });
   }
 
   public render(): string {
     this.props.elements.avatar.setProps({
-      src: window.avatar
-    })
+      src: window.avatar,
+    });
     return mainhbs({
       form: this.props.elements.form.getContent().outerHTML,
       avatar: this.props.elements.avatar.getContent().outerHTML,

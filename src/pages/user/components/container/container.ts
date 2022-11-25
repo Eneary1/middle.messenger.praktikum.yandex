@@ -3,7 +3,9 @@ import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { Link } from '../../../../components/link/link';
 import mainhbs from './main.hbs';
-import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../utils/routeEnum';
+import {
+  baseURL, PATHS, ROUTES, xhrContentType,
+} from '../../../../utils/routeEnum';
 import * as classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
@@ -22,22 +24,21 @@ function passFunc() {
 
 function exitFunc() {
   newFetch.post(`${baseURL}${PATHS.LOGOUT}`, {
-    headers: xhrContentType
+    headers: xhrContentType,
   }).then(() => {
-    router.refresh(ROUTES.ENTER)
-  }).catch(()=>{console.log("Пользователя не существует или он уже вошёл")})
+    router.refresh(ROUTES.ENTER);
+  }).catch(() => { console.log('Пользователя не существует или он уже вошёл'); });
 }
 
-let userData: {[x: string]: string};
+let userData: { [x: string]: string };
 newFetch.get(`${baseURL}${PATHS.USER}`)
-  .then((a)=>{userData = JSON.parse(a.response)})
-  .catch(()=>{})
-  
+  .then((a) => { userData = JSON.parse(a.response); })
+  .catch(() => {});
 
 class UserPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
-      classes: classes,
+      classes,
       class: 'container',
       elements: {
         dataLink: new Link(
@@ -68,16 +69,18 @@ class UserPage extends Block<ContainerType> {
           },
         ),
         avatar: new Avatar({
-          class: "profile__icon avatar",
-          src: window.avatar
+          class: 'profile__icon avatar',
+          src: window.avatar,
         }),
-        goToMain: new Link({
-          text: 'Назад к чатам',
-          class: 'exit',
-        },
-        {
-          click: () => {router.go(ROUTES.MAIN)}
-        })
+        goToMain: new Link(
+          {
+            text: 'Назад к чатам',
+            class: 'exit',
+          },
+          {
+            click: () => { router.go(ROUTES.MAIN); },
+          },
+        ),
       },
     });
   }
@@ -87,35 +90,35 @@ class UserPage extends Block<ContainerType> {
       events: {
         click: () => {
           modalInstance.setProps({
-            type: "avatar",
+            type: 'avatar',
             events: {
               submit: async (e) => {
-                e.preventDefault()
-                await newFetch.put(`${baseURL}${PATHS.PROFILE}${PATHS.AVATAR}`, {data: new FormData(e.target)})
+                e.preventDefault();
+                await newFetch.put(`${baseURL}${PATHS.PROFILE}${PATHS.AVATAR}`, { data: new FormData(e.target) });
                 await newFetch.get(`${baseURL}${PATHS.USER}`)
-                  .then((a)=>{
-                    userData = JSON.parse(a.response)
-                    window.avatar = userData.avatar
+                  .then((a) => {
+                    userData = JSON.parse(a.response);
+                    window.avatar = userData.avatar;
                   })
-                  .catch(()=>{})
-                  this.update()
-                  const pass = router.getRoute(ROUTES.PASS)
-                  if (pass.block) {
-                    pass.block.update()
-                  }
-              }
-            }
-          })
-          modalInstance.show()
-        } 
-      }
-    })
+                  .catch(() => {});
+                this.update();
+                const pass = router.getRoute(ROUTES.PASS);
+                if (pass.block) {
+                  pass.block.update();
+                }
+              },
+            },
+          });
+          modalInstance.show();
+        },
+      },
+    });
   }
 
   public render(): string {
     this.props.elements.avatar.setProps({
-      src: window.avatar
-    })
+      src: window.avatar,
+    });
     const { elements } = this.props;
     return mainhbs({
       login: userData.login,

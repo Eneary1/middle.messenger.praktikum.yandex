@@ -13,21 +13,21 @@ class ChatBars extends Block<ChatBarsType> {
   public constructor() {
     super('div', {
       class: 'chat-list__list-container',
-      classes: classes
+      classes,
     });
   }
 
   public render(): string {
-    let usersObject: any = ""
+    let usersObject: any = '';
     if (this.props.elements) {
-      usersObject = {bars: Object.keys(this.props.elements).map((a: any)=>{
-      return {
-        bar: this.props.elements[a].getContent().outerHTML
+      usersObject = {
+        bars: Object.keys(this.props.elements).map((a: any) => ({
+          bar: this.props.elements[a].getContent().outerHTML,
+        })),
       };
-    })}
-  }
+    }
     return mainhbs(usersObject);
   }
 }
 
-export {ChatBars};
+export { ChatBars };

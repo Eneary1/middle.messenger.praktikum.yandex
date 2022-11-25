@@ -24,14 +24,13 @@ class MessageTape extends Block<TapeType> {
         picked: new ChatList(),
         unpicked: new BarUnpicked(),
       },
-      classes: classes
+      classes,
     });
   }
 
   public render(): string {
-    if (router.selectedChat()) 
-    return this.props.elements.picked.getContent().outerHTML; 
-    else return this.props.elements.unpicked.getContent().outerHTML;
+    if (router.selectedChat()) { return this.props.elements.picked.getContent().outerHTML; }
+    return this.props.elements.unpicked.getContent().outerHTML;
   }
 }
 

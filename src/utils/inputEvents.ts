@@ -8,7 +8,7 @@ function inputBlur(e: InputEvent, regExp: RegExp, allowNull: boolean = false) {
     return true;
   }
   if (allowNull) {
-    if (target.value === "") {
+    if (target.value === '') {
       return true;
     }
   }

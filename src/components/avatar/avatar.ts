@@ -5,18 +5,17 @@ import { AvatarProps, AvatarType } from './types';
 
 class Avatar extends Block<AvatarType> {
   public constructor(avatarProps: AvatarProps, events?: EventType) {
-    super('img', { ...avatarProps, events});
+    super('img', { ...avatarProps, events });
   }
 
   public componentDidMount(): void {
-    this.getContent().setAttribute("src", "")
+    this.getContent().setAttribute('src', '');
   }
 
   public render(): string {
-    if (this.props.src) this.getContent().style.backgroundImage = `url("${baseURL}${PATHS.RESOURCES}${this.props.src}")`
-    return "";
+    if (this.props.src) this.getContent().style.backgroundImage = `url("${baseURL}${PATHS.RESOURCES}${this.props.src}")`;
+    return '';
   }
 }
 
 export { Avatar };
-

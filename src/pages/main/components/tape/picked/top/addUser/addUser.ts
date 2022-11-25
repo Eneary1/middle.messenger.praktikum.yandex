@@ -3,9 +3,11 @@ import { Block } from '../../../../../../../components/block';
 import { Link } from '../../../../../../../components/link/link';
 import { modalInstance } from '../../../../../../../components/modal/modal';
 import { NewFetch } from '../../../../../../../utils/newFetch';
-import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../../../../utils/routeEnum';
+import {
+  baseURL, PATHS, ROUTES, xhrContentType,
+} from '../../../../../../../utils/routeEnum';
 import { router } from '../../../../../../../utils/router';
-import mainhbs from "./main.hbs"
+import mainhbs from './main.hbs';
 
 type TopType = {
   class: string,
@@ -17,98 +19,109 @@ type TopType = {
   }
 };
 
-function submitEvent(method: "delete" | "put") {
+function submitEvent(method: 'delete' | 'put') {
   return async (e: SubmitEvent) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement
-    const formData = new FormData(form)
-    if ((formData.get("dialog") as string).trim() === "") return;
-    else {
-      await new NewFetch()[method](`${baseURL}${PATHS.CHATSUSERS}`, {data: {
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    if ((formData.get('dialog') as string).trim() === '') return;
+
+    await new NewFetch()[method](`${baseURL}${PATHS.CHATSUSERS}`, {
+      data: {
         users: [
-          ((formData.get("dialog") as string))
+          ((formData.get('dialog') as string)),
         ],
-        chatId: router.selectedChat()
+        chatId: router.selectedChat(),
       },
-      headers: xhrContentType
-    })
-    }
-  }
+      headers: xhrContentType,
+    });
+  };
 }
 
 class AddUser extends Block<TopType> {
   public constructor() {
-    super('div', { class: 'add-user' , elements: {
-      addUser: new Link({
-        text: "Добавить пользователя"
-      },
-      {
-        click: () => {
-          modalInstance.setProps({
-            type: "basic",
-            text: "ID пользователя:",
-            events: {
-              submit: submitEvent("put")
-            }
-          })
-          modalInstance.show()
-        }
-      }),
-      deleteUser: new Link({
-        text: "Удалить пользователя"
-      },
-      {
-        click: () => {
-          modalInstance.setProps({
-            type: "basic",
-            text: "ID пользователя:",
-            events: {
-              submit: submitEvent("delete")
-            }
-          })
-          modalInstance.show()
-        }
-      }),
-      deleteChat: new Link({
-        text: "Удалить чат"
-      }, 
-      {
-        click: async () => {
-          await new NewFetch().delete(`${baseURL}${PATHS.CHATS}`, {
-            data: {
-              chatId: router.selectedChat()
+    super('div', {
+      class: 'add-user',
+      elements: {
+        addUser: new Link(
+          {
+            text: 'Добавить пользователя',
+          },
+          {
+            click: () => {
+              modalInstance.setProps({
+                type: 'basic',
+                text: 'ID пользователя:',
+                events: {
+                  submit: submitEvent('put'),
+                },
+              });
+              modalInstance.show();
             },
-            headers: xhrContentType
-          })
-          window.barsReload.forEach(a => {
-            a()
-          });
-          router.noPushGo(ROUTES.MAIN)
-        }
-      }),
-      chatAvatar: new Link({
-        text: "Обновить аватар"
-      }, 
-      {
-        click: async () => {
-          modalInstance.setProps({
-            type: "avatar",
-            events: {
-              submit: async (e) => {
-                e.preventDefault()
-                const formData = new FormData(e.target)
-                formData.append("chatId", router.selectedChat())
-                await new NewFetch().put(`${baseURL}${PATHS.CHATS}${PATHS.AVATAR}`, {data: formData})
-                window.barsReload.forEach((a) => {
-                  a()
-                })
-              }
-            }
-          })
-          modalInstance.show()
-        }
-      })
-    }});
+          },
+        ),
+        deleteUser: new Link(
+          {
+            text: 'Удалить пользователя',
+          },
+          {
+            click: () => {
+              modalInstance.setProps({
+                type: 'basic',
+                text: 'ID пользователя:',
+                events: {
+                  submit: submitEvent('delete'),
+                },
+              });
+              modalInstance.show();
+            },
+          },
+        ),
+        deleteChat: new Link(
+          {
+            text: 'Удалить чат',
+          },
+          {
+            click: async () => {
+              await new NewFetch().delete(`${baseURL}${PATHS.CHATS}`, {
+                data: {
+                  chatId: router.selectedChat(),
+                },
+                headers: xhrContentType,
+              });
+              window.barsReload.forEach((a) => {
+                a();
+              });
+              router.noPushGo(ROUTES.MAIN);
+            },
+          },
+        ),
+        chatAvatar: new Link(
+          {
+            text: 'Обновить аватар',
+          },
+          {
+            click: async () => {
+              modalInstance.setProps({
+                type: 'avatar',
+                events: {
+                  submit: async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    formData.append('chatId', router.selectedChat());
+                    await new NewFetch().put(`${baseURL}${PATHS.CHATS}${PATHS.AVATAR}`, { data: formData });
+                    window.barsReload.forEach((a) => {
+                      a();
+                    });
+                  },
+                },
+              });
+              modalInstance.show();
+            },
+          },
+        ),
+      },
+    });
   }
 
   public componentDidMount(): void {
@@ -116,12 +129,12 @@ class AddUser extends Block<TopType> {
   }
 
   public render(): string {
-    const elements = this.props.elements
+    const { elements } = this.props;
     return mainhbs({
       addUser: elements.addUser.getContent().outerHTML,
       deleteUser: elements.deleteUser.getContent().outerHTML,
       chatAvatar: elements.chatAvatar.getContent().outerHTML,
-      deleteChat: elements.deleteChat.getContent().outerHTML
+      deleteChat: elements.deleteChat.getContent().outerHTML,
     });
   }
 }
