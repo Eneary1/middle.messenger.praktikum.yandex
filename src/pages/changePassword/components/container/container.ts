@@ -2,7 +2,7 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { PassForm } from '../form/form';
 import { ContainerType } from './types';
-import { baseURL, PATHS, ROUTES } from '../../../../utils/routeEnum';
+import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
 import mainhbs from './main.hbs';
 import * as classes from '../../styles.module.scss';
@@ -19,9 +19,7 @@ function submit(e: SubmitEvent) {
       oldPassword: form.get('old_password'),
       newPassword: form.get('password'),
     },
-    headers: {
-      'Content-type': 'application/x-www-form-urlencoded',
-    },
+    headers: xhrContentType,
   }).then(() => {
     router.go(ROUTES.PROFILE);
   }).catch(() => { console.log('Неверный старый пароль'); });

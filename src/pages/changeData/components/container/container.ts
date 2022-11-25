@@ -19,7 +19,11 @@ function submit(e: SubmitEvent) {
     data: objectFromFormData(form),
     headers: xhrContentType,
   }).then(() => {
-    router.refresh(ROUTES.PROFILE);
+    const prof = router.getRoute(ROUTES.PROFILE)
+    if (prof.block) {
+      prof.block.update()
+    }
+    router.go(ROUTES.PROFILE);
   }).catch(() => { console.log('Что-то пошло не так'); });
 }
 

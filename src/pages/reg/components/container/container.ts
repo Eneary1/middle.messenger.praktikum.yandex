@@ -19,7 +19,8 @@ function submit(e: SubmitEvent) {
     data: objectFromFormData(form),
     headers: xhrContentType,
   }).then(() => {
-    router.refresh(ROUTES.ENTER);
+    router.go(ROUTES.ENTER);
+    location.reload();
   }).catch(() => {});
 }
 
