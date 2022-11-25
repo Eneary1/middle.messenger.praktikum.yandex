@@ -11,17 +11,26 @@ import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { objectFromFormData } from '../../../../utils/formDataConvert';
 
-function submit(e: SubmitEvent) {
+const submit = (e: SubmitEvent) => {
+  e.preventDefault()
   if (!submitCheck(e)) return;
   const form = new FormData(e.target as HTMLFormElement);
   const newFetch = new NewFetch();
   newFetch.put(`${baseURL}${PATHS.PROFILE}`, {
     data: objectFromFormData(form),
     headers: xhrContentType,
-  }).then(() => {
+  }).then(async () => {
+    let userData;
     const prof = router.getRoute(ROUTES.PROFILE)
+    await newFetch.get(`${baseURL}${PATHS.USER}`)
+      .then((a) => {
+        userData = JSON.parse(a.response);
+      })
+    .catch(() => {});
     if (prof.block) {
-      prof.block.update()
+      prof.block.setProps({
+        userData: userData
+      })
     }
     router.go(ROUTES.PROFILE);
   }).catch(() => { console.log('Что-то пошло не так'); });

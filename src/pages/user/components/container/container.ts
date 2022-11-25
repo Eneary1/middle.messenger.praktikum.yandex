@@ -40,6 +40,7 @@ class UserPage extends Block<ContainerType> {
     super('div', {
       classes,
       class: 'container',
+      userData: userData,
       elements: {
         dataLink: new Link(
           {
@@ -101,11 +102,13 @@ class UserPage extends Block<ContainerType> {
                     window.avatar = userData.avatar;
                   })
                   .catch(() => {});
-                this.update();
-                const pass = router.getRoute(ROUTES.PASS);
-                if (pass.block) {
-                  pass.block.update();
-                }
+                  this.props.elements.avatar.setProps({
+                    src: window.avatar,
+                  });
+                  const pass = router.getRoute(ROUTES.PASS);
+                  if (pass.block) {
+                    pass.block.update();
+                  }
               },
             },
           });
@@ -115,18 +118,26 @@ class UserPage extends Block<ContainerType> {
     });
   }
 
+  public componentDidUpdate(oldProps: ContainerType, newProps: ContainerType): boolean {
+    (async () => {
+      await newFetch.get(`${baseURL}${PATHS.USER}`)
+        .then((a) => {
+          userData = JSON.parse(a.response);
+        })
+        .catch(() => {});
+    })()
+    return true
+  }
+
   public render(): string {
-    this.props.elements.avatar.setProps({
-      src: window.avatar,
-    });
     const { elements } = this.props;
     return mainhbs({
-      login: userData.login,
-      email: userData.email,
-      phone: userData.phone,
-      first_name: userData.first_name,
-      second_name: userData.second_name,
-      display_name: userData.display_name,
+      login: this.props.userData.login,
+      email: this.props.userData.email,
+      phone: this.props.userData.phone,
+      first_name: this.props.userData.first_name,
+      second_name: this.props.userData.second_name,
+      display_name: this.props.userData.display_name,
       avatar: elements.avatar.getContent().outerHTML,
       dataLink: elements.dataLink.getContent().outerHTML,
       passLink: elements.passLink.getContent().outerHTML,
