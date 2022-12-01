@@ -5,7 +5,7 @@ import { ContainerType } from './types';
 import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';

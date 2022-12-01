@@ -2,7 +2,7 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { ChatList } from './picked/index';
 import { BarUnpicked } from './unpicked/index';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 
 type TapeType = {

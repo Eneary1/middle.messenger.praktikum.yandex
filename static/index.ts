@@ -10,8 +10,9 @@ import { UserPage } from '../src/pages/user/components/container/container';
 import { NewFetch } from '../src/utils/newFetch';
 import { baseURL, PATHS, ROUTES } from '../src/utils/routeEnum';
 import { router } from '../src/utils/router';
-import '../.d';
 import { modalInstance } from '../src/components/modal/modal';
+import '../.d';
+import "./styles.scss";
 
 window.barsReload = [];
 window.chat = [];
@@ -51,7 +52,7 @@ new NewFetch().get(`${baseURL}${PATHS.USER}`)
       .use(ROUTES.REG, RegPage)
       .start();
   });
-let h: NodeJS.Timer;
+let h: any;
 class Socket {
   public socket: WebSocket;
 

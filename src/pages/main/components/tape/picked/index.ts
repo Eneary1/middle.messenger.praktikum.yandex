@@ -1,7 +1,7 @@
 import '../../../../../../.d';
 import { Block } from '../../../../../components/block';
 import { Top } from './top/index';
-import { Chat, ChatElementType } from './chat/index';
+import { Chat } from './chat/index';
 import { Bottom } from './bottom/index';
 import mainhbs from './main.hbs';
 

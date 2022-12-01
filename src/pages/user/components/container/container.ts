@@ -6,7 +6,7 @@ import mainhbs from './main.hbs';
 import {
   baseURL, PATHS, ROUTES, xhrContentType,
 } from '../../../../utils/routeEnum';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
@@ -33,7 +33,7 @@ function exitFunc() {
 let userData: { [x: string]: string };
 newFetch.get(`${baseURL}${PATHS.USER}`)
   .then((a) => { userData = JSON.parse(a.response); })
-  .catch(() => {});
+  .catch(() => {console.log('Пользователя не существует или он уже вошёл');});
 
 class UserPage extends Block<ContainerType> {
   public constructor() {
@@ -101,7 +101,7 @@ class UserPage extends Block<ContainerType> {
                     userData = JSON.parse(a.response);
                     window.avatar = userData.avatar;
                   })
-                  .catch(() => {});
+                  .catch(() => {console.log('Аватар не удалось загрузить');});
                   this.props.elements.avatar.setProps({
                     src: window.avatar,
                   });
@@ -124,7 +124,7 @@ class UserPage extends Block<ContainerType> {
         .then((a) => {
           userData = JSON.parse(a.response);
         })
-        .catch(() => {});
+        .catch(() => {console.log('Профиль не удалось загрузить');});
     })()
     return true
   }

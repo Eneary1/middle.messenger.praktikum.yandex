@@ -2,10 +2,10 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { ChatBars } from './chat_bars/index';
 import { SearchBars } from './search/index';
-import mainhbs from './main.hbs';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Bar } from './chat_bars/element/index';
 import { baseURL, PATHS } from '../../../../utils/routeEnum';
+import mainhbs from './main.hbs';
 
 type BarsType = {
   class?: string,
@@ -39,13 +39,14 @@ class BarsContainer extends Block<BarsType> {
         this.props.elements.bars.setProps({
           elements: usersElements,
         });
-      }).catch(() => {});
+      }).catch(() => {console.log('Чаты не удалось загрузить');});
     };
     chatAdd();
     window.barsReload.push(chatAdd);
   }
 
   public render(): string {
+    
     return mainhbs({
       search: this.props.elements.search.getContent().outerHTML,
       bars: this.props.elements.bars.getContent().outerHTML,

@@ -3,7 +3,7 @@ import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { ROUTES } from '../../../../utils/routeEnum';
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { Link } from '../../../../components/link/link';
 import { router } from '../../../../utils/router';
 

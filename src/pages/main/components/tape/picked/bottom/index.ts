@@ -5,7 +5,7 @@ import { MessageForm } from './form/form';
 import { submitCheck } from '../../../../../../utils/inputEvents';
 import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
-import * as classes from '../../../../styles.module.scss';
+import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
 
 let message: string;
@@ -82,7 +82,7 @@ class Bottom extends Block<BottomType> {
     });
     let messages: Array<any>;
     let userID: string;
-    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => { userID = JSON.parse(a.response).id; });
+    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => { userID = JSON.parse(a.response).id; }).catch((a)=>{console.log("Профиль не удалось загрузить")});
     messages = res.reduceRight((a, b) => {
       a.push({});
       const c = a[a.length - 1];

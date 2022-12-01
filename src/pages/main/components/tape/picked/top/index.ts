@@ -4,7 +4,7 @@ import top from './top.hbs';
 import { GripContainer } from './gripContainer/gripContainer';
 import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
-import * as classes from '../../../../styles.module.scss';
+import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
 
 type TopType = {
@@ -40,7 +40,7 @@ class Top extends Block<TopType> {
       this.setProps({
         elements: { ...this.props.elements, chatName: (found).title },
       });
-    });
+    }).catch((a)=>{console.log("Не удалось загрузить чаты")});
   }
 
   public render(): string {

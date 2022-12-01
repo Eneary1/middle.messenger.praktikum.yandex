@@ -2,7 +2,7 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { Link } from '../../../../components/link/link';
 import { ROUTES } from '../../../../utils/routeEnum';

@@ -54,12 +54,12 @@ class SearchBars extends Block<SearchType> {
                         title: ((formData.get('dialog') as string)),
                       },
                       headers: xhrContentType,
-                    });
+                    }).catch((a)=>{console.log("Что-то пошло не так")});
                     await new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => JSON.parse(a.response)).then((res) => {
                       res.forEach((a) => {
                         router.use(`${ROUTES.MAIN}/${a.id}`, MainPage);
                       });
-                    });
+                    }).catch((a)=>{console.log("Не удалось получить чаты")});
 
                     window.barsReload.forEach((a) => {
                       a();
