@@ -2,22 +2,20 @@
   "name": "practicum",
   "version": "1.0.0",
   "description": "",
-  "targets": {
-    "global": {
-      "context": "browser",
-      "outputFormat": "global"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint:all"
     }
   },
   "scripts": {
     "start": "node server/server.js",
-    "dev": "parcel static/index.html -p 3000 --target global",
+    "dev": "webpack server",
     "dev:nodemon": "nodemon server/server.js",
-    "build": "parcel build static/index.html --no-source-maps --no-cache --target global",
+    "build": "npx webpack build",
     "eslint": "npx eslint **/*.ts --fix",
     "stylelint": "npx stylelint **/*.scss --fix",
     "gitSolve": "node lastLine.js",
-    "test": "node node_modules/.bin/mocha",
-    "webpack": "npx webpack build"
+    "test": "ts-mocha"
   },
   "author": "Vitaliy Atlasov",
   "license": "ISC",
@@ -26,15 +24,12 @@
     "npm": "8.5.5"
   },
   "dependencies": {
-    "@icetee/handlebars-loader": "^1.6.0",
     "express": "4.18.1"
   },
   "devDependencies": {
-    "@parcel/resolver-glob": "2.7.0",
-    "@parcel/transformer-inline-string": "2.7.0",
-    "@parcel/transformer-sass": "2.7.0",
-    "@parcel/transformer-typescript-tsc": "2.7.0",
     "@types/chai": "4.3.4",
+    "@types/expect": "24.3.0",
+    "@types/jsdom": "20.0.1",
     "@types/mocha": "10.0.0",
     "@types/node": "18.11.9",
     "@typescript-eslint/eslint-plugin": "5.41.0",
@@ -43,40 +38,42 @@
     "buffer": "6.0.3",
     "chai": "4.3.7",
     "crypto-browserify": "3.12.0",
-    "css-loader": "^6.7.2",
+    "css-loader": "6.7.2",
     "eslint": "8.25.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
     "events": "3.3.0",
-    "handlebars": "^4.7.7",
-    "handlebars-loader": "^1.7.2",
-    "handlebars-runtime": "^1.0.12",
-    "handlebars-webpack-plugin": "^2.2.1",
-    "html-loader": "^4.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "ignore-loader": "^0.1.2",
-    "mini-css-extract-plugin": "^2.7.0",
+    "handlebars": "4.7.7",
+    "handlebars-loader": "1.7.2",
+    "html-webpack-plugin": "5.5.0",
+    "husky": "8.0.2",
+    "ignore-loader": "0.1.2",
+    "jsdom": "20.0.3",
+    "jsdom-global": "3.0.2",
+    "mini-css-extract-plugin": "2.7.0",
     "mocha": "10.1.0",
-    "node-sass": "^8.0.0",
+    "node-sass": "8.0.0",
     "nodemon": "2.0.20",
     "parcel": "2.7.0",
     "parcel-transformer-hbs": "1.0.4",
     "path-browserify": "1.0.1",
     "process": "0.11.10",
     "querystring-es3": "0.2.1",
-    "sass-loader": "^13.2.0",
+    "sass-loader": "13.2.0",
     "stream-browserify": "3.0.0",
     "stream-http": "3.2.0",
-    "style-loader": "^3.3.1",
+    "style-loader": "3.3.1",
     "stylelint": "14.14.0",
     "stylelint-config-standard-scss": "6.0.0",
-    "ts-loader": "^9.4.1",
+    "ts-loader": "9.4.2",
+    "ts-mocha": "10.0.0",
+    "ts-node": "10.9.1",
     "typescript": "4.8.4",
     "url": "0.11.0",
     "util": "0.12.5",
     "uuid": "9.0.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.0",
-    "webpack-dev-server": "^4.11.1"
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.0",
+    "webpack-dev-server": "4.11.1"
   }
 }

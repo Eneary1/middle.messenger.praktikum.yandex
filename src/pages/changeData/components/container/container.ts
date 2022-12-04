@@ -12,7 +12,7 @@ import { NewFetch } from '../../../../utils/newFetch';
 import { objectFromFormData } from '../../../../utils/formDataConvert';
 
 const submit = (e: SubmitEvent) => {
-  e.preventDefault()
+  e.preventDefault();
   if (!submitCheck(e)) return;
   const form = new FormData(e.target as HTMLFormElement);
   const newFetch = new NewFetch();
@@ -21,20 +21,20 @@ const submit = (e: SubmitEvent) => {
     headers: xhrContentType,
   }).then(async () => {
     let userData;
-    const prof = router.getRoute(ROUTES.PROFILE)
+    const prof = router.getRoute(ROUTES.PROFILE);
     await newFetch.get(`${baseURL}${PATHS.USER}`)
       .then((a) => {
         userData = JSON.parse(a.response);
       })
-    .catch(() => {});
+      .catch(() => {});
     if (prof.block) {
       prof.block.setProps({
-        userData: userData
-      })
+        userData,
+      });
     }
     router.go(ROUTES.PROFILE);
   }).catch(() => { console.log('Что-то пошло не так'); });
-}
+};
 
 class DataPage extends Block<ContainerType> {
   public constructor() {

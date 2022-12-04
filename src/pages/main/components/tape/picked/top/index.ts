@@ -40,7 +40,7 @@ class Top extends Block<TopType> {
       this.setProps({
         elements: { ...this.props.elements, chatName: (found).title },
       });
-    }).catch((a)=>{console.log("Не удалось загрузить чаты")});
+    }).catch((a) => { console.log('Не удалось загрузить чаты'); });
   }
 
   public render(): string {

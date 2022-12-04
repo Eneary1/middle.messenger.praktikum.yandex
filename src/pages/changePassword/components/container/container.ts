@@ -2,7 +2,9 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { PassForm } from '../form/form';
 import { ContainerType } from './types';
-import { baseURL, PATHS, ROUTES, xhrContentType } from '../../../../utils/routeEnum';
+import {
+  baseURL, PATHS, ROUTES, xhrContentType,
+} from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
 import mainhbs from './main.hbs';
 import classes from '../../styles.module.scss';

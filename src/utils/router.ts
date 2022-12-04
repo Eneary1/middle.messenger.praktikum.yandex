@@ -29,7 +29,7 @@ class Router {
 
   private _rootQuery: string;
 
-  public use(pathname: RouteType, block: { new(): Block }) {
+  public use(pathname: RouteType, block: { new(): Block }): Router {
     if (this.getRoute(pathname)) return;
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
@@ -60,8 +60,8 @@ class Router {
         }
       })
       .catch((a) => {
-        console.log(a)
-        console.log("Профиль не удалось загрузить")
+        console.log(a);
+        console.log('Профиль не удалось загрузить');
         if (this._is404()) return;
         if (window.location.pathname !== '/sign-up') this.noPushGo(ROUTES.ENTER); else {
           this.noPushGo(ROUTES.REG);

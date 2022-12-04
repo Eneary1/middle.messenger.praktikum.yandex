@@ -33,14 +33,14 @@ function exitFunc() {
 let userData: { [x: string]: string };
 newFetch.get(`${baseURL}${PATHS.USER}`)
   .then((a) => { userData = JSON.parse(a.response); })
-  .catch(() => {console.log('Пользователя не существует или он уже вошёл');});
+  .catch(() => { console.log('Пользователя не существует или он уже вошёл'); });
 
 class UserPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
       classes,
       class: 'container',
-      userData: userData,
+      userData,
       elements: {
         dataLink: new Link(
           {
@@ -101,14 +101,14 @@ class UserPage extends Block<ContainerType> {
                     userData = JSON.parse(a.response);
                     window.avatar = userData.avatar;
                   })
-                  .catch(() => {console.log('Аватар не удалось загрузить');});
-                  this.props.elements.avatar.setProps({
-                    src: window.avatar,
-                  });
-                  const pass = router.getRoute(ROUTES.PASS);
-                  if (pass.block) {
-                    pass.block.update();
-                  }
+                  .catch(() => { console.log('Аватар не удалось загрузить'); });
+                this.props.elements.avatar.setProps({
+                  src: window.avatar,
+                });
+                const pass = router.getRoute(ROUTES.PASS);
+                if (pass.block) {
+                  pass.block.update();
+                }
               },
             },
           });
@@ -124,9 +124,9 @@ class UserPage extends Block<ContainerType> {
         .then((a) => {
           userData = JSON.parse(a.response);
         })
-        .catch(() => {console.log('Профиль не удалось загрузить');});
-    })()
-    return true
+        .catch(() => { console.log('Профиль не удалось загрузить'); });
+    })();
+    return true;
   }
 
   public render(): string {

@@ -1,5 +1,5 @@
 declare module "*.hbs"{
-	export default function(a?: any): string
+	export default function(a?: {[x: any]: string}): string
 }
 declare module "*.scss";
 declare module "uuid" {
@@ -17,7 +17,8 @@ type EventType<GenType = Function> = {
   click?: GenType,
   focus?: GenType,
   blur?: GenType,
-  submit?: GenType
+  submit?: GenType,
+  keyup?: GenType 
 }
 
 type TemplateType = {
@@ -40,7 +41,7 @@ declare interface Socket{
 }
 
 interface Window { 
-  barsReload: Array<() => void>,
+  barsReload: Array<(quey?: string) => void>,
   chat: Array<{[x: string]: any}>,
   chatUpdate: Array<() => void>,
   socket: Socket,

@@ -27,11 +27,12 @@ class BarsContainer extends Block<BarsType> {
   }
 
   public componentDidMount(): void {
-    const chatAdd = async () => {
+    const chatAdd = async (query?: string) => {
       new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => {
         const usersElements = {};
         const res = JSON.parse(a.response);
         for (let i = 0; i < res.length; i++) {
+          if (!!query && res[i].title.toLocaleLowerCase() !== query.toLocaleLowerCase()) continue;
           const name = `bar${i}`;
           const newBar = new Bar(res[i]);
           usersElements[name] = newBar;
@@ -39,14 +40,13 @@ class BarsContainer extends Block<BarsType> {
         this.props.elements.bars.setProps({
           elements: usersElements,
         });
-      }).catch(() => {console.log('Чаты не удалось загрузить');});
+      }).catch(() => { console.log('Чаты не удалось загрузить'); });
     };
     chatAdd();
     window.barsReload.push(chatAdd);
   }
 
   public render(): string {
-    
     return mainhbs({
       search: this.props.elements.search.getContent().outerHTML,
       bars: this.props.elements.bars.getContent().outerHTML,

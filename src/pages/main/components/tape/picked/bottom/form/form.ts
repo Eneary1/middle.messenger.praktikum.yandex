@@ -23,7 +23,6 @@ class MessageForm extends Block<FormType> {
         }),
         attachment: new AttachmentContainer({
           click: () => {
-            console.log(this);
             this.props.elements.attachment.props.elements.Attachment.toggle();
           },
         }),

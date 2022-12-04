@@ -12,7 +12,7 @@ import { baseURL, PATHS, ROUTES } from '../src/utils/routeEnum';
 import { router } from '../src/utils/router';
 import { modalInstance } from '../src/components/modal/modal';
 import '../.d';
-import "./styles.scss";
+import './styles.scss';
 
 window.barsReload = [];
 window.chat = [];

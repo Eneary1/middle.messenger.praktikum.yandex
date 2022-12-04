@@ -12,7 +12,7 @@ type BarType = {
   class: string,
   tmplObject: Obj,
   events: EventType,
-  classes: {[x: string]: unknown},
+  classes: { [x: string]: unknown },
   elements: {
     avatar: Avatar
   }

@@ -146,7 +146,7 @@ class Block<Props extends object = object> {
   }
 
   /**
-   * Return a string that represents DOM elements or text
+   * Returns a string that represents DOM elements or text
    */
 
   public render(): string {

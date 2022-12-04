@@ -7,8 +7,9 @@ module.exports = {
   mode: 'development',
   entry: './static/index.ts',
   output: {
+    publicPath: "/",
     path: path.resolve(__dirname, 'dist'),
-    filename: 'project-name.bundle.js',
+    filename: 'project-name.bundle.js'
   },
   resolve: {
     extensions: ['.ts', '.js', '.json', '.scss']
@@ -36,7 +37,6 @@ module.exports = {
       },
     },
   ],
-    https: true,
 	hot: true,
 	port: 3000
   },
