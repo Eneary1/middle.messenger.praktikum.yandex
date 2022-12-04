@@ -4,18 +4,16 @@ import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
 import { FormType, ElemType } from './types';
 import mainhbs from './main.hbs';
-import { PassHint } from '../../../../components/hints/passHint';
-import { PassRepeatHint } from '../../../../components/hints/passRepeat';
 import { EmailHint } from '../../../../components/hints/emailHint';
 import { PhoneHint } from '../../../../components/hints/phoneHint';
 import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import * as inputEvents from '../../../../utils/inputEvents';
 
-const elems: ElemType = {
+const elems: () => ElemType = () => ({
   loginInput: new Input({
-    id: 'first_name',
-    name: 'first_name',
+    id: 'login',
+    name: 'login',
     type: 'text',
   }),
   emailInput: new Input({
@@ -34,8 +32,8 @@ const elems: ElemType = {
     type: 'text',
   }),
   chatNameInput: new Input({
-    id: 'chat_name',
-    name: 'chat_name',
+    id: 'display_name',
+    name: 'display_name',
     type: 'text',
   }),
   phoneInput: new Input({
@@ -55,11 +53,11 @@ const elems: ElemType = {
   secondNameHint: new NameHint(),
   chatNameHint: new NameHint(),
   loginHint: new LoginHint(),
-};
+});
 
 class DataForm extends Block<FormType> {
   public constructor(events: EventType) {
-    super('form', { events, elements: elems });
+    super('form', { events, elements: elems() });
   }
 
   public componentDidMount(): void {

@@ -3,6 +3,7 @@ import { Block } from '../../../../components/block';
 import { ChatList } from './picked/index';
 import { BarUnpicked } from './unpicked/index';
 import * as classes from '../../styles.module.scss';
+import { router } from '../../../../utils/router';
 
 type TapeType = {
   class: string,
@@ -10,7 +11,8 @@ type TapeType = {
   elements: {
     picked: ChatList,
     unpicked: BarUnpicked,
-  }
+  },
+  classes: object
 };
 
 class MessageTape extends Block<TapeType> {
@@ -22,20 +24,14 @@ class MessageTape extends Block<TapeType> {
         picked: new ChatList(),
         unpicked: new BarUnpicked(),
       },
+      classes,
     });
   }
 
   public render(): string {
-    if (this.props.messages) {
-      this.props.elements.picked.modulateClasses(classes);
-    } else {
-      this.props.elements.unpicked.modulateClasses(classes);
-    }
-
-    return this.props.messages
-      ? this.props.elements.picked.getContent().outerHTML
-      : this.props.elements.unpicked.getContent().outerHTML;
+    if (router.selectedChat()) { return this.props.elements.picked.getContent().outerHTML; }
+    return this.props.elements.unpicked.getContent().outerHTML;
   }
 }
 
-export { MessageTape, TapeType };
+export { MessageTape };

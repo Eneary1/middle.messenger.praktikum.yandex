@@ -1,11 +1,16 @@
 import { Block } from '../components/block';
 import { showInputs } from './show_inputs';
 
-function inputBlur(e: InputEvent, regExp: RegExp) {
+function inputBlur(e: InputEvent, regExp: RegExp, allowNull: boolean = false) {
   const target = e.target as HTMLInputElement;
   if (target.value.match(regExp)) {
     target.classList.remove('invalid');
     return true;
+  }
+  if (allowNull) {
+    if (target.value === '') {
+      return true;
+    }
   }
   target.classList.add('invalid');
   return false;
@@ -44,25 +49,25 @@ export function submitCheck(e: SubmitEvent): boolean {
   return true;
 }
 
-export const loginBlur = function (hint?: Block<object>) {
+export const loginBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /^(?=.*[a-zA-Z])(?!.*[\W_]).{3,20}$/)) {
+    if (!inputBlur(e, /^(?=.*[a-zA-Z])(?!.*[\W_]).{3,20}$/, allowNull)) {
       if (hint) {
         hint.show();
       }
     }
   };
 };
-export const passBlur = function (hint?: Block<object>) {
+export const passBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /^(?=.*\d)(?=.*[А-ЯA-Z]).{8,40}$/)) {
+    if (!inputBlur(e, /^(?=.*\d)(?=.*[А-ЯA-Z]).{8,40}$/, allowNull)) {
       if (hint) {
         hint.show();
       }
     }
   };
 };
-export const passRepeatBlur = function (form: HTMLFormElement, hint?: Block<object>) {
+export const passRepeatBlur = function (form: HTMLFormElement, hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
     const target = e.target as HTMLInputElement;
     const formData = new FormData(form);
@@ -74,36 +79,36 @@ export const passRepeatBlur = function (form: HTMLFormElement, hint?: Block<obje
     }
   };
 };
-export const phoneBlur = function (hint?: Block<object>) {
+export const phoneBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /^\+\d{9,14}$|^\d{10,15}$/)) {
+    if (!inputBlur(e, /^\+\d{9,14}$|^\d{10,15}$/, allowNull)) {
       if (hint) {
         hint.show();
       }
     }
   };
 };
-export const emailBlur = function (hint?: Block<object>) {
+export const emailBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /^[\w0-9-+=*~&$#!^]+@[a-zA-Z]+\.[a-zA-Z]+$/)) {
+    if (!inputBlur(e, /^[\w0-9-+=*~&$#!^]+@[a-zA-Z]+\.[a-zA-Z]+$/, allowNull)) {
       if (hint) {
         hint.show();
       }
     }
   };
 };
-export const nameBlur = function (hint?: Block<object>) {
+export const nameBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /^[А-ЯЁA-Z][а-яёa-zА-ЯЁA-Z]*(([-][а-яёa-zА-ЯЁA-Z])?[а-яёa-zА-ЯЁA-Z]*)*$/)) {
+    if (!inputBlur(e, /^[А-ЯЁA-Z][а-яёa-zА-ЯЁA-Z]*(([-][а-яёa-zА-ЯЁA-Z])?[а-яёa-zА-ЯЁA-Z]*)*$/, allowNull)) {
       if (hint) {
         hint.show();
       }
     }
   };
 };
-export const messageBlur = function (hint?: Block<object>) {
+export const messageBlur = function (hint?: Block<object>, allowNull: boolean = false) {
   return function (e: InputEvent) {
-    if (!inputBlur(e, /(?=.*\S).*/)) {
+    if (!inputBlur(e, /(?=.*\S).*/, allowNull)) {
       if (hint) {
         hint.show();
       }

@@ -1,26 +1,32 @@
 import '../../../../../../.d';
 import { Block } from '../../../../../components/block';
-import chatBarTmpl from './chat-bar.hbs';
+import mainhbs from './main.hbs';
+import * as classes from '../../../styles.module.scss';
 
 type ChatBarsType = {
   class: string,
-  template: TemplateType
+  classes: object,
+  elements?: any
 };
 
 class ChatBars extends Block<ChatBarsType> {
-  public constructor(templateObject?: Object) {
+  public constructor() {
     super('div', {
       class: 'chat-list__list-container',
-      template: {
-        templator: chatBarTmpl,
-        tmplObject: templateObject,
-      },
+      classes,
     });
   }
 
   public render(): string {
-    const tmpl = this.props.template;
-    return tmpl.templator(tmpl.tmplObject ? tmpl.tmplObject : '');
+    let usersObject: any = '';
+    if (this.props.elements) {
+      usersObject = {
+        bars: Object.keys(this.props.elements).map((a: any) => ({
+          bar: this.props.elements[a].getContent().outerHTML,
+        })),
+      };
+    }
+    return mainhbs(usersObject);
   }
 }
 

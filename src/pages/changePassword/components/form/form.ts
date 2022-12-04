@@ -4,17 +4,11 @@ import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
 import { FormType, ElemType } from './types';
 import mainhbs from './main.hbs';
-import { routeFunc } from '../../../../utils/route_func';
-import { HASHES } from '../../../../utils/hash_enum';
 import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
 
-function linkFunc() {
-  routeFunc(HASHES.REG);
-}
-
-const elems: ElemType = {
+const elems: () => ElemType = () => ({
   oldPass: new Input({
     id: 'old_password',
     name: 'old_password',
@@ -39,11 +33,11 @@ const elems: ElemType = {
   oldPassHint: new PassHint(),
   passHint: new PassHint(),
   passRepeatHint: new PassRepeatHint(),
-};
+});
 
 class PassForm extends Block<FormType> {
   public constructor(events: EventType) {
-    super('form', { events, elements: { ...elems } });
+    super('form', { events, elements: elems() });
   }
 
   public componentDidMount(): void {

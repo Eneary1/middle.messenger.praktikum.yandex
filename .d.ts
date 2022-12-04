@@ -1,4 +1,6 @@
-declare module "*.hbs";
+declare module "*.hbs"{
+	export default function(a?: any): string
+}
 declare module "*.scss";
 declare module "uuid" {
 	export function v4(): string
@@ -30,4 +32,18 @@ interface IBaseType<ElementType extends object = object> {
   elements?: ElementType,
   events?: EventType,
   template?: TemplateType
+}
+
+declare interface Socket{
+  socket: WebSocket;
+  socketChange(): void;
+}
+
+interface Window { 
+  barsReload: Array<() => void>,
+  chat: Array<{[x: string]: any}>,
+  chatUpdate: Array<() => void>,
+  socket: Socket,
+  bottom: Array<any>,
+  avatar: string
 }

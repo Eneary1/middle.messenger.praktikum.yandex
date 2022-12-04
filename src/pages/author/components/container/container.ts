@@ -2,22 +2,30 @@ import '../../../../../.d';
 import { Block } from '../../../../components/block';
 import { AuthorForm } from '../form/form';
 import { ContainerType } from './types';
-import { HASHES } from '../../../../utils/hash_enum';
-import { routeFunc } from '../../../../utils/route_func';
+import {
+  baseURL, PATHS, ROUTES, xhrContentType,
+} from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
-
-/**
- * Function for a fast main container block
- */
+import * as classes from '../../styles.module.scss';
+import { router } from '../../../../utils/router';
+import { NewFetch } from '../../../../utils/newFetch';
+import { objectFromFormData } from '../../../../utils/formDataConvert';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
-  routeFunc(HASHES.MAIN);
+  const newFetch = new NewFetch();
+  newFetch.post(`${baseURL}${PATHS.SIGNIN}`, {
+    data: objectFromFormData(new FormData(e.target as HTMLFormElement)),
+    headers: xhrContentType,
+  }).then(() => {
+    location.reload();
+  }).catch(() => { console.log('Пользователя не существует или он уже вошёл'); });
 }
 
-class Container extends Block<ContainerType> {
+class AuthorPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
+      classes,
       class: 'container',
       elements: {
         form: new AuthorForm({ submit }),
@@ -30,4 +38,4 @@ class Container extends Block<ContainerType> {
   }
 }
 
-export { Container };
+export { AuthorPage };

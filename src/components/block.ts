@@ -1,6 +1,6 @@
 import '../../.d';
 import { v4 as makeUUID } from 'uuid';
-import { EventBus } from '../utils/event_bus';
+import { EventBus } from '../utils/eventBus';
 import { modulateClasses } from '../utils/converter';
 
 type MetaInfo = {
@@ -15,7 +15,7 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-class Block<Props extends object> {
+class Block<Props extends object = object> {
   public constructor(tagName: string = 'div', props: Props = {} as Props) {
     const eventBus = new EventBus();
     this._meta = {
@@ -80,7 +80,7 @@ class Block<Props extends object> {
     if (!response) {
       return;
     }
-    this._element.innerHTML = '';
+
     this._render();
   }
 
@@ -88,17 +88,27 @@ class Block<Props extends object> {
     return true;
   }
 
-  public setProps = (newProps: Props) => {
+  public setProps = (newProps: { [key: string]: unknown }) => {
+    this._removeEvents();
     if (!newProps) {
       return;
     }
+    const oldProps = { ...this.props };
     Object.assign(this.props, newProps);
-    this._eventBus().emit(EVENTS.FLOW_CDU, { ...this.props }, this.props);
+    this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
+  };
+
+  public update = (newProps?: { [key: string]: unknown }) => {
+    if (!newProps) newProps = this.props as { [key: string]: unknown };
+    const oldProps = { ...this.props };
+    Object.assign(this.props, newProps);
+    this._eventBus().emit(EVENTS.FLOW_CDU, oldProps, this.props);
   };
 
   private _render(): void {
     const block = this._convertElements(this.render());
     const childArray = Array.from(block.children);
+    this._element.innerHTML = '';
     if (childArray.length === 0) {
       this._element.innerHTML = block.innerHTML;
     } else {
@@ -106,7 +116,8 @@ class Block<Props extends object> {
         this._element.appendChild(i);
       });
     }
-    this.addEvents();
+    this._addEvents();
+    this.modulateClasses((this.props as { classes: object }).classes);
   }
 
   private _convertElements(str: string) {
@@ -114,19 +125,29 @@ class Block<Props extends object> {
     const banch = document.createElement('div');
     banch.innerHTML = str;
     Object.keys(elements).forEach((i) => {
-      let elem = banch.querySelector(`[data-id~="${elements[i]._id}"]`);
+      let elem = banch.querySelector(`[data-id~="${elements[i]?._id}"]`);
       if (elem) elem.replaceWith(elements[i].getContent());
     });
     return banch;
   }
 
-  public addEvents() {
+  private _addEvents() {
     const { events = {} } = this.props as IBaseType;
-
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
+
+  private _removeEvents() {
+    const { events = {} } = this.props as IBaseType;
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
+  /**
+   * Return a string that represents DOM elements or text
+   */
 
   public render(): string {
     return '';
@@ -137,15 +158,15 @@ class Block<Props extends object> {
   }
 
   private _makePropsProxy(props: Props): Props {
-    const self = this;
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set: (target, prop, value) => {
+        this._removeEvents();
         target[prop] = value;
-        self._eventBus().emit(EVENTS.FLOW_CDU, { ...target }, target);
+        this._eventBus().emit(EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty() {
@@ -157,16 +178,27 @@ class Block<Props extends object> {
   private _createDocumentElement(tagName: string): HTMLElement {
     const propsRef = this.props as IBaseType;
     const elem = document.createElement(tagName);
-    if (propsRef.class) elem.classList.add(propsRef.class);
-    if (propsRef.id) elem.id = propsRef.id;
-    if (propsRef.name) elem.setAttribute('name', propsRef.name);
-    if (this._allowID) { elem.dataset.id = this._id; }
+    if (propsRef.class) {
+      let g = propsRef.class.match(/[\w-]+/g);
+      g.forEach((a) => {
+        elem.classList.add(a);
+      });
+    }
+    if (propsRef.id) {
+      elem.id = propsRef.id;
+    }
+    if (propsRef.name) {
+      elem.setAttribute('name', propsRef.name);
+    }
+    if (this._allowID) {
+      elem.dataset.id = this._id;
+    }
     return elem;
   }
 
   public toggle() {
     if (this._isHidden) {
-      this._element.style.display = 'block';
+      this._element.style.display = '';
       this._isHidden = false;
     } else {
       this._element.style.display = 'none';
@@ -175,7 +207,7 @@ class Block<Props extends object> {
   }
 
   public show() {
-    this._element.style.display = 'block';
+    this._element.style.display = '';
     this._isHidden = false;
   }
 
@@ -185,7 +217,9 @@ class Block<Props extends object> {
   }
 
   public modulateClasses(classes: object) {
-    modulateClasses(this._element, classes);
+    if (classes) {
+      modulateClasses(this._element, classes);
+    }
   }
 }
 

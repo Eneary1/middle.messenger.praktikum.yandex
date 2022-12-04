@@ -1,5 +1,5 @@
 @import "../src/utils/globals.scss";
-@import url("../src/pages/**/*");
+@import url("../src/**/*");
 
 * {
     box-sizing: border-box;
@@ -39,4 +39,16 @@ body,
     color: $text-red;
     font-size: 15px;
     margin-bottom: 10px;
+}
+
+.link {
+  margin-top: 30px;
+  color: $text-link;
+  cursor: pointer;
+}
+
+.avatar {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }

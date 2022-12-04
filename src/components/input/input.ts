@@ -7,7 +7,7 @@ import { InputProps, InputType } from './types';
  */
 
 class Input extends Block<InputType> {
-  public constructor(inputProps: InputProps, events?: EventType) {
+  public constructor(inputProps?: InputProps, events?: EventType) {
     super('input', { ...inputProps, events });
   }
 

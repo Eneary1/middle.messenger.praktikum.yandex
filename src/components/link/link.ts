@@ -14,7 +14,7 @@ class Link extends Block<LinkType> {
 
   public render(): string {
 	  if (this.props.href) this.getContent().setAttribute('type', this.props.href);
-	  return this.props.text;
+	  return this.props.text ? this.props.text : '';
   }
 }
 
