@@ -2,7 +2,7 @@ import chai from 'chai';
 
 describe('Block check', () => {
   it('SetProps. Should make a new combined object out of two', () => {
-    const props = { old: 1 };
+    const props: any = { old: 1 };
     const newProps = { new: 1 };
     function setProps() {
       if (!newProps) {
