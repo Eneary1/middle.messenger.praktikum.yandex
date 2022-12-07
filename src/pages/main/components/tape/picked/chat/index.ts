@@ -2,6 +2,7 @@ import '../../../../../../../.d';
 import { Block } from '../../../../../../components/block';
 import chat from './chat.hbs';
 import classes from '../../../../styles.module.scss';
+import Handlebars from 'handlebars';
 
 type ChatElementType = {
   class: string,
@@ -29,7 +30,7 @@ class Chat extends Block<ChatElementType> {
   }
 
   public render(): string {
-    return chat(this.props.messages);
+    return Handlebars.compile(chat)(this.props.messages);
   }
 }
 

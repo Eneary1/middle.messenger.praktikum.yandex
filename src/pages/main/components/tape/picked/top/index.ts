@@ -6,6 +6,7 @@ import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
 import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
+import Handlebars from 'handlebars';
 
 type TopType = {
   class: string,
@@ -44,7 +45,7 @@ class Top extends Block<TopType> {
   }
 
   public render(): string {
-    return top({
+    return Handlebars.compile(top)({
       chatName: this.props.elements.chatName ? this.props.elements.chatName : '',
       gripContainer: this.props.elements.gripContainer.getContent().outerHTML,
     });

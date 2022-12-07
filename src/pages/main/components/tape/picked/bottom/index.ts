@@ -6,6 +6,7 @@ import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
 import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
+import Handlebars from 'handlebars';
 
 let message: string;
 
@@ -106,7 +107,7 @@ class Bottom extends Block<BottomType> {
   };
 
   public render(): string {
-    return bottom({
+    return Handlebars.compile(bottom)({
       messageForm: this.props.elements.messageForm.getContent().outerHTML,
     });
   }

@@ -11,6 +11,7 @@ import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
 import { modalInstance } from '../../../../components/modal/modal';
+import Handlebars from 'handlebars';
 
 const newFetch = new NewFetch();
 
@@ -131,7 +132,7 @@ class UserPage extends Block<ContainerType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       login: this.props.userData.login,
       email: this.props.userData.email,
       phone: this.props.userData.phone,

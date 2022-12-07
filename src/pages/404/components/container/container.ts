@@ -6,6 +6,7 @@ import mainhbs from './main.hbs';
 import classes from '../../styles.module.scss';
 import { Link } from '../../../../components/link/link';
 import { router } from '../../../../utils/router';
+import Handlebars from "handlebars";
 
 class Page404 extends Block<ContainerType> {
   public constructor() {
@@ -27,7 +28,7 @@ class Page404 extends Block<ContainerType> {
   }
 
   render() {
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       link: this.props.elements.link.getContent().outerHTML,
     });
   }

@@ -4,6 +4,7 @@ import { MessageTape } from './components/tape/index';
 import { Block } from '../../components/block';
 import mainhbs from './main.hbs';
 import classes from './styles.module.scss';
+import Handlebars from "handlebars";
 
 type ContainerType = { class?: string, classes?: object, elements: {
   bars: BarsContainer,
@@ -23,7 +24,7 @@ class MainPage extends Block<ContainerType> {
   }
 
   render() {
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       tape: this.props.elements.tape.getContent().outerHTML,
       bars: this.props.elements.bars.getContent().outerHTML,
     });

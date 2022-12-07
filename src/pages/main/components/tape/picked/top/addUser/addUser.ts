@@ -1,3 +1,5 @@
+import "../../../../../../../../.d"
+import Handlebars from 'handlebars';
 import '../../../../../../../../.d';
 import { Block } from '../../../../../../../components/block';
 import { Link } from '../../../../../../../components/link/link';
@@ -130,7 +132,7 @@ class AddUser extends Block<TopType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       addUser: elements.addUser.getContent().outerHTML,
       deleteUser: elements.deleteUser.getContent().outerHTML,
       chatAvatar: elements.chatAvatar.getContent().outerHTML,

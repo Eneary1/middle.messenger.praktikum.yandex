@@ -1,12 +1,8 @@
 {
     "compilerOptions": {
     	"target": "es2016",
-		"module": "CommonJS",
 		"skipLibCheck": true,
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true
-	},
-	"include": [
-		"**/*"
-	]
+	}
 } 

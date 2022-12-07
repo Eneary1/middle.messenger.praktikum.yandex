@@ -14,6 +14,7 @@ import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
 import { router } from '../../../../utils/router';
+import Handlebars from "handlebars";
 
 function linkFunc() {
   router.go(ROUTES.ENTER);
@@ -118,7 +119,7 @@ class RegForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       passInput: elements.passInput.getContent().outerHTML,
       passRepeat: elements.passRepeat.getContent().outerHTML,
       firstNameInput: elements.firstNameInput.getContent().outerHTML,

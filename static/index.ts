@@ -43,7 +43,6 @@ new NewFetch().get(`${baseURL}${PATHS.USER}`)
       .start();
   })
   .catch(() => {
-    console.log('Catch поставил, но в консоли всё равно присутствуют ошибки, не знаю, что с ними делать. Вызваны тем, что не удалось получить пользователя, ведь входа ещё не было');
     router
       .use(ROUTES.NAV, NavPage)
       .use(ROUTES.ENTER, AuthorPage)

@@ -5,6 +5,7 @@ import { router } from '../../../../../../utils/router';
 import mainhbs from './main.hbs';
 import classes from '../../../../styles.module.scss';
 import { Avatar } from '../../../../../../components/avatar/avatar';
+import Handlebars from 'handlebars';
 
 type Obj = { [x: string]: string };
 
@@ -61,7 +62,7 @@ class Bar extends Block<BarType> {
     if (objTimeRef) {
       objTimeRef.time = objTimeRef.time.toString().match(/\d\d:\d\d/)[0];
     }
-    return mainhbs({ ...this.props.tmplObject, avatar: this.props.elements.avatar.getContent().outerHTML });
+    return Handlebars.compile(mainhbs)({ ...this.props.tmplObject, avatar: this.props.elements.avatar.getContent().outerHTML });
   }
 }
 

@@ -4,6 +4,7 @@ import { Top } from './top/index';
 import { Chat } from './chat/index';
 import { Bottom } from './bottom/index';
 import mainhbs from './main.hbs';
+import Handlebars from 'handlebars';
 
 type ChatListType = {
   class?: string,
@@ -29,7 +30,7 @@ class ChatList extends Block<ChatListType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       top: elements.top ? elements.top.getContent().outerHTML : '',
       chat: elements.chat ? elements.chat.getContent().outerHTML : '',
       bottom: elements.bottom ? elements.bottom.getContent().outerHTML : '',

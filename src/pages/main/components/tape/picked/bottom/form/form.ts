@@ -5,6 +5,7 @@ import { FormType, ElemType } from './types';
 import { Button } from '../../../../../../../components/button/button';
 import { AttachmentContainer } from '../attachContainer/attachContainer';
 import mainhbs from './main.hbs';
+import Handlebars from 'handlebars';
 
 class MessageForm extends Block<FormType> {
   public constructor(events?: EventType) {
@@ -32,7 +33,7 @@ class MessageForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       input: elements.messageInput.getContent().outerHTML,
       attachment: elements.button.getContent().outerHTML,
       button: elements.attachment.getContent().outerHTML,

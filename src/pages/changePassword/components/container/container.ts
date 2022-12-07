@@ -11,6 +11,7 @@ import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
+import handlebars from 'handlebars';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;
@@ -52,7 +53,7 @@ class PassPage extends Block<ContainerType> {
     this.props.elements.avatar.setProps({
       src: window.avatar,
     });
-    return mainhbs({
+    return handlebars.compile(mainhbs)({
       form: this.props.elements.form.getContent().outerHTML,
       avatar: this.props.elements.avatar.getContent().outerHTML,
     });

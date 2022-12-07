@@ -1,9 +1,17 @@
 declare module "*.hbs"{
-	export default function(a?: {[x: any]: string}): string
+	export default tmpl as string
 }
 declare module "*.scss";
 declare module "uuid" {
 	export function v4(): string
+}
+interface Handlebars {
+  compile: () => (a: string) => string;
+}
+declare module "handlebars" {
+	export default {
+    compile: (tmpl: string) => (obj: {[x: string]: any}) => string
+  }
 }
 
 type ChatType = {

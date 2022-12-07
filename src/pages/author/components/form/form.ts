@@ -10,6 +10,7 @@ import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import { router } from '../../../../utils/router';
+import Handlebars from "handlebars";
 
 function linkFunc() {
   router.go(ROUTES.REG);
@@ -74,7 +75,7 @@ class AuthorForm extends Block<FormType> {
 
   public render(): string {
     const element = this.props.elements;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       loginInput: element.loginInput.getContent().outerHTML,
       passInput: element.passInput.getContent().outerHTML,
       link: element.link.getContent().outerHTML,

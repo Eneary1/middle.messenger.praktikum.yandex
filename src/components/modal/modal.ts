@@ -4,6 +4,7 @@ import { Input } from '../input/input';
 import templateBase from './basic.hbs';
 import templateAvatar from './avatar.hbs';
 import { Button } from '../button/button';
+import Handlebars from "handlebars";
 
 type FormType = {
   class: string,
@@ -66,13 +67,13 @@ class Modal extends Block<FormType> {
     let res;
     switch (this.props.type) {
       case 'avatar':
-        res = templateAvatar({
+        res = Handlebars.compile(templateAvatar)({
           buttonCancel: elements.buttonCancel.getContent().outerHTML,
           submitInput: elements.submitInput.getContent().outerHTML,
         });
         break;
       case 'basic':
-        res = templateBase({
+        res = Handlebars.compile(templateBase)({
           input: elements.input.getContent().outerHTML,
           buttonOk: elements.buttonOk.getContent().outerHTML,
           buttonCancel: elements.buttonCancel.getContent().outerHTML,
@@ -80,7 +81,7 @@ class Modal extends Block<FormType> {
         });
         break;
       default:
-        res = templateBase({
+        res = Handlebars.compile(templateBase)({
           input: elements.input.getContent().outerHTML,
           buttonOk: elements.buttonOk.getContent().outerHTML,
           buttonCancel: elements.buttonCancel.getContent().outerHTML,

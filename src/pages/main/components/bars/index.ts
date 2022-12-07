@@ -6,6 +6,7 @@ import { NewFetch } from '../../../../utils/newFetch';
 import { Bar } from './chat_bars/element/index';
 import { baseURL, PATHS } from '../../../../utils/routeEnum';
 import mainhbs from './main.hbs';
+import Handlebars from "handlebars";
 
 type BarsType = {
   class?: string,
@@ -47,7 +48,7 @@ class BarsContainer extends Block<BarsType> {
   }
 
   public render(): string {
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       search: this.props.elements.search.getContent().outerHTML,
       bars: this.props.elements.bars.getContent().outerHTML,
     });

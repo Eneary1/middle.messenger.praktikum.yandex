@@ -6,6 +6,7 @@ import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { Link } from '../../../../components/link/link';
 import { ROUTES } from '../../../../utils/routeEnum';
+import Handlebars from "handlebars";
 
 class NavPage extends Block<ContainerType> {
   public constructor() {
@@ -91,7 +92,7 @@ class NavPage extends Block<ContainerType> {
 
   render() {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       enter: elements.enter.getContent().outerHTML,
       reg: elements.reg.getContent().outerHTML,
       main: elements.main.getContent().outerHTML,

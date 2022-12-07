@@ -9,6 +9,7 @@ import { PhoneHint } from '../../../../components/hints/phoneHint';
 import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import * as inputEvents from '../../../../utils/inputEvents';
+import Handlebars from "handlebars";
 
 const elems: () => ElemType = () => ({
   loginInput: new Input({
@@ -90,7 +91,7 @@ class DataForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       chatNameInput: elements.chatNameInput.getContent().outerHTML,
       firstNameInput: elements.firstNameInput.getContent().outerHTML,
       secondNameInput: elements.secondNameInput.getContent().outerHTML,

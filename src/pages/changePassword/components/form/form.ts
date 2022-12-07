@@ -7,6 +7,7 @@ import mainhbs from './main.hbs';
 import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
+import Handlebars from 'handlebars';
 
 const elems: () => ElemType = () => ({
   oldPass: new Input({
@@ -58,7 +59,7 @@ class PassForm extends Block<FormType> {
 
   public render(): string {
     const element = this.props.elements;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       oldPass: element.oldPass.getContent().outerHTML,
       pass: element.pass.getContent().outerHTML,
       passRepeat: element.passRepeat.getContent().outerHTML,

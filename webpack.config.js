@@ -12,7 +12,10 @@ module.exports = {
     filename: 'project-name.bundle.js'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json', '.scss']
+    extensions: ['.ts', '.js', '.json', '.scss'],
+    alias: {
+        'handlebars': 'handlebars/dist/handlebars.js'
+    }
   },
   plugins: [
 	new HtmlWebpackPlugin({
@@ -42,16 +45,9 @@ module.exports = {
   },
   module: {
     rules: [
-    { 
-      test: /\.hbs$/, 
-      use: [
-        {
-          loader: 'handlebars-loader',
-          options: {
-            rootRelative: true,
-          }
-        }
-      ]
+    {
+      test: /\.hbs$/,
+      loader: 'raw-loader'
     },
 		{
 			test: /\.d\.ts$/,

@@ -10,6 +10,7 @@ import {
 import { router } from '../../../../../utils/router';
 import { MainPage } from '../../../index';
 import search from './search.hbs';
+import Handlebars from "handlebars";
 
 type SearchType = {
   class: string
@@ -92,7 +93,7 @@ class SearchBars extends Block<SearchType> {
 
   public render(): string {
     const { elements } = this.props;
-    return search({
+    return Handlebars.compile(search)({
       link: elements.link.getContent().outerHTML,
       chatAdd: elements.chatAdd.getContent().outerHTML,
       input: elements.input.getContent().outerHTML,
