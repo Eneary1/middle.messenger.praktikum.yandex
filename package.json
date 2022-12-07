@@ -14,7 +14,7 @@
     "build": "npx webpack build",
     "eslint": "npx eslint **/*.ts --fix",
     "stylelint": "npx stylelint **/*.scss --fix",
-    "gitSolve": "node lastLine.js",
+    "git-solve": "node lastLine.js",
     "test": "ts-mocha"
   },
   "author": "Vitaliy Atlasov",

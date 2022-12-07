@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -7,7 +8,6 @@ import mainhbs from './main.hbs';
 import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
-import Handlebars from 'handlebars';
 
 const elems: () => ElemType = () => ({
   oldPass: new Input({

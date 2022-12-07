@@ -1,11 +1,11 @@
 import '../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../components/block';
 import { ROUTES } from '../../../../../../utils/routeEnum';
 import { router } from '../../../../../../utils/router';
 import mainhbs from './main.hbs';
 import classes from '../../../../styles.module.scss';
 import { Avatar } from '../../../../../../components/avatar/avatar';
-import Handlebars from 'handlebars';
 
 type Obj = { [x: string]: string };
 

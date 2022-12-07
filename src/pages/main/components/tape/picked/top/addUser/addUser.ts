@@ -1,6 +1,5 @@
-import "../../../../../../../../.d"
-import Handlebars from 'handlebars';
 import '../../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../../components/block';
 import { Link } from '../../../../../../../components/link/link';
 import { modalInstance } from '../../../../../../../components/modal/modal';

@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import mainhbs from './main.hbs';
@@ -6,7 +7,6 @@ import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { Link } from '../../../../components/link/link';
 import { ROUTES } from '../../../../utils/routeEnum';
-import Handlebars from "handlebars";
 
 class NavPage extends Block<ContainerType> {
   public constructor() {

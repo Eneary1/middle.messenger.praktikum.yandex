@@ -1,11 +1,11 @@
 import '../../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../../components/block';
 import { Input } from '../../../../../../../components/input/input';
 import { FormType, ElemType } from './types';
 import { Button } from '../../../../../../../components/button/button';
 import { AttachmentContainer } from '../attachContainer/attachContainer';
 import mainhbs from './main.hbs';
-import Handlebars from 'handlebars';
 
 class MessageForm extends Block<FormType> {
   public constructor(events?: EventType) {

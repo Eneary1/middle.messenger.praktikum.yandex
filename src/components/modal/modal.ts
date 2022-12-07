@@ -1,10 +1,10 @@
 import '../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../block';
 import { Input } from '../input/input';
 import templateBase from './basic.hbs';
 import templateAvatar from './avatar.hbs';
 import { Button } from '../button/button';
-import Handlebars from "handlebars";
 
 type FormType = {
   class: string,

@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -10,7 +11,6 @@ import * as inputEvents from '../../../../utils/inputEvents';
 import { PassHint } from '../../../../components/hints/passHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import { router } from '../../../../utils/router';
-import Handlebars from "handlebars";
 
 function linkFunc() {
   router.go(ROUTES.REG);

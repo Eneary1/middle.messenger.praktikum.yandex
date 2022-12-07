@@ -1,4 +1,5 @@
 import '../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../components/block';
 import { Input } from '../../../../../components/input/input';
 import { Link } from '../../../../../components/link/link';
@@ -10,7 +11,6 @@ import {
 import { router } from '../../../../../utils/router';
 import { MainPage } from '../../../index';
 import search from './search.hbs';
-import Handlebars from "handlebars";
 
 type SearchType = {
   class: string

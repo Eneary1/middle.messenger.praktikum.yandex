@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { ChatBars } from './chat_bars/index';
 import { SearchBars } from './search/index';
@@ -6,7 +7,6 @@ import { NewFetch } from '../../../../utils/newFetch';
 import { Bar } from './chat_bars/element/index';
 import { baseURL, PATHS } from '../../../../utils/routeEnum';
 import mainhbs from './main.hbs';
-import Handlebars from "handlebars";
 
 type BarsType = {
   class?: string,

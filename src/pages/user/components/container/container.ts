@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { Link } from '../../../../components/link/link';
@@ -11,7 +12,6 @@ import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
 import { modalInstance } from '../../../../components/modal/modal';
-import Handlebars from 'handlebars';
 
 const newFetch = new NewFetch();
 

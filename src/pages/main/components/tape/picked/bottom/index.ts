@@ -1,4 +1,5 @@
 import '../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../components/block';
 import bottom from './bottom.hbs';
 import { MessageForm } from './form/form';
@@ -6,7 +7,6 @@ import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
 import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
-import Handlebars from 'handlebars';
 
 let message: string;
 

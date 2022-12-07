@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -14,7 +15,6 @@ import { NameHint } from '../../../../components/hints/nameHint';
 import { LoginHint } from '../../../../components/hints/loginHint';
 import { PassRepeatHint } from '../../../../components/hints/passRepeat';
 import { router } from '../../../../utils/router';
-import Handlebars from "handlebars";
 
 function linkFunc() {
   router.go(ROUTES.ENTER);

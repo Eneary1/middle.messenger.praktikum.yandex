@@ -1,8 +1,8 @@
 import '../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../components/block';
 import mainhbs from './main.hbs';
 import classes from '../../../styles.module.scss';
-import Handlebars from 'handlebars';
 
 type ChatBarsType = {
   class: string,

@@ -1,10 +1,10 @@
 import '../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../components/block';
 import { Top } from './top/index';
 import { Chat } from './chat/index';
 import { Bottom } from './bottom/index';
 import mainhbs from './main.hbs';
-import Handlebars from 'handlebars';
 
 type ChatListType = {
   class?: string,

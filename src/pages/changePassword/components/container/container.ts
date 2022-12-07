@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { PassForm } from '../form/form';
 import { ContainerType } from './types';
@@ -11,7 +12,6 @@ import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
-import handlebars from 'handlebars';
 
 function submit(e: SubmitEvent) {
   if (!submitCheck(e)) return;

@@ -1,10 +1,10 @@
 import '../../../.d';
+import Handlebars from 'handlebars';
 import { BarsContainer } from './components/bars/index';
 import { MessageTape } from './components/tape/index';
 import { Block } from '../../components/block';
 import mainhbs from './main.hbs';
 import classes from './styles.module.scss';
-import Handlebars from "handlebars";
 
 type ContainerType = { class?: string, classes?: object, elements: {
   bars: BarsContainer,
