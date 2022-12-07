@@ -11,8 +11,8 @@ describe('Block check', () => {
       Object.assign(props, newProps);
 	  }
     setProps();
-    chai.expect(props.old).not.to.eq(undefined);
-    chai.expect(props.new).not.to.eq(undefined);
+    chai.expect(props["old"]).not.to.eq(undefined);
+    chai.expect(props["new"]).not.to.eq(undefined);
   });
   it('Proxy. Should make proxy object out of basic object', () => {
     const props = { old: 1 };
