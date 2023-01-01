@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -58,7 +59,7 @@ class PassForm extends Block<FormType> {
 
   public render(): string {
     const element = this.props.elements;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       oldPass: element.oldPass.getContent().outerHTML,
       pass: element.pass.getContent().outerHTML,
       passRepeat: element.passRepeat.getContent().outerHTML,

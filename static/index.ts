@@ -10,10 +10,10 @@ import { UserPage } from '../src/pages/user/components/container/container';
 import { NewFetch } from '../src/utils/newFetch';
 import { baseURL, PATHS, ROUTES } from '../src/utils/routeEnum';
 import { router } from '../src/utils/router';
-import '../.d';
 import { modalInstance } from '../src/components/modal/modal';
+import '../.d';
+import './styles.scss';
 
-window.barsReload = [];
 window.chat = [];
 window.bottom = [];
 window.chatUpdate = [];
@@ -42,7 +42,6 @@ new NewFetch().get(`${baseURL}${PATHS.USER}`)
       .start();
   })
   .catch(() => {
-    console.log('Catch поставил, но в консоли всё равно присутствуют ошибки, не знаю, что с ними делать. Вызваны тем, что не удалось получить пользователя, ведь входа ещё не было');
     router
       .use(ROUTES.NAV, NavPage)
       .use(ROUTES.ENTER, AuthorPage)
@@ -51,7 +50,7 @@ new NewFetch().get(`${baseURL}${PATHS.USER}`)
       .use(ROUTES.REG, RegPage)
       .start();
   });
-let h: NodeJS.Timer;
+let h: any;
 class Socket {
   public socket: WebSocket;
 
@@ -99,7 +98,6 @@ class Socket {
       console.log('Ошибка', event.message);
     });
 
-    window.barsReload.forEach((a) => { a(); });
     window.chatUpdate.forEach((a) => { a(); });
   }
 }

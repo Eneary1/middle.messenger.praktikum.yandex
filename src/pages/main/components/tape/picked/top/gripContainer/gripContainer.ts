@@ -1,3 +1,4 @@
+import Handlebars from 'handlebars';
 import '../../../../../../../../.d';
 import { Block } from '../../../../../../../components/block';
 import { AddUser } from '../addUser/addUser';
@@ -23,7 +24,7 @@ class GripContainer extends Block<TopType> {
   }
 
   public render(): string {
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       addUser: this.props.elements.addUser.getContent().outerHTML,
     });
   }

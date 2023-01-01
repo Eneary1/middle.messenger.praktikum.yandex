@@ -1,9 +1,17 @@
 declare module "*.hbs"{
-	export default function(a?: any): string
+	export default tmpl as string
 }
 declare module "*.scss";
 declare module "uuid" {
 	export function v4(): string
+}
+interface Handlebars {
+  compile: () => (a: string) => string;
+}
+declare module "handlebars" {
+	export default {
+    compile: (tmpl: string) => (obj: {[x: string]: any}) => string
+  }
 }
 
 type ChatType = {
@@ -17,7 +25,8 @@ type EventType<GenType = Function> = {
   click?: GenType,
   focus?: GenType,
   blur?: GenType,
-  submit?: GenType
+  submit?: GenType,
+  keyup?: GenType 
 }
 
 type TemplateType = {
@@ -40,10 +49,11 @@ declare interface Socket{
 }
 
 interface Window { 
-  barsReload: Array<() => void>,
+  barsReload: (quey?: string) => void,
   chat: Array<{[x: string]: any}>,
   chatUpdate: Array<() => void>,
   socket: Socket,
   bottom: Array<any>,
-  avatar: string
+  avatar: string,
+  constBars: any
 }

@@ -1,9 +1,8 @@
 import '../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../components/block';
 import chat from './chat.hbs';
-import * as classes from '../../../../styles.module.scss';
-import { NewFetch } from '../../../../../../utils/newFetch';
-import { router } from '../../../../../../utils/router';
+import classes from '../../../../styles.module.scss';
 
 type ChatElementType = {
   class: string,
@@ -31,8 +30,8 @@ class Chat extends Block<ChatElementType> {
   }
 
   public render(): string {
-    return chat(this.props.messages);
+    return Handlebars.compile(chat)(this.props.messages);
   }
 }
 
-export { Chat, ChatElementType };
+export { Chat };

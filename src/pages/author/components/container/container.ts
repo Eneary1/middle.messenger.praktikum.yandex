@@ -6,7 +6,7 @@ import {
   baseURL, PATHS, ROUTES, xhrContentType,
 } from '../../../../utils/routeEnum';
 import { submitCheck } from '../../../../utils/inputEvents';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { objectFromFormData } from '../../../../utils/formDataConvert';

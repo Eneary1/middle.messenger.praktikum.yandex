@@ -1,7 +1,8 @@
 import '../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../components/block';
 import mainhbs from './main.hbs';
-import * as classes from '../../../styles.module.scss';
+import classes from '../../../styles.module.scss';
 
 type ChatBarsType = {
   class: string,
@@ -26,7 +27,7 @@ class ChatBars extends Block<ChatBarsType> {
         })),
       };
     }
-    return mainhbs(usersObject);
+    return Handlebars.compile(mainhbs)(usersObject);
   }
 }
 

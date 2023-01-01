@@ -1,5 +1,5 @@
 import { Block } from '../components/block';
-import { ROUTES } from './routeEnum';
+import { baseURL, PATHS, ROUTES } from './routeEnum';
 import { Route } from './route';
 import { NewFetch } from './newFetch';
 
@@ -29,7 +29,7 @@ class Router {
 
   private _rootQuery: string;
 
-  public use(pathname: RouteType, block: { new(): Block }) {
+  public use(pathname: RouteType, block: { new(): Block }): Router {
     if (this.getRoute(pathname)) return;
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
@@ -52,24 +52,21 @@ class Router {
       this._onRoute(ev.location.pathname);
     });
 
-    const newFetch = new NewFetch();
-    newFetch.get('https://ya-praktikum.tech/api/v2/auth/user')
+    new NewFetch().get(`${baseURL}${PATHS.USER}`)
       .then(() => {
-        if (!this._is404()) {
-          if (window.location.pathname !== '/sign-up' && window.location.pathname !== '/') this._onRoute(window.location.pathname); else {
-            this.noPushGo(ROUTES.MAIN);
-          }
+        if (this._is404()) return;
+        if (window.location.pathname !== '/sign-up' && window.location.pathname !== '/') this._onRoute(window.location.pathname); else {
+          this.noPushGo(ROUTES.MAIN);
         }
       })
-      .catch(() => {
-        if (!this._is404()) {
-          if (window.location.pathname !== '/sign-up') this.noPushGo(ROUTES.ENTER); else {
-            this.noPushGo(ROUTES.REG);
-          }
+      .catch((a) => {
+        console.log(a);
+        console.log('Профиль не удалось загрузить');
+        if (this._is404()) return;
+        if (window.location.pathname !== '/sign-up') this.noPushGo(ROUTES.ENTER); else {
+          this.noPushGo(ROUTES.REG);
         }
       });
-
-    // this._onRoute(window.location.pathname);
   }
 
   private _onRoute(pathname: string): void {

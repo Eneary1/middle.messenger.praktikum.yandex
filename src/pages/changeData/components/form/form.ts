@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -90,7 +91,7 @@ class DataForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       chatNameInput: elements.chatNameInput.getContent().outerHTML,
       firstNameInput: elements.firstNameInput.getContent().outerHTML,
       secondNameInput: elements.secondNameInput.getContent().outerHTML,

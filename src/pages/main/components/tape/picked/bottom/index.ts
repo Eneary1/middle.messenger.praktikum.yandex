@@ -1,11 +1,11 @@
 import '../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../components/block';
 import bottom from './bottom.hbs';
 import { MessageForm } from './form/form';
-import { submitCheck } from '../../../../../../utils/inputEvents';
 import { NewFetch } from '../../../../../../utils/newFetch';
 import { router } from '../../../../../../utils/router';
-import * as classes from '../../../../styles.module.scss';
+import classes from '../../../../styles.module.scss';
 import { baseURL, PATHS } from '../../../../../../utils/routeEnum';
 
 let message: string;
@@ -77,12 +77,10 @@ class Bottom extends Block<BottomType> {
       }));
       return;
     }
-    window.barsReload.forEach((a) => {
-      a();
-    });
+    window.barsReload();
     let messages: Array<any>;
     let userID: string;
-    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => { userID = JSON.parse(a.response).id; });
+    await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => { userID = JSON.parse(a.response).id; }).catch((a) => { console.log('Профиль не удалось загрузить'); });
     messages = res.reduceRight((a, b) => {
       a.push({});
       const c = a[a.length - 1];
@@ -107,7 +105,7 @@ class Bottom extends Block<BottomType> {
   };
 
   public render(): string {
-    return bottom({
+    return Handlebars.compile(bottom)({
       messageForm: this.props.elements.messageForm.getContent().outerHTML,
     });
   }
