@@ -20,7 +20,10 @@ class Page500 extends Block<ContainerType> {
             class: 'link',
           },
           {
-            click: () => router.go(ROUTES.MAIN),
+            click: () => {
+              router.go(ROUTES.MAIN);
+              (router.getRoute(ROUTES.MAIN).block.props as {bars: any}).bars = window.constBars;
+            }
           },
         ),
       },

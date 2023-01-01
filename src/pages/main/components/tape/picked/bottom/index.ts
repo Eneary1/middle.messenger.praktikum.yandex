@@ -77,9 +77,7 @@ class Bottom extends Block<BottomType> {
       }));
       return;
     }
-    window.barsReload.forEach((a) => {
-      a();
-    });
+    window.barsReload();
     let messages: Array<any>;
     let userID: string;
     await new NewFetch().get(`${baseURL}${PATHS.USER}`).then((a) => { userID = JSON.parse(a.response).id; }).catch((a) => { console.log('Профиль не удалось загрузить'); });

@@ -80,7 +80,8 @@ class UserPage extends Block<ContainerType> {
             class: 'exit',
           },
           {
-            click: () => { router.go(ROUTES.MAIN); },
+            click: () => { router.go(ROUTES.MAIN); 
+            (router.getRoute(ROUTES.MAIN).block.props as {bars: any}).bars = window.constBars;}
           },
         ),
       },

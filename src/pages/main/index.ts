@@ -11,13 +11,15 @@ type ContainerType = { class?: string, classes?: object, elements: {
   tape: MessageTape
 } };
 
+window.constBars = new BarsContainer();
+
 class MainPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
       class: 'container',
       classes,
       elements: {
-        bars: new BarsContainer(),
+        bars: window.constBars,
         tape: new MessageTape(),
       },
     });

@@ -49,10 +49,11 @@ declare interface Socket{
 }
 
 interface Window { 
-  barsReload: Array<(quey?: string) => void>,
+  barsReload: (quey?: string) => void,
   chat: Array<{[x: string]: any}>,
   chatUpdate: Array<() => void>,
   socket: Socket,
   bottom: Array<any>,
-  avatar: string
+  avatar: string,
+  constBars: any
 }

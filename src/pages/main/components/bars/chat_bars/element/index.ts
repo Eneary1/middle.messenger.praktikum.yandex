@@ -1,7 +1,7 @@
 import '../../../../../../../.d';
 import Handlebars from 'handlebars';
 import { Block } from '../../../../../../components/block';
-import { ROUTES } from '../../../../../../utils/routeEnum';
+import { PATHS, ROUTES } from '../../../../../../utils/routeEnum';
 import { router } from '../../../../../../utils/router';
 import mainhbs from './main.hbs';
 import classes from '../../../../styles.module.scss';
@@ -30,11 +30,12 @@ class Bar extends Block<BarType> {
           const targ: Element = e.target as Element;
           if (router.selectedChat() && targ.classList.contains(classes.checked)) {
             router.go(ROUTES.MAIN);
-            window.barsReload.forEach((a) => { a(); });
+            (router.getRoute(ROUTES.MAIN).block.props as {bars: any}).bars = window.constBars;
             return;
           }
           router.go(`${ROUTES.MAIN}/${templateObject.id}`);
           if (window.socket.socket) window.socket.socket.close();
+          (router.getRoute(`${location.pathname}`).block.props as {bars: any}).bars = window.constBars;
           window.socket.socketChange();
         },
       },

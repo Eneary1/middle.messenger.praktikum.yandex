@@ -16,6 +16,8 @@ type BarsType = {
   }
 };
 
+window.barsReload;
+
 class BarsContainer extends Block<BarsType> {
   public constructor() {
     super('aside', {
@@ -44,7 +46,7 @@ class BarsContainer extends Block<BarsType> {
       }).catch(() => { console.log('Чаты не удалось загрузить'); });
     };
     chatAdd();
-    window.barsReload.push(chatAdd);
+    window.barsReload = chatAdd;
   }
 
   public render(): string {

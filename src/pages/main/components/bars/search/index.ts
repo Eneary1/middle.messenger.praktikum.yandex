@@ -32,9 +32,7 @@ class SearchBars extends Block<SearchType> {
           },
           {
             keyup(e: KeyType) {
-              window.barsReload.forEach((a) => {
-                a(this.value);
-              });
+              window.barsReload(this.value);
             },
           },
         ),
@@ -77,9 +75,7 @@ class SearchBars extends Block<SearchType> {
                     })
                       .catch((a) => { console.log('Не удалось получить чаты'); });
 
-                    window.barsReload.forEach((a) => {
-                      a();
-                    });
+                    window.barsReload();
                   },
                 },
               });

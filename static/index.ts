@@ -14,7 +14,6 @@ import { modalInstance } from '../src/components/modal/modal';
 import '../.d';
 import './styles.scss';
 
-window.barsReload = [];
 window.chat = [];
 window.bottom = [];
 window.chatUpdate = [];
@@ -99,7 +98,6 @@ class Socket {
       console.log('Ошибка', event.message);
     });
 
-    window.barsReload.forEach((a) => { a(); });
     window.chatUpdate.forEach((a) => { a(); });
   }
 }
