@@ -1,4 +1,5 @@
 import '../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../block';
 import { Input } from '../input/input';
 import templateBase from './basic.hbs';
@@ -63,19 +64,32 @@ class Modal extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    if (this.props.type === 'avatar') {
-      return templateAvatar({
-        buttonCancel: elements.buttonCancel.getContent().outerHTML,
-        submitInput: elements.submitInput.getContent().outerHTML,
-      });
+    let res;
+    switch (this.props.type) {
+      case 'avatar':
+        res = Handlebars.compile(templateAvatar)({
+          buttonCancel: elements.buttonCancel.getContent().outerHTML,
+          submitInput: elements.submitInput.getContent().outerHTML,
+        });
+        break;
+      case 'basic':
+        res = Handlebars.compile(templateBase)({
+          input: elements.input.getContent().outerHTML,
+          buttonOk: elements.buttonOk.getContent().outerHTML,
+          buttonCancel: elements.buttonCancel.getContent().outerHTML,
+          text: this.props.text,
+        });
+        break;
+      default:
+        res = Handlebars.compile(templateBase)({
+          input: elements.input.getContent().outerHTML,
+          buttonOk: elements.buttonOk.getContent().outerHTML,
+          buttonCancel: elements.buttonCancel.getContent().outerHTML,
+          text: this.props.text,
+        });
+        break;
     }
-
-    return templateBase({
-      input: elements.input.getContent().outerHTML,
-      buttonOk: elements.buttonOk.getContent().outerHTML,
-      buttonCancel: elements.buttonCancel.getContent().outerHTML,
-      text: this.props.text,
-    });
+    return res;
   }
 }
 

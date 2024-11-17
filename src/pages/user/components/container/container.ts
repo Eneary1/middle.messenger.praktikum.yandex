@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import { Link } from '../../../../components/link/link';
@@ -6,7 +7,7 @@ import mainhbs from './main.hbs';
 import {
   baseURL, PATHS, ROUTES, xhrContentType,
 } from '../../../../utils/routeEnum';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { NewFetch } from '../../../../utils/newFetch';
 import { Avatar } from '../../../../components/avatar/avatar';
@@ -33,14 +34,14 @@ function exitFunc() {
 let userData: { [x: string]: string };
 newFetch.get(`${baseURL}${PATHS.USER}`)
   .then((a) => { userData = JSON.parse(a.response); })
-  .catch(() => {});
+  .catch(() => { console.log('Пользователя не существует или он уже вошёл'); });
 
 class UserPage extends Block<ContainerType> {
   public constructor() {
     super('div', {
       classes,
       class: 'container',
-      userData: userData,
+      userData,
       elements: {
         dataLink: new Link(
           {
@@ -79,7 +80,8 @@ class UserPage extends Block<ContainerType> {
             class: 'exit',
           },
           {
-            click: () => { router.go(ROUTES.MAIN); },
+            click: () => { router.go(ROUTES.MAIN); 
+            (router.getRoute(ROUTES.MAIN).block.props as {bars: any}).bars = window.constBars;}
           },
         ),
       },
@@ -101,14 +103,14 @@ class UserPage extends Block<ContainerType> {
                     userData = JSON.parse(a.response);
                     window.avatar = userData.avatar;
                   })
-                  .catch(() => {});
-                  this.props.elements.avatar.setProps({
-                    src: window.avatar,
-                  });
-                  const pass = router.getRoute(ROUTES.PASS);
-                  if (pass.block) {
-                    pass.block.update();
-                  }
+                  .catch(() => { console.log('Аватар не удалось загрузить'); });
+                this.props.elements.avatar.setProps({
+                  src: window.avatar,
+                });
+                const pass = router.getRoute(ROUTES.PASS);
+                if (pass.block) {
+                  pass.block.update();
+                }
               },
             },
           });
@@ -124,14 +126,14 @@ class UserPage extends Block<ContainerType> {
         .then((a) => {
           userData = JSON.parse(a.response);
         })
-        .catch(() => {});
-    })()
-    return true
+        .catch(() => { console.log('Профиль не удалось загрузить'); });
+    })();
+    return true;
   }
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       login: this.props.userData.login,
       email: this.props.userData.email,
       phone: this.props.userData.phone,

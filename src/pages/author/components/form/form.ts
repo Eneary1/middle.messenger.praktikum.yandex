@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -74,7 +75,7 @@ class AuthorForm extends Block<FormType> {
 
   public render(): string {
     const element = this.props.elements;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       loginInput: element.loginInput.getContent().outerHTML,
       passInput: element.passInput.getContent().outerHTML,
       link: element.link.getContent().outerHTML,

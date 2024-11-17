@@ -1,4 +1,5 @@
 import '../../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../../components/block';
 import { Link } from '../../../../../../../components/link/link';
 import { modalInstance } from '../../../../../../../components/modal/modal';
@@ -89,10 +90,9 @@ class AddUser extends Block<TopType> {
                 },
                 headers: xhrContentType,
               });
-              window.barsReload.forEach((a) => {
-                a();
-              });
+              window.barsReload();
               router.noPushGo(ROUTES.MAIN);
+              (router.getRoute(ROUTES.MAIN).block.props as {bars: any}).bars = window.constBars;
             },
           },
         ),
@@ -110,9 +110,7 @@ class AddUser extends Block<TopType> {
                     const formData = new FormData(e.target);
                     formData.append('chatId', router.selectedChat());
                     await new NewFetch().put(`${baseURL}${PATHS.CHATS}${PATHS.AVATAR}`, { data: formData });
-                    window.barsReload.forEach((a) => {
-                      a();
-                    });
+                    window.barsReload();
                   },
                 },
               });
@@ -130,7 +128,7 @@ class AddUser extends Block<TopType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       addUser: elements.addUser.getContent().outerHTML,
       deleteUser: elements.deleteUser.getContent().outerHTML,
       chatAvatar: elements.chatAvatar.getContent().outerHTML,

@@ -7,7 +7,9 @@
 	  "stylelint-scss"
 	],
 	"rules": {
-	  "indentation": 2
+	  "indentation": 2,
+	  "color-function-notation": "legacy",
+	  "declaration-block-no-redundant-longhand-properties": null
 	},
 	"ignoreFiles": ["static/styles.scss"]
   }

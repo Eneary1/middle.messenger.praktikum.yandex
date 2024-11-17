@@ -1,4 +1,5 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { Input } from '../../../../components/input/input';
 import { Button } from '../../../../components/button/button';
@@ -118,7 +119,7 @@ class RegForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       passInput: elements.passInput.getContent().outerHTML,
       passRepeat: elements.passRepeat.getContent().outerHTML,
       firstNameInput: elements.firstNameInput.getContent().outerHTML,

@@ -1,5 +1,7 @@
 import '../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../components/block';
+import { Input } from '../../../../../components/input/input';
 import { Link } from '../../../../../components/link/link';
 import { modalInstance } from '../../../../../components/modal/modal';
 import { NewFetch } from '../../../../../utils/newFetch';
@@ -13,6 +15,7 @@ import search from './search.hbs';
 type SearchType = {
   class: string
   elements: {
+    input: Input
     link: Link,
     chatAdd: Link
   }
@@ -23,6 +26,16 @@ class SearchBars extends Block<SearchType> {
     super('div', {
       class: 'chat-list__search-bar',
       elements: {
+        input: new Input(
+          {
+            placeHolder: 'Поиск',
+          },
+          {
+            keyup(e: KeyType) {
+              window.barsReload(this.value);
+            },
+          },
+        ),
         link: new Link(
           {
             text: 'Профиль',
@@ -54,16 +67,15 @@ class SearchBars extends Block<SearchType> {
                         title: ((formData.get('dialog') as string)),
                       },
                       headers: xhrContentType,
-                    });
+                    }).catch((a) => { console.log('Что-то пошло не так'); });
                     await new NewFetch().get(`${baseURL}${PATHS.CHATS}`).then((a) => JSON.parse(a.response)).then((res) => {
                       res.forEach((a) => {
                         router.use(`${ROUTES.MAIN}/${a.id}`, MainPage);
                       });
-                    });
+                    })
+                      .catch((a) => { console.log('Не удалось получить чаты'); });
 
-                    window.barsReload.forEach((a) => {
-                      a();
-                    });
+                    window.barsReload();
                   },
                 },
               });
@@ -76,9 +88,11 @@ class SearchBars extends Block<SearchType> {
   }
 
   public render(): string {
-    return search({
-      link: this.props.elements.link.getContent().outerHTML,
-      chatAdd: this.props.elements.chatAdd.getContent().outerHTML,
+    const { elements } = this.props;
+    return Handlebars.compile(search)({
+      link: elements.link.getContent().outerHTML,
+      chatAdd: elements.chatAdd.getContent().outerHTML,
+      input: elements.input.getContent().outerHTML,
     });
   }
 }

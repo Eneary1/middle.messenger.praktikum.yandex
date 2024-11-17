@@ -1,8 +1,9 @@
 import '../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../components/block';
 import { ContainerType } from './types';
 import mainhbs from './main.hbs';
-import * as classes from '../../styles.module.scss';
+import classes from '../../styles.module.scss';
 import { router } from '../../../../utils/router';
 import { Link } from '../../../../components/link/link';
 import { ROUTES } from '../../../../utils/routeEnum';
@@ -91,7 +92,7 @@ class NavPage extends Block<ContainerType> {
 
   render() {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       enter: elements.enter.getContent().outerHTML,
       reg: elements.reg.getContent().outerHTML,
       main: elements.main.getContent().outerHTML,

@@ -1,4 +1,5 @@
 import '../../../../../../../../.d';
+import Handlebars from 'handlebars';
 import { Block } from '../../../../../../../components/block';
 import { Input } from '../../../../../../../components/input/input';
 import { FormType, ElemType } from './types';
@@ -23,7 +24,6 @@ class MessageForm extends Block<FormType> {
         }),
         attachment: new AttachmentContainer({
           click: () => {
-            console.log(this);
             this.props.elements.attachment.props.elements.Attachment.toggle();
           },
         }),
@@ -33,7 +33,7 @@ class MessageForm extends Block<FormType> {
 
   public render(): string {
     const { elements } = this.props;
-    return mainhbs({
+    return Handlebars.compile(mainhbs)({
       input: elements.messageInput.getContent().outerHTML,
       attachment: elements.button.getContent().outerHTML,
       button: elements.attachment.getContent().outerHTML,
